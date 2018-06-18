@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="Home"/>
+    <item android:id="@+id/recently"
+        android:icon="@drawable/ic_recently"
+        android:title="My Booking"/>
+    <item android:id="@+id/user"
+        android:icon="@drawable/ic_user"
+        android:title="User"/>
+    <item android:id="@+id/support"
+        android:icon="@drawable/ic_support"
+        android:title="Support" />
+</menu>
