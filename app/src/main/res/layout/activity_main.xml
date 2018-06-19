@@ -19,5 +19,6 @@
         android:text="eBus"
         android:textStyle="bold"
         android:textSize="40sp"
+        android:textColor="@android:color/background_dark"
         android:layout_height="wrap_content" />
 </LinearLayout>
