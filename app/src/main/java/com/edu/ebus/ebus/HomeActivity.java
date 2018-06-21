@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.mhome:
+                    case R.id.mhomehome:
                         HomeFragment homeFragment = new HomeFragment();
                         FragmentManager fragmentManager = getFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

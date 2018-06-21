@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "558909683848",
+    "firebase_url": "https://ebus-d66ac.firebaseio.com",
+    "project_id": "ebus-d66ac",
+    "storage_bucket": "ebus-d66ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:558909683848:android:bc44f5339836df24",
+        "android_client_info": {
+          "package_name": "com.edu.ebus.ebus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "558909683848-0c0tkp978drhcam542bvrdrf5ejrre9p.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "558909683848-0c0tkp978drhcam542bvrdrf5ejrre9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjPB2ZinmJs7Lp0qrOSZxszqUWrCc4d1c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
