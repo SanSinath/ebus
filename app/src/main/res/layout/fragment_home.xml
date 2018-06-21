@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        app:title="@string/app_name"
+        app:titleTextColor="#ffffff"
+        android:background="#0ba18b"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.Toolbar>
+    <ImageView
+        android:layout_width="300dp"
+        android:src="@drawable/bus"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="200dp" />
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/etSrc"
+        android:paddingLeft="20dp"
+        android:layout_width="match_parent"
+        android:hint="Source"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/imgSwap"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_swap"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/etDes"
+        android:paddingLeft="20dp"
+        android:layout_below="@id/etSrc"
+        android:layout_width="match_parent"
+        android:hint="Destination"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:paddingLeft="20dp"
+        android:hint="date of booking"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_booking"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:text="Search ticket"
+        android:layout_height="wrap_content" />
+</LinearLayout>
