@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "558909683848-0c0tkp978drhcam542bvrdrf5ejrre9p.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "558909683848-s7o1t25hr2at7igt1ttp16slhp02gcrr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu.ebus.ebus",
+            "certificate_hash": "7a531996d4773e9af6ac57e0bf166bfcf412d579"
+          }
         },
         {
           "client_id": "558909683848-0c0tkp978drhcam542bvrdrf5ejrre9p.apps.googleusercontent.com",
@@ -33,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "558909683848-0c0tkp978drhcam542bvrdrf5ejrre9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
