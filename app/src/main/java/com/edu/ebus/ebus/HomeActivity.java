@@ -28,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.mhomehome:
+                    case R.id.mhome:
                         HomeFragment homeFragment = new HomeFragment();
                         FragmentManager fragmentManager = getFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -48,6 +48,9 @@ public class HomeActivity extends AppCompatActivity {
                         android.app.FragmentTransaction transaction1 = fragmentManager2.beginTransaction();
                         transaction1.replace(R.id.framelayout, recentlyFragment);
                         transaction1.commit();
+                        break;
+                    case R.id.mbusStation:
+
                         break;
                     case R.id.muser:
                         UserFragment userFragment = new UserFragment();

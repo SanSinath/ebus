@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/mhomehome"
+    <item android:id="@+id/mhome"
         android:icon="@drawable/ic_home"
         android:title="Home"
         android:orderInCategory="1"
@@ -15,11 +15,15 @@
     <item android:id="@+id/mevent"
         android:icon="@drawable/ic_event"
         android:orderInCategory="3"
-        android:title="Event"
+        android:title="Events"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/mbusStation"
+        android:icon="@drawable/ic_bus_station"
+        android:orderInCategory="4"
+        android:title="Bus Station"/>
     <item android:id="@+id/muser"
         android:icon="@drawable/ic_user"
-        android:title="User"
+        android:title="User Account"
         app:showAsAction="ifRoom"
-        android:orderInCategory="4"/>
+        android:orderInCategory="5"/>
 </menu>

@@ -17,9 +17,9 @@
         android:src="@drawable/bus"
         android:layout_gravity="center_horizontal"
         android:layout_height="200dp" />
-    <EditText
+    <Spinner
         android:layout_marginTop="20dp"
-        android:id="@+id/etSrc"
+        android:id="@+id/spSrc"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:hint="Source"
@@ -30,10 +30,9 @@
         android:layout_width="wrap_content"
         android:src="@drawable/ic_swap"
         android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/etDes"
+    <Spinner
+        android:id="@+id/spDes"
         android:paddingLeft="20dp"
-        android:layout_below="@id/etSrc"
         android:layout_width="match_parent"
         android:hint="Destination"
         android:layout_height="wrap_content"

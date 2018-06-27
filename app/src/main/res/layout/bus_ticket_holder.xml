@@ -1,23 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:paddingLeft="20dp"
+    app:contentPadding="2dp"
+    app:cardElevation="3dp"
+    app:contentPaddingLeft="10dp"
+    android:layout_margin="1dp"
     android:gravity="center_vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:text="Name"
+            android:textSize="20sp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtPlace"
+            android:layout_below="@id/txtName"
+            android:layout_width="wrap_content"
+            android:text="Scr to Des"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtDateBooking"
+            android:layout_width="wrap_content"
+            android:text="Date of ticket"
+            android:layout_below="@id/txtPlace"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:paddingRight="10dp"
+            android:gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btnBooking"
+                android:layout_width="wrap_content"
+                android:background="@drawable/button_background"
+                android:textSize="10sp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:text="Booking"
+                android:textColor="@android:color/white"
+                android:layout_height="30dp" />
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_below="@id/btnBooking"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:text="price"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="wrap_content"
-        android:text="Name"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/txtPlace"
-        android:layout_width="wrap_content"
-        android:text="Scr to Des"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/txtDateBooking"
-        android:layout_width="wrap_content"
-        android:text="Date of ticket"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        </LinearLayout>
+            </RelativeLayout>
+
+</android.support.v7.widget.CardView>
