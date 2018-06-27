@@ -7,6 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -91,5 +94,7 @@ public class HomeFragment extends android.app.Fragment{
                 startActivity(new Intent(getActivity(), BusTicketActivity.class));
             }
         });
+
+
     }
 }

@@ -8,12 +8,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -22,6 +19,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        // Set toolbar
+        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
         // Defualt fragment
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -30,11 +30,20 @@ public class HomeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
+                    case R.id.mhome:
+                        HomeFragment homeFragment = new HomeFragment();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.framelayout, homeFragment);
+                        fragmentTransaction.commit();
+                        break;
                     case R.id.mevent:
+                        getSupportActionBar().setTitle("Events");
                         EventsFragment eventsFragment = new EventsFragment();
                         FragmentManager fragmentManager1 = getFragmentManager();
                         android.app.FragmentTransaction transaction = fragmentManager1.beginTransaction();
@@ -42,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
                         transaction.commit();
                         break;
                     case R.id.mrecently:
+                        getSupportActionBar().setTitle("My Booking");
                         RecentlyFragment recentlyFragment = new RecentlyFragment();
                         FragmentManager fragmentManager2 = getFragmentManager();
                         android.app.FragmentTransaction transaction1 = fragmentManager2.beginTransaction();
@@ -52,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         break;
                     case R.id.muser:
+                        getSupportActionBar().setTitle("Username");
                         UserFragment userFragment = new UserFragment();
                         FragmentManager fragmentManager3 = getFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction1 = fragmentManager3.beginTransaction();

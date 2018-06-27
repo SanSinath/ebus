@@ -15,11 +15,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:layout_height="?attr/actionBarSize"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="Ticket for Booking"
-        android:layout_marginLeft="20dp"
-        android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rec_ticket"
         android:layout_width="match_parent"

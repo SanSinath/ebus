@@ -2,6 +2,7 @@ package com.edu.ebus.ebus;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 public class UserFragment extends android.app.Fragment {
 
+    private Intent intent = new Intent();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,7 +43,8 @@ public class UserFragment extends android.app.Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.usr_setting :
-                Toast.makeText(getActivity(),"setting menu click",Toast.LENGTH_SHORT).show();
+                intent.setClass(getActivity(), SettingActivity.class);
+                startActivity(intent);
             case R.id.usr_feedback:
                 Toast.makeText(getActivity(),"Feedback menu click",Toast.LENGTH_SHORT).show();
             default:

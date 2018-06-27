@@ -4,26 +4,28 @@
 
     <item android:id="@+id/mhome"
         android:icon="@drawable/ic_home"
-        android:title="Home"
+        android:title=""
+        android:checked="true"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/mrecently"
         android:icon="@drawable/ic_recently"
-        android:title="My booking"
+        android:title=""
         android:orderInCategory="2"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/mevent"
         android:icon="@drawable/ic_event"
         android:orderInCategory="3"
-        android:title="Events"
+        android:title=""
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/mbusStation"
         android:icon="@drawable/ic_bus_station"
         android:orderInCategory="4"
-        android:title="Bus Station"/>
+        android:title=""/>
     <item android:id="@+id/muser"
         android:icon="@drawable/ic_user"
-        android:title="User Account"
+        android:title=""
         app:showAsAction="ifRoom"
         android:orderInCategory="5"/>
+
 </menu>

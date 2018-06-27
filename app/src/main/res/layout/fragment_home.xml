@@ -4,14 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        app:title="@string/app_name"
-        app:titleTextColor="#ffffff"
-        android:background="#0ba18b"
-        android:layout_height="wrap_content">
 
-    </android.support.v7.widget.Toolbar>
     <ImageView
         android:layout_width="300dp"
         android:src="@drawable/bus"
