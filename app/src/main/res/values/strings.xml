@@ -7,13 +7,30 @@
 
     <string-array name="place">
         <item>Prey Veng</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+        <item>Phnom Penh</item>
+        <item>Kompong Thom</item>
+        <item>Kompong Cham</item>
+        <item>Ta Kao</item>
+        <item>Kompong Soum</item>
+        <item>Kam pot</item>
+        <item>Kompong Speu</item>
+        <item>Banteay meanchey</item>
+        <item>Batthambang</item>
+        <item>Koh Kong</item>
+        <item>Pailin</item>
+        <item>Preah Sinhanouk</item>
+        <item>Mundulkiri</item>
+        <item>Preah Vihear</item>
+        <item>Oddar Meanchey</item>
+        <item>Keb</item>
+        <item>Krotie</item>
+        <item>Porsat</item>
+        <item>Ratanakiri</item>
+        <item>Siem Reap</item>
+        <item>Thbong Kmum</item>
+        <item>Svay Rieng</item>
+        <item>Kandal</item>
+        <item>Kompong Chnang</item>
     </string-array>
 
 </resources>

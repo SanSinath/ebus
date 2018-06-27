@@ -5,15 +5,17 @@ public class Ticket {
     private String Name;
     private String Target;
     private String DateofBooking;
+    private String price;
 
     private Ticket()
     {
 
     }
-    public Ticket(String name, String target, String dateofBooking) {
+    public Ticket(String name, String target, String dateofBooking,String Price) {
         Name = name;
         Target = target;
         DateofBooking = dateofBooking;
+        price = Price;
     }
 
     public String getName() {
@@ -38,5 +40,11 @@ public class Ticket {
 
     public void setDateofBooking(String dateofBooking) {
         DateofBooking = dateofBooking;
+    }
+    public void setPrice(String prices){
+        price = prices;
+    }
+    public String getPrice() {
+        return price;
     }
 }

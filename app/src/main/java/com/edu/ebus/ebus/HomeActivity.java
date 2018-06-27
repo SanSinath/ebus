@@ -22,19 +22,18 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        // Defualt fragment
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout, homeFragment);
+        fragmentTransaction.commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.mhome:
-                        HomeFragment homeFragment = new HomeFragment();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.framelayout, homeFragment);
-                        fragmentTransaction.commit();
-                        break;
                     case R.id.mevent:
                         EventsFragment eventsFragment = new EventsFragment();
                         FragmentManager fragmentManager1 = getFragmentManager();
