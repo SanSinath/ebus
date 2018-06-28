@@ -7,6 +7,9 @@
     <string
         name="create_new_account"> <u> CREATE NEW ACCOUNT </u>
     </string>
+    <string name="facebook_app_id">252918985260446</string>
+    <string name="fb_login_protocol_scheme">fb252918985260446</string>
+
     <string-array name="place">
         <item>Prey Veng</item>
         <item>Phnom Penh</item>
