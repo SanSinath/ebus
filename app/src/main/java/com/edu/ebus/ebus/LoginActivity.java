@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnSignIn,btnFacebook;
     private EditText edUsername,edPassword;
     private TextView txtNewAccount;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

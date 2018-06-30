@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/set_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text=" Set Ticket"
+        android:textSize="30sp" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set_ticket"
+        android:layout_marginLeft="50sp">
+
+        <RadioButton
+            android:id="@+id/j1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 Ticket"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/j2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 Ticket"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/j3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 Ticket"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/j5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4 Ticket"
+            android:textSize="20dp" />
+
+        <RadioButton
+            android:id="@+id/j4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 Ticket"
+            android:textSize="20dp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/set_paymoney"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_group"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Pay Money"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/txt_paymoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/set_paymoney"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="15dp"
+        android:hint="Enter Code Card" />
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/background_btn_sigin"
+        android:id="@+id/bt_set_booking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#fafafa"
+        android:textSize="25dp"
+        android:layout_below="@id/txt_paymoney"
+        android:text="Pay" />
+
+
+</RelativeLayout>

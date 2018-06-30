@@ -6,68 +6,75 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1.5"
         android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:layout_height="0dp">
+        android:gravity="center">
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_user"
-            android:layout_height="wrap_content" />
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/backgoundformlaod" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_weight="2"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
         <EditText
             android:id="@+id/edUsername"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:hint="Username"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Username" />
+
         <EditText
             android:id="@+id/edPassword"
-            android:layout_below="@id/edUsername"
             android:layout_width="match_parent"
-            android:hint="Password"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edUsername"
+            android:hint="Password" />
+
         <Button
             android:id="@+id/btnSignIn"
-            android:layout_marginTop="20dp"
             android:layout_width="120dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/edPassword"
             android:layout_marginLeft="20dp"
-            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_btn_sigin"
             android:text="Sign In"
+            android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:background="@drawable/button_background"
-            android:textSize="16sp"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp" />
+
         <Button
             android:id="@+id/btnFacebook"
-            android:layout_marginTop="20dp"
             android:layout_width="120dp"
-            android:layout_marginRight="20dp"
-            android:textColor="@android:color/white"
-            android:background="@drawable/button_background"
-            android:layout_below="@id/edPassword"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textAllCaps="false"
-            android:textSize="16sp"
+            android:layout_below="@id/edPassword"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_background"
             android:text="Facebook"
-            android:layout_height="wrap_content" />
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/txtCreateNewAccount"
             android:layout_width="wrap_content"
-            android:text="Create new Account"
+            android:layout_height="wrap_content"
             android:layout_below="@id/btnSignIn"
-            android:layout_marginTop="30dp"
-            android:textColor="@color/colorPrimary"
             android:layout_centerInParent="true"
-            android:layout_height="wrap_content" />
+            android:layout_marginTop="30dp"
+            android:text="Create new Account"
+            android:textColor="@color/colorPrimary" />
     </RelativeLayout>
 
 </LinearLayout>
