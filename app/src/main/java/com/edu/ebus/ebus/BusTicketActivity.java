@@ -64,7 +64,6 @@ public class BusTicketActivity extends AppCompatActivity {
             obTickets[index] = ticket;
             index++;
         }
-        Log.d(TAG, "Set Data to Adapter" );
         adapter.setTickets(obTickets);
     }
 }

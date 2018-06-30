@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".CreateNewAccountActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#ccc"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_weight="2"
+        android:layout_height="0dp">
+
+        <EditText
+            android:id="@+id/edFirstName"
+            android:layout_width="match_parent"
+            android:hint="First name"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edLastName"
+            android:layout_below="@id/edFirstName"
+            android:layout_width="match_parent"
+            android:hint="Last name"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edEmail"
+            android:layout_below="@id/edLastName"
+            android:layout_width="match_parent"
+            android:hint="Username"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edPass"
+            android:layout_below="@id/edEmail"
+            android:layout_width="match_parent"
+            android:hint="Password"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edConformPass"
+            android:layout_width="match_parent"
+            android:hint="Conform Password"
+            android:layout_below="@id/edPass"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_below="@id/edConformPass"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="Sing Up"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

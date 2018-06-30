@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.mhome:
+                        getSupportActionBar().setTitle(getTitle());
                         HomeFragment homeFragment = new HomeFragment();
                         FragmentManager fragmentManager = getFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
