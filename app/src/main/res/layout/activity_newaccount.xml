@@ -7,30 +7,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:background="@android:color/background_dark">
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark">
 
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_addphoto" />
-
+            android:text="Welcome to eBus"
+            android:fontFamily="serif"
+            android:textSize="25sp"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_weight="2"
+        android:orientation="vertical">
 
         <EditText
+            android:layout_marginTop="20dp"
             android:id="@+id/txt_UserName"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
             android:background="@drawable/background_rectangle_formlogin"
             android:hint="Username"
             android:paddingLeft="20dp" />
@@ -38,10 +40,10 @@
         <EditText
             android:id="@+id/txt_Gmail_Or_Phone"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/background_rectangle_formlogin"
             android:hint="Gmail or Phone"
             android:paddingLeft="20dp" />
@@ -49,10 +51,10 @@
         <EditText
             android:id="@+id/txt_password"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/background_rectangle_formlogin"
             android:hint="User Name"
             android:paddingLeft="20dp" />
@@ -60,35 +62,26 @@
         <EditText
             android:id="@+id/txt_verifypassword"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/background_rectangle_formlogin"
             android:hint="Verify Password"
             android:paddingLeft="20dp" />
 
         <Button
             android:id="@+id/btn_Submit"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_background"
-            android:text="Submit"
+            android:text="Sign Up"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/button_background"
-            android:text="Cancel"
-            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:layout_gravity="center_horizontal"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

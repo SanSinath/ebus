@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.fragment;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.edu.ebus.ebus.R;
 
 public class UserFragment extends android.app.Fragment {
 
@@ -43,8 +45,7 @@ public class UserFragment extends android.app.Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.usr_setting :
-                intent.setClass(getActivity(), SettingActivity.class);
-                startActivity(intent);
+
             case R.id.usr_feedback:
                 Toast.makeText(getActivity(),"Feedback menu click",Toast.LENGTH_SHORT).show();
             default:

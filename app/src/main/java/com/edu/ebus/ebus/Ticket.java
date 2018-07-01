@@ -6,16 +6,18 @@ public class Ticket {
     private String Target;
     private String DateofBooking;
     private String price;
+    private String busImg;
 
     private Ticket()
     {
 
     }
-    public Ticket(String name, String target, String dateofBooking,String Price) {
+    public Ticket(String name, String target, String dateofBooking,String Price,String BusImg) {
         Name = name;
         Target = target;
         DateofBooking = dateofBooking;
         price = Price;
+        busImg = BusImg;
     }
 
     public String getName() {
@@ -46,5 +48,13 @@ public class Ticket {
     }
     public String getPrice() {
         return price;
+    }
+
+    public String getBusImg() {
+        return busImg;
+    }
+
+    public void setBusImg(String busImg) {
+        this.busImg = busImg;
     }
 }

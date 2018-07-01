@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.com.edu.ebus.ebus.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 
+import com.edu.ebus.ebus.HomeActivity;
+import com.edu.ebus.ebus.LoginActivity;
+import com.edu.ebus.ebus.R;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Signature;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 3000;
@@ -24,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Log.d("ebus", "Open LoginActivity");
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

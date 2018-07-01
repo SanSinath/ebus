@@ -13,20 +13,29 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ImgBusCompany"
+            android:layout_width="60dp"
+            android:src="@drawable/ic_user"
+            android:layout_centerVertical="true"
+            android:layout_height="60dp" />
         <TextView
             android:id="@+id/txtName"
+            android:layout_toRightOf="@id/ImgBusCompany"
             android:layout_width="wrap_content"
             android:text="Name"
             android:textSize="20sp"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtPlace"
+            android:layout_toRightOf="@id/ImgBusCompany"
             android:layout_below="@id/txtName"
             android:layout_width="wrap_content"
             android:text="Scr to Des"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtDateBooking"
+            android:layout_toRightOf="@id/ImgBusCompany"
             android:layout_width="wrap_content"
             android:text="Date of ticket"
             android:layout_below="@id/txtPlace"

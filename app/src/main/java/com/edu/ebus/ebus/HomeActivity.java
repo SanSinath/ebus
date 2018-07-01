@@ -1,15 +1,17 @@
 package com.edu.ebus.ebus;
 
-import android.animation.LayoutTransition;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.edu.ebus.ebus.fragment.EventsFragment;
+import com.edu.ebus.ebus.fragment.HomeFragment;
+import com.edu.ebus.ebus.fragment.RecentlyFragment;
+import com.edu.ebus.ebus.fragment.UserFragment;
 
 
 public class HomeActivity extends AppCompatActivity {

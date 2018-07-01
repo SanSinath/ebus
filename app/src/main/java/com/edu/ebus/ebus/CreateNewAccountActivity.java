@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class CreateNewAccountActivity extends AppCompatActivity implements View.OnClickListener{
+public class CreateNewAccountActivity extends AppCompatActivity{
 
     private Button btnSignUp;
     @Override
@@ -14,17 +14,14 @@ public class CreateNewAccountActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_account);
         btnSignUp = findViewById(R.id.btnSignUp);
-        btnSignUp.setOnClickListener(this);
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v == btnSignUp){
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        }else{
-
-        }
-    }
 }

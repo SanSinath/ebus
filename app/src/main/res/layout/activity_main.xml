@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:gravity="center_horizontal"
-    tools:context="com.edu.ebus.ebus.MainActivity">
+    tools:context="com.edu.ebus.ebus.com.edu.ebus.ebus.activity.MainActivity">
 
     <ImageView
         android:layout_width="200dp"

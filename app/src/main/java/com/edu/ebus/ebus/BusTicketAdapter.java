@@ -1,10 +1,12 @@
 package com.edu.ebus.ebus;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusTicketViewHolder> {
@@ -34,7 +36,6 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
         holder.txtTarget.setText(ticket.getTarget());
         holder.txtDate.setText(ticket.getDateofBooking());
         holder.txtPrices.setText(ticket.getPrice()+"$");
-
     }
 
     @Override
@@ -43,6 +44,7 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
     }
     class BusTicketViewHolder extends RecyclerView.ViewHolder{
         private TextView txtName,txtTarget,txtDate,txtPrices;
+        private ImageView imgBus;
 
         public BusTicketViewHolder(View itemView) {
             super(itemView);
@@ -50,6 +52,7 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
             txtTarget = itemView.findViewById(R.id.txtPlace);
             txtDate = itemView.findViewById(R.id.txtDateBooking);
             txtPrices = itemView.findViewById(R.id.txtPrice);
+            imgBus = itemView.findViewById(R.id.ImgBusCompany);
         }
     }
 }

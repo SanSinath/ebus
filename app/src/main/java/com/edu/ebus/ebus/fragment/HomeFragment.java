@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +21,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.edu.ebus.ebus.BusTicketActivity;
+import com.edu.ebus.ebus.R;
 
 import java.util.ArrayList;
 

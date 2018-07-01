@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="200dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/bus" />
+        android:src="@drawable/bus_form_login_img"
+        android:layout_height="200dp" />
+
     <Spinner
         android:layout_marginTop="20dp"
         android:id="@+id/spSrc"
