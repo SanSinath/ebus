@@ -16,45 +16,52 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.edu.ebus.ebus.CreateNewAccountActivity;
+import com.edu.ebus.ebus.LoginActivity;
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.SettingActivity;
 
 public class UserFragment extends android.app.Fragment {
 
-    private Intent intent = new Intent();
+    private Intent intent = new Intent ();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
-        setHasOptionsMenu(true);
+        View view = inflater.inflate (R.layout.fragment_user, container, false);
+        setHasOptionsMenu (true);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        super.onActivityCreated (savedInstanceState);
 
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.user_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate (R.menu.user_menu, menu);
+        super.onCreateOptionsMenu (menu, inflater);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.usr_setting :
-
+    public boolean onOptionsItemSelected(MenuItem item)  {
+        switch (item.getItemId ()) {
+            case R.id.usr_setting:
+                Toast.makeText (getActivity (), "setting menu click", Toast.LENGTH_SHORT).show ();
+                intent = new Intent (getActivity (), SettingActivity.class);
+                startActivity (intent);
             case R.id.usr_feedback:
-                Toast.makeText(getActivity(),"Feedback menu click",Toast.LENGTH_SHORT).show();
+                Toast.makeText (getActivity (), "Feedback menu click", Toast.LENGTH_SHORT).show ();
             default:
-                return super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected (item);
         }
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated (view, savedInstanceState);
 
     }
 }

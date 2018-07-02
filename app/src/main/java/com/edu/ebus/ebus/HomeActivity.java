@@ -22,7 +22,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         // Set toolbar
-        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        final Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         // Defualt fragment
         HomeFragment homeFragment = new HomeFragment();
