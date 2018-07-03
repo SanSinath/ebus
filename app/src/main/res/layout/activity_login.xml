@@ -39,14 +39,13 @@
             android:layout_below="@id/edPassword"
             android:layout_width="wrap_content"
             android:text="@string/sign_in"
+            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/btnFacebook"
-            android:layout_marginRight="20dp"
-            android:layout_below="@id/edPassword"
-            android:layout_alignParentRight="true"
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/btn_facebook_login"
             android:layout_width="wrap_content"
-            android:text="@string/facebook"
+            android:layout_below="@id/btnSignIn"
+            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/txtCreateNewAccount"
@@ -54,7 +53,7 @@
             android:text="@string/create_new_account"
             android:layout_marginTop="30dp"
             android:textColor="@color/colorPrimary"
-            android:layout_below="@id/btnSignIn"
+            android:layout_below="@id/btn_facebook_login"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content" />
     </RelativeLayout>

@@ -1,23 +1,26 @@
 package com.edu.ebus.ebus;
 
+import android.net.Uri;
+
 public class Ticket {
 
     private String Name;
     private String Target;
     private String DateofBooking;
     private String price;
-    private String busImg;
+    private String imageURI;
 
     private Ticket()
     {
 
     }
-    public Ticket(String name, String target, String dateofBooking,String Price,String BusImg) {
+
+    public Ticket(String name, String target, String dateofBooking, String price, String imageURI) {
         Name = name;
         Target = target;
         DateofBooking = dateofBooking;
-        price = Price;
-        busImg = BusImg;
+        this.price = price;
+        this.imageURI = imageURI;
     }
 
     public String getName() {
@@ -50,11 +53,11 @@ public class Ticket {
         return price;
     }
 
-    public String getBusImg() {
-        return busImg;
+    public String getImageURI() {
+        return imageURI;
     }
 
-    public void setBusImg(String busImg) {
-        this.busImg = busImg;
+    public void setImageURI(String imageURI) {
+        this.imageURI = imageURI;
     }
 }

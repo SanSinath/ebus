@@ -6,20 +6,24 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.edu.ebus.ebus.fragment.EventsFragment;
 import com.edu.ebus.ebus.fragment.HomeFragment;
 import com.edu.ebus.ebus.fragment.RecentlyFragment;
 import com.edu.ebus.ebus.fragment.UserFragment;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 
 public class HomeActivity extends AppCompatActivity {
 
-
+    private UserAccount account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_home);
         // Set toolbar
         final Toolbar toolbar = findViewById(R.id.main_toolbar);
@@ -66,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         break;
                     case R.id.muser:
-                        getSupportActionBar().setTitle("Username");
+                        getSupportActionBar().setTitle(account.getUsername());
                         UserFragment userFragment = new UserFragment();
                         FragmentManager fragmentManager3 = getFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction1 = fragmentManager3.beginTransaction();
@@ -78,5 +82,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            Log.i("MainActivity", "popping backstack");
+            fm.popBackStack();
+        } else {
+            Log.i("MainActivity", "nothing on backstack, calling super");
+            super.onBackPressed();
+        }
     }
 }

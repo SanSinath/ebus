@@ -1,17 +1,22 @@
 package com.edu.ebus.ebus;
 
-import android.net.Uri;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 
 public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusTicketViewHolder> {
     private Ticket[] tickets;
-
     public void setTickets(Ticket[] tickets) {
         this.tickets = tickets;
         notifyDataSetChanged();
@@ -23,12 +28,12 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
     @NonNull
     @Override
     public BusTicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.bus_ticket_holder, parent, false);
-        BusTicketViewHolder viewHolder = new BusTicketViewHolder(view);
-        return viewHolder;
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(R.layout.bus_ticket_holder, parent, false);
+        return new BusTicketViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull BusTicketViewHolder holder, int position) {
         Ticket ticket = tickets[position];
@@ -36,6 +41,7 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
         holder.txtTarget.setText(ticket.getTarget());
         holder.txtDate.setText(ticket.getDateofBooking());
         holder.txtPrices.setText(ticket.getPrice()+"$");
+        holder.imageBus.setImageURI(ticket.getImageURI());
     }
 
     @Override
@@ -44,15 +50,25 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
     }
     class BusTicketViewHolder extends RecyclerView.ViewHolder{
         private TextView txtName,txtTarget,txtDate,txtPrices;
-        private ImageView imgBus;
+        private SimpleDraweeView imageBus;
+        private Button booking;
 
         public BusTicketViewHolder(View itemView) {
-            super(itemView);
+            super(itemView);;
+
             txtName = itemView.findViewById(R.id.txtName);
             txtTarget = itemView.findViewById(R.id.txtPlace);
             txtDate = itemView.findViewById(R.id.txtDateBooking);
             txtPrices = itemView.findViewById(R.id.txtPrice);
-            imgBus = itemView.findViewById(R.id.ImgBusCompany);
+            imageBus = itemView.findViewById(R.id.imageURL);
+            booking = itemView.findViewById(R.id.btnBooking);
+            booking.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            });
         }
     }
 }
