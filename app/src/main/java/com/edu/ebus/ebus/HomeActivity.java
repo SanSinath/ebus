@@ -18,7 +18,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 
 
 public class HomeActivity extends AppCompatActivity {
-
     private UserAccount account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +69,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         break;
                     case R.id.muser:
-                        getSupportActionBar().setTitle(account.getUsername());
+                        getSupportActionBar().setTitle(getTitle());
                         UserFragment userFragment = new UserFragment();
                         FragmentManager fragmentManager3 = getFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction1 = fragmentManager3.beginTransaction();
@@ -83,7 +82,6 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
-
     @Override
     public void onBackPressed(){
         FragmentManager fm = getFragmentManager();

@@ -21,11 +21,5 @@ public class TicketDetialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_detial);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getTitle());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
 }

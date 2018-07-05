@@ -39,8 +39,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        edUsername = findViewById(R.id.edEmail);
+        edUsername = findViewById(R.id.edUsername);
         edPassword = findViewById(R.id.edPassword);
         btnSignin = findViewById(R.id.btnSignIn);
         txtCreateAccount = findViewById(R.id.txtCreateNewAccount);
@@ -116,7 +115,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             // Start MainActivity
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
-
             // Finish current activity
             finish();
         }
