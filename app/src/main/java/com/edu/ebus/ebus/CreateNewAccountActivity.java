@@ -7,13 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,27 +41,37 @@ public class CreateNewAccountActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
                 String Username = mUsername.getText().toString();
-                String Password = mGmailorPhone.getText().toString();
+                String Password = mPassword.getText().toString();
                 String GmailoPhone= mGmailorPhone.getText().toString();
                 String Confirmpassword=mComfirmpassword.getText().toString();
-
-                Map<String, String> userMap= new HashMap<>();
-                userMap.put("username",Username);
-                userMap.put("gmailorPhone",GmailoPhone);
-                userMap.put("password",Password);
-                userMap.put("confirmPassword",Confirmpassword);
-                mFireStore.collection("userAccount").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(CreateNewAccountActivity.this, "Data User add to Firebase",Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        String error = e.getMessage();
-                        Toast.makeText(CreateNewAccountActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if(Password.equals(Confirmpassword)){
+                    //Make Edittext NULL
+                    mUsername.setText("");
+                    mPassword.setText("");
+                    mGmailorPhone.setText("");
+                    mComfirmpassword.setText("");
+                    //Map to Firestore
+                    Map<String, String> userMap= new HashMap<>();
+                        userMap.put("username",Username);
+                        userMap.put("gmailorPhone",GmailoPhone);
+                        userMap.put("password",Password);
+                        userMap.put("confirmPassword",Confirmpassword);
+                        mFireStore.collection("userAccount").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(CreateNewAccountActivity.this, "Data to added to firestore",Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(Exception e) {
+                            String error = e.getMessage();
+                            Toast.makeText(CreateNewAccountActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(CreateNewAccountActivity.this,"Password not match",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         bntCancel.setOnClickListener(new View.OnClickListener() {

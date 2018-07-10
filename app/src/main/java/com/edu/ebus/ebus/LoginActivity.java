@@ -2,6 +2,7 @@ package com.edu.ebus.ebus;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,21 +21,34 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class LoginActivity extends AppCompatActivity implements FacebookCallback<com.facebook.login.LoginResult> {
 
-    private String email,password, TAG = "ebus";
+    //private String email,password, tax= "ebus";
     private EditText edUsername,edPassword;
     private Button btnSignin;
     private TextView txtCreateAccount;
-
     private CallbackManager callbackManager;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,24 +57,34 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         edPassword = findViewById(R.id.edPassword);
         btnSignin = findViewById(R.id.btnSignIn);
         txtCreateAccount = findViewById(R.id.txtCreateNewAccount);
-
+        mFirestore=FirebaseFirestore.getInstance();
         // Check user login exists
         checkIfUserAlreadyLoggedIn();
-
         LoginButton btnFacebookLogin = findViewById(R.id.btn_facebook_login);
         btnFacebookLogin.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
         btnFacebookLogin.registerCallback(callbackManager, this);
 
-
+        // Sign in button retreive data from firestore
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-                startActivity(intent);
-                finish();
+                mFirestore.collection("userAccount").document("ilt36gVlfClkbGPRLQo2").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        if(task.isSuccessful()){
+                           Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                           startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"Sign in Failed",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         });
+
         txtCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,15 +125,12 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             Gson gson = new Gson();
             UserAccount user = gson.fromJson(userJsonString, UserAccount.class);
             MySingletonClass.getInstance().setAccount(user);
-
             // Start MainActivity
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
-
             // Finish current activity
             finish();
         }
-
         // check login via Facebook
         if (AccessToken.getCurrentAccessToken() != null) {
             // Start MainActivity
@@ -119,22 +140,18 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             finish();
         }
     }
-
     private void signUpWithFacebook() {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "user_birthday"));
     }
-
     @Override
     public void onSuccess(com.facebook.login.LoginResult loginResult) {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
-
     @Override
     public void onCancel() {
         Profile profile = Profile.getCurrentProfile();
     }
-
     @Override
     public void onError(FacebookException error) {
         Toast.makeText(this, "Login with Facebook error.", Toast.LENGTH_LONG).show();
