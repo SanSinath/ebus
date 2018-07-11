@@ -3,62 +3,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CreateNewAccountActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:background="#ccc"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_height="0dp">
+        android:background="#ccc"
+        android:orientation="vertical">
 
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_weight="2"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="2">
 
         <EditText
-            android:id="@+id/edFirstName"
+            android:id="@+id/edUsername"
             android:layout_width="match_parent"
-            android:hint="First name"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Username" />
+
         <EditText
-            android:id="@+id/edLastName"
-            android:layout_below="@id/edFirstName"
+            android:id="@+id/edGmail_Phone"
             android:layout_width="match_parent"
-            android:hint="Last name"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edUsername"
+            android:hint="Gmail or Phone" />
+
         <EditText
-            android:id="@+id/edEmail"
-            android:layout_below="@id/edLastName"
+            android:id="@+id/edPassword"
             android:layout_width="match_parent"
-            android:hint="Username"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edGmail_Phone"
+            android:hint="Password" />
+
         <EditText
-            android:id="@+id/edPass"
-            android:layout_below="@id/edEmail"
+            android:id="@+id/edConfirmpassword"
             android:layout_width="match_parent"
-            android:hint="Password"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/edConformPass"
-            android:layout_width="match_parent"
-            android:hint="Conform Password"
-            android:layout_below="@id/edPass"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edPassword"
+            android:hint="Confirm Password" />
+
         <Button
             android:id="@+id/btnSignUp"
-            android:layout_below="@id/edConformPass"
-            android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
             android:layout_width="wrap_content"
-            android:background="@drawable/button_background"
-            android:text="Sing Up"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edConfirmpassword"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/button_background"
+            android:text="Sing up"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnSignUp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 </LinearLayout>
