@@ -1,6 +1,9 @@
 package com.edu.ebus.ebus;
 
+import android.app.DatePickerDialog;
 import android.app.FragmentManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +13,21 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.DatePicker;
+import android.widget.EditText;
+
+
 import com.edu.ebus.ebus.fragment.EventsFragment;
 import com.edu.ebus.ebus.fragment.HomeFragment;
 import com.edu.ebus.ebus.fragment.RecentlyFragment;
 import com.edu.ebus.ebus.fragment.UserFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import java.util.Calendar;
+
 
 public class HomeActivity extends AppCompatActivity {
+
 
     private UserAccount account;
     @Override
@@ -28,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         // Set toolbar
         final Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
         // Defualt fragment
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -68,9 +79,11 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.mbusStation:
 
+
                         break;
                     case R.id.muser:
-                        getSupportActionBar().setTitle(account.getUsername());
+                      //    getSupportActionBar().setTitle("Username");
+                       getSupportActionBar().setTitle(account.getUsername());
                         UserFragment userFragment = new UserFragment();
                         FragmentManager fragmentManager3 = getFragmentManager();
                         android.app.FragmentTransaction fragmentTransaction1 = fragmentManager3.beginTransaction();

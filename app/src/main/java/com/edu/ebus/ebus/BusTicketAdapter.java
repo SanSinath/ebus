@@ -38,7 +38,9 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
     public void onBindViewHolder(@NonNull BusTicketViewHolder holder, int position) {
         Ticket ticket = tickets[position];
         holder.txtName.setText(ticket.getName());
-        holder.txtTarget.setText(ticket.getTarget());
+        holder.txtsoure.setText (ticket.getSource ());
+        holder.txtdestination.setText (ticket.getDestination ());
+        holder.txthour.setText (ticket.getHour ());
         holder.txtDate.setText(ticket.getDateofBooking());
         holder.txtPrices.setText(ticket.getPrice()+"$");
         holder.imageBus.setImageURI(ticket.getImageURI());
@@ -48,8 +50,11 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
     public int getItemCount() {
         return tickets.length;
     }
+
+
+
     class BusTicketViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtName,txtTarget,txtDate,txtPrices;
+        private TextView txtName,txtDate,txtPrices,txtsoure,txtdestination,txthour;
         private SimpleDraweeView imageBus;
         private Button booking;
 
@@ -57,7 +62,9 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
             super(itemView);;
 
             txtName = itemView.findViewById(R.id.txtName);
-            txtTarget = itemView.findViewById(R.id.txtPlace);
+            txtsoure = itemView.findViewById(R.id.txt_source);
+            txtdestination =itemView.findViewById (R.id.txt_destination);
+            txthour = itemView.findViewById (R.id.txt_hour);
             txtDate = itemView.findViewById(R.id.txtDateBooking);
             txtPrices = itemView.findViewById(R.id.txtPrice);
             imageBus = itemView.findViewById(R.id.imageURL);

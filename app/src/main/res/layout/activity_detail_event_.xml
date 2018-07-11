@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#b2403e3e"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5">
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#ffffff"-->
+            <!--android:src="@drawable/view_image" />-->
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/img_event"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:actualImageScaleType="fitCenter"
+            app:placeholderImage="@drawable/view_image" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="0.07"
+        android:background="#ffffff"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/txt_tile_detail_vent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="title of traveling"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/more_detail_event_icon" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="0.15"
+        android:background="#ffffff"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/icon_date_event"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/date_event_icon" />
+
+        <TextView
+            android:id="@+id/txt_date_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/icon_date_event"
+            android:layout_toRightOf="@id/icon_date_event"
+            android:text="Date of event"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/txt_date_event"
+            android:src="@mipmap/time_stat_evnt_icon" />
+
+        <TextView
+            android:id="@+id/txt_time_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_date_event"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/icon_date_event"
+            android:layout_toRightOf="@id/icon_date_event"
+            android:text="time start"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/txt_time_start"
+            android:src="@mipmap/location_event_detail" />
+
+        <TextView
+            android:id="@+id/txt_location_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_time_start"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/icon_date_event"
+            android:layout_toRightOf="@id/icon_date_event"
+            android:text="location"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="7dp"
+            android:layout_marginRight="7dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnBooking_event"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/button_background"
+                android:text="Booking"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+
+            <TextView
+                android:id="@+id/txt_price_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="price"
+                android:textColor="#0d52ad"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="#ffffff"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/txt_detil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details"
+            android:textColor="#0d52ad"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/call_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/txt_detil"
+            android:layout_toRightOf="@id/txt_detil"
+            android:src="@mipmap/call_icon_event" />
+
+        <TextView
+            android:id="@+id/txt_phone_numbe_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/call_icon"
+            android:layout_toRightOf="@id/call_icon"
+            android:text="Phone_number_event" />
+
+        <TextView
+            android:id="@+id/txt_detail_all_event"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/call_icon"
+            android:layout_marginTop="7dp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

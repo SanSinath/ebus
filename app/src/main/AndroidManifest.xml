@@ -29,6 +29,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".BusTicketActivity" />
         <activity android:name=".SettingActivity" />
+        <activity android:name=".RecntlyActivity" />
+        <activity android:name=".EventActivitydetails" />
         <activity android:name=".CreateNewAccountActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".TicketDetialActivity" />

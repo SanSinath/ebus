@@ -1,5 +1,6 @@
 package com.edu.ebus.ebus;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,9 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,9 +23,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
+import org.w3c.dom.Text;
+
 public class BusTicketActivity extends AppCompatActivity {
     private String TAG = "ebus";
     private BusTicketAdapter adapter = new BusTicketAdapter();
+    private String date,source,destination;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,39 +47,53 @@ public class BusTicketActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Bus Ticket");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         // Recycler view
         RecyclerView recyclerView = findViewById(R.id.rec_ticket);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        // LOAD Ticket from Firestore
-        loadTickeFromFirestore();
+
+        //get data from HomeFrament
+        Intent intent = getIntent();
+        date = intent.getStringExtra ("data");
+        source = intent.getStringExtra ("source");
+        destination = intent.getStringExtra ("destination");
+
+        Toast.makeText (BusTicketActivity.this,"detail"+date+source+destination,Toast.LENGTH_LONG).show ();
+
+         loadTickeFromFirestore();
     }
 
     private void loadTickeFromFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("tickets").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("tickets")
+                .whereEqualTo ("DateofBooking",date)
+                .whereEqualTo ("Source",source)
+                .whereEqualTo ("Destination",destination)
+                .get ().addOnSuccessListener (new OnSuccessListener<QuerySnapshot> () {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    proccessTicketResult(task);
-                    Toast.makeText(BusTicketActivity.this,"load successfull",Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(BusTicketActivity.this, "Load tickets error.", Toast.LENGTH_LONG).show();
-                    Log.d("ebus", "Load tickets error: " + task.getException());
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                Ticket[] obTickets = new Ticket[queryDocumentSnapshots.getDocuments ().size ()];
+
+                if(queryDocumentSnapshots.getDocuments ().size ()==0){
+                    Toast.makeText (BusTicketActivity.this,"Search Not found",Toast.LENGTH_LONG).show ();
                 }
+
+                // get data from firebase into adapter
+                int index = 0;
+                Toast.makeText (BusTicketActivity.this,"detail get ready"+queryDocumentSnapshots.getDocuments ().size (),Toast.LENGTH_LONG).show ();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    Ticket ticket = documentSnapshot.toObject (Ticket.class);
+                    String detail = ticket.getDateofBooking ();
+                    Toast.makeText (BusTicketActivity.this,"detail get ready"+detail,Toast.LENGTH_LONG).show ();
+                    obTickets[index] = ticket;
+                    index++;
+                }
+                adapter.setTickets(obTickets);
             }
         });
-}
-    private void proccessTicketResult(Task<QuerySnapshot> task) {
-        Log.d(TAG, "Size: " + task.getResult().size());
-        Ticket[] obTickets = new Ticket[task.getResult().size()];
-        int index = 0;
-        for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
-            Ticket ticket = documentSnapshot.toObject(Ticket.class);
-            obTickets[index] = ticket;
-            index++;
-        }
-        adapter.setTickets(obTickets);
-    }
+   }
 }
