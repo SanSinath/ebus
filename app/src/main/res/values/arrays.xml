@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="place">
+        <item>Phnom Penh</item>
+        <item>Prey Veng</item>
+        <item>Batdom bang</item>
+        <item>Kompong Cham</item>
+        <item>Kompong Thom</item>
+        <item>Svay Reing</item>
+        <item>Keb</item>
+        <item>Kratei</item>
+        <item>Kompong Som</item>
+    </string-array>
+</resources>

@@ -28,20 +28,20 @@
         android:id="@+id/spDes"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
-        android:hint="Destination"
+        android:hint="@string/destination"
         android:layout_height="wrap_content"
         android:paddingStart="20dp" />
     <EditText
         android:id="@+id/txt_date"
         android:layout_width="match_parent"
         android:paddingLeft="20dp"
-        android:hint="date of booking"
+        android:hint="@string/date_of_booking"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/btn_booking"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
-        android:text="Search forticket"
+        android:text="@string/search_for_ticket"
         android:layout_height="wrap_content" />
 </LinearLayout>

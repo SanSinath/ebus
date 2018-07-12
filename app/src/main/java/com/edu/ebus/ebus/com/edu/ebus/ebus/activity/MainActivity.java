@@ -9,19 +9,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.edu.ebus.ebus.HomeActivity;
 import com.edu.ebus.ebus.LoginActivity;
 import com.edu.ebus.ebus.R;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 2000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         new  Handler().postDelayed(new Runnable() {
             @Override
