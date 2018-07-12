@@ -17,7 +17,7 @@
             android:id="@+id/txt_UserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username"
+            android:text="@string/username"
             android:textSize="20sp" />
 
         <TextView
@@ -25,14 +25,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_UserName"
-            android:text="target" />
+            android:text="@string/target" />
 
         <TextView
             android:id="@+id/txtDate"
             android:layout_below="@id/txtDes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date" />
+            android:text="@string/date" />
 
         <ImageView
             android:layout_width="40dp"

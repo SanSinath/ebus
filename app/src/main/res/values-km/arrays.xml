@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="place">
+        <item>ភ្នំពេញ</item>
+        <item>ព្រៃេវែង</item>
+        <item>បាត់ដំបង</item>
+        <item>កំពង់ចាម</item>
+        <item>កំពង់ធំ</item>
+        <item>ស្វាយរៀង</item>
+        <item>កែប</item>
+        <item>ក្រចេះ</item>
+        <item>កំពង់សោម</item>
+    </string-array>
+</resources>

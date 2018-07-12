@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class RecentBookingAdapter extends RecyclerView.Adapter {
+public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdapter.RecentViewHolder>{
+
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.recent_view_holder, parent, false);
         RecentViewHolder viewHolder = new RecentViewHolder(view);
@@ -21,7 +22,7 @@ public class RecentBookingAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecentViewHolder holder, int position) {
 
     }
 
@@ -39,6 +40,7 @@ public class RecentBookingAdapter extends RecyclerView.Adapter {
             txtName = itemView.findViewById(R.id.txt_UserName);
             txtDest = itemView.findViewById(R.id.txtDes);
             txtDates = itemView.findViewById(R.id.txtDate);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:text=" Set Ticket"
+        android:text="@string/set_ticket"
         android:textSize="30sp" />
 
     <RadioGroup
@@ -23,35 +23,35 @@
             android:id="@+id/j1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 Ticket"
+            android:text="@string/_1_ticket"
             android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/j2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2 Ticket"
+            android:text="@string/_2_ticket"
             android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/j3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 Ticket"
+            android:text="@string/_3_ticket"
             android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/j5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 Ticket"
+            android:text="@string/_4_ticket"
             android:textSize="20dp" />
 
         <RadioButton
             android:id="@+id/j4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5 Ticket"
+            android:text="@string/_5_ticket"
             android:textSize="20dp" />
 
     </RadioGroup>
@@ -63,7 +63,7 @@
         android:layout_below="@id/radio_group"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:text="Pay Money"
+        android:text="@string/pay_money"
         android:textSize="30sp" />
 
     <EditText
@@ -73,7 +73,7 @@
         android:layout_below="@id/set_paymoney"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="15dp"
-        android:hint="Enter Code Card" />
+        android:hint="@string/enter_code_card" />
 
     <Button
         android:layout_centerHorizontal="true"
@@ -85,7 +85,7 @@
         android:textColor="#fafafa"
         android:textSize="25dp"
         android:layout_below="@id/txt_paymoney"
-        android:text="Pay" />
+        android:text="@string/pay" />
 
 
 </RelativeLayout>

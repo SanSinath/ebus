@@ -20,4 +20,5 @@ public class LoginResult {
     public void setAccount(UserAccount account) {
         this.account = account;
     }
+
 }

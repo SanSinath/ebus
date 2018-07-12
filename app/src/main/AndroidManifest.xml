@@ -34,6 +34,11 @@
         <activity android:name=".CreateNewAccountActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".TicketDetialActivity" />
+        <activity
+            android:name=".AboutActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_about"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

@@ -29,7 +29,7 @@
             android:id="@+id/txt_event_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Title"
+            android:text="@string/title"
             android:textColor="#ffffff"
             android:textSize="25sp" />
 
@@ -52,7 +52,7 @@
             android:layout_marginBottom="12dp"
             android:layout_toEndOf="@id/icon_date_event"
             android:layout_toRightOf="@id/icon_date_event"
-            android:text="Date of event"
+            android:text="@string/date_of_event"
             android:textColor="#ffffff"
             android:textSize="20sp" />
         <ImageView

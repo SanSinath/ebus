@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".AboutActivity">
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ebuslogo"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtV"
+            android:layout_below="@id/imgLogo"
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/version_1_0"
+
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/txtDev"
+            android:layout_below="@id/txtV"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="@string/developer_by"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp" />
+        <TextView
+            android:id="@+id/t1"
+            android:layout_below="@id/txtV"
+            android:layout_width="wrap_content"
+            android:text="@string/san_sinath"
+            android:layout_toRightOf="@id/txtDev"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/txtDev"
+            android:layout_marginStart="5dp" />
+        <TextView
+            android:id="@+id/t2"
+            android:layout_below="@id/t1"
+            android:layout_width="wrap_content"
+            android:text="@string/ev_navin"
+            android:layout_toRightOf="@id/txtDev"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/txtDev"
+            android:layout_marginStart="5dp" />
+        <TextView
+            android:id="@+id/t3"
+            android:layout_below="@id/t2"
+            android:layout_width="wrap_content"
+            android:text="@string/ly_chaovirun"
+            android:layout_toRightOf="@id/txtDev"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/txtDev"
+            android:layout_marginStart="5dp" />
+        <TextView
+            android:id="@+id/t4"
+            android:layout_marginLeft="30dp"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_below="@id/t3"
+            android:layout_width="wrap_content"
+            android:text="@string/contact_us"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp" />
+        <TextView
+            android:id="@+id/t5"
+            android:layout_toRightOf="@id/t4"
+            android:textSize="20sp"
+            android:textColor="@color/colorAccent"
+            android:layout_below="@id/t3"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="ebusteam.dev@gmail.com"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/t4" />
+
+</RelativeLayout>
