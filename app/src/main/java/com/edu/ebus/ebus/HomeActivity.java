@@ -2,6 +2,7 @@ package com.edu.ebus.ebus;
 
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import com.edu.ebus.ebus.fragment.EventsFragment;
 import com.edu.ebus.ebus.fragment.HomeFragment;
 import com.edu.ebus.ebus.fragment.RecentlyFragment;
+import com.edu.ebus.ebus.fragment.StationFragment;
 import com.edu.ebus.ebus.fragment.UserFragment;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -57,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportActionBar().setTitle(getTitle());
                         HomeFragment homeFragment = new HomeFragment();
                         FragmentManager fragmentManager = getFragmentManager();
-                        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.framelayout, homeFragment);
                         fragmentTransaction.commit();
                         break;
@@ -73,20 +75,25 @@ public class HomeActivity extends AppCompatActivity {
                         getSupportActionBar().setTitle("My Booking");
                         RecentlyFragment recentlyFragment = new RecentlyFragment();
                         FragmentManager fragmentManager2 = getFragmentManager();
-                        android.app.FragmentTransaction transaction1 = fragmentManager2.beginTransaction();
+                        FragmentTransaction transaction1 = fragmentManager2.beginTransaction();
                         transaction1.replace(R.id.framelayout, recentlyFragment);
                         transaction1.commit();
                         break;
                     case R.id.mbusStation:
-
+                        getSupportActionBar().setTitle("Station");
+                        StationFragment stationFragment = new StationFragment ();
+                        FragmentManager fragmentManager4 = getFragmentManager();
+                        FragmentTransaction transactionststion = fragmentManager4.beginTransaction();
+                        FragmentTransaction replace = transactionststion.replace (R.id.framelayout,stationFragment);
+                        transactionststion.commit();
 
                         break;
                     case R.id.muser:
-                      //    getSupportActionBar().setTitle("Username");
-                       getSupportActionBar().setTitle(account.getUsername());
-                        UserFragment userFragment = new UserFragment();
+                          getSupportActionBar().setTitle("Username");
+                      // getSupportActionBar().setTitle(account.getUsername());
+                        UserFragment userFragment = new UserFragment ();
                         FragmentManager fragmentManager3 = getFragmentManager();
-                        android.app.FragmentTransaction fragmentTransaction1 = fragmentManager3.beginTransaction();
+                        FragmentTransaction fragmentTransaction1 = fragmentManager3.beginTransaction();
                         fragmentTransaction1.replace(R.id.framelayout, userFragment);
                         fragmentTransaction1.commit();
                         break;

@@ -13,6 +13,13 @@
     <string name="password">Password</string>
     <string name="username">Username</string>
     <string name="todo">TODO</string>
+    <string name="note">Notice
+                        - Can\'t get money back after paid
+                        - If you want to cacel. Contact us befor six hour
+                        - One ticket for a person
+                        - If you have something over than 50kg need to pay more
+                        - Free for child under six years old
+                        - We've have sent a verification code to your phone number</string>
 
     <string-array name="place">
         <item>Prey Veng</item>

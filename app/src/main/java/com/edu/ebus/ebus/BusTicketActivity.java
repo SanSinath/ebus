@@ -61,9 +61,7 @@ public class BusTicketActivity extends AppCompatActivity {
         source = intent.getStringExtra ("source");
         destination = intent.getStringExtra ("destination");
 
-        Toast.makeText (BusTicketActivity.this,"detail"+date+source+destination,Toast.LENGTH_LONG).show ();
-
-         loadTickeFromFirestore();
+        loadTickeFromFirestore();
     }
 
     private void loadTickeFromFirestore() {
@@ -81,14 +79,12 @@ public class BusTicketActivity extends AppCompatActivity {
                 if(queryDocumentSnapshots.getDocuments ().size ()==0){
                     Toast.makeText (BusTicketActivity.this,"Search Not found",Toast.LENGTH_LONG).show ();
                 }
-
-                // get data from firebase into adapter
+                 // get data from firebase into adapter
                 int index = 0;
                 Toast.makeText (BusTicketActivity.this,"detail get ready"+queryDocumentSnapshots.getDocuments ().size (),Toast.LENGTH_LONG).show ();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     Ticket ticket = documentSnapshot.toObject (Ticket.class);
                     String detail = ticket.getDateofBooking ();
-                    Toast.makeText (BusTicketActivity.this,"detail get ready"+detail,Toast.LENGTH_LONG).show ();
                     obTickets[index] = ticket;
                     index++;
                 }

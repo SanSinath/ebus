@@ -1,5 +1,6 @@
 package com.edu.ebus.ebus.fragment;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.SettingActivity;
 
-public class UserFragment extends android.app.Fragment {
+public class UserFragment extends Fragment {
 
     @Nullable
     @Override

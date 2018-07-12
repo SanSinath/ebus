@@ -1,41 +1,45 @@
 package com.edu.ebus.ebus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
 
-public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusTicketViewHolder> {
+/**
+ * Created by USER on 7/11/2018.
+ */
+
+public class StationFragmentAdapter extends RecyclerView.Adapter<StationFragmentAdapter.StationViewHolder>{
+
     private Ticket[] tickets;
-    public void setTickets(Ticket[] tickets) {
-        this.tickets = tickets;
+    public void setTicketall(Ticket[] ticketsall) {
+        this.tickets = ticketsall;
         notifyDataSetChanged();
     }
-    public BusTicketAdapter(){
+    public StationFragmentAdapter(){
         tickets = new Ticket[0];
     }
 
     @NonNull
     @Override
-    public BusTicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.bus_ticket_holder, parent, false);
-        return new BusTicketViewHolder(view);
+        StationViewHolder viewHolder = new StationViewHolder (view);
+        return viewHolder;
+
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull BusTicketViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StationViewHolder holder, int position) {
         Ticket ticket = tickets[position];
         holder.txtName.setText(ticket.getName());
         holder.txtsoure.setText (ticket.getSource ());
@@ -44,6 +48,7 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
         holder.txtDate.setText(ticket.getDateofBooking());
         holder.txtPrices.setText(ticket.getPrice()+"$");
         holder.imageBus.setImageURI(ticket.getImageURI());
+
     }
 
     @Override
@@ -51,16 +56,14 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
         return tickets.length;
     }
 
+    class StationViewHolder extends RecyclerView.ViewHolder{
+        private TextView txtName,txtDate,txtPrices,txtsoure,txtdestination,txthour;
+        private SimpleDraweeView imageBus;
+        private Button booking;
 
+        public StationViewHolder(View itemView) {
 
-    class BusTicketViewHolder extends RecyclerView.ViewHolder{
-        public TextView txtName,txtDate,txtPrices,txtsoure,txtdestination,txthour;
-        public SimpleDraweeView imageBus;
-        public Button booking;
-
-        public BusTicketViewHolder(View itemView) {
-            super(itemView);;
-
+            super (itemView);
             txtName = itemView.findViewById(R.id.txtName);
             txtsoure = itemView.findViewById(R.id.txt_source);
             txtdestination =itemView.findViewById (R.id.txt_destination);
@@ -69,15 +72,6 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
             txtPrices = itemView.findViewById(R.id.txtPrice);
             imageBus = itemView.findViewById(R.id.imageURL);
             booking = itemView.findViewById(R.id.btnBooking);
-            booking.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext ();
-                    Intent intent = new Intent (v.getContext (),SetTicketActivity.class);
-                    context.startActivity (intent);
-
-                }
-            });
         }
     }
 }
