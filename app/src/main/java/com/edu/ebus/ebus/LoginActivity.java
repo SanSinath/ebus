@@ -72,50 +72,23 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mFirestore.collection("userAccount").document("ilt36gVlfClkbGPRLQo2").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//
-//                        if(task.isSuccessful()){
-////                            UserAccount user = new UserAccount();
-////                            saveProfileInSharedPref(user);
-//                           Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
-//                           startActivity(intent);
-//                           finish();
-//                        }
-//                        else {
-//                            Toast.makeText(getApplicationContext(),"Sign in Failed",Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                });
-
-                auth.signInWithEmailAndPassword(edUsername.getText().toString(),
-                        edPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                mFirestore.collection("userAccount").document("ilt36gVlfClkbGPRLQo2").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        FirebaseUser user = auth.getCurrentUser();
-                        Gson gson = new Gson();
-                        assert user != null;
-                        LoginResult result = gson.fromJson(user.getUid(), LoginResult.class);
-                        if (task.isSuccessful()) {
-                            if (result.getCode() == 1) {
-                                MySingletonClass.getInstance().setAccount(result.getAccount());
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                                saveProfileInSharedPref(result.getAccount());
-
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Login fialed", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Server is currently down, Try again", Toast.LENGTH_SHORT).show();
+                        if(task.isSuccessful()){
+                           UserAccount user = new UserAccount();
+                           saveProfileInSharedPref(user);
+                           Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                           startActivity(intent);
+                           finish();
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(),"Sign in Failed",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
             }
         });
 
@@ -156,9 +129,11 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         SharedPreferences preferences = getSharedPreferences("ebus", MODE_PRIVATE);
         String userJsonString = preferences.getString("user", null);
         if (userJsonString != null) {
+
             Gson gson = new Gson();
             UserAccount user = gson.fromJson(userJsonString, UserAccount.class);
             MySingletonClass.getInstance().setAccount(user);
+
             // Start MainActivity
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
@@ -180,6 +155,8 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
     @Override
     public void onSuccess(com.facebook.login.LoginResult loginResult) {
+
+
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();

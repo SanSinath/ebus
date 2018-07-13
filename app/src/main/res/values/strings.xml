@@ -2,51 +2,74 @@
     <string name="app_name">ebus</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="recent_booking">Recent booking</string>
-    <string name="create_new_account">CREATE NEW ACCOUNT
-    </string>
-    <string name="facebook_app_id">252918985260446</string>
-    <string name="fb_login_protocol_scheme">fb252918985260446</string>
-    <string name="facebook">Facebook</string>
-    <string name="sign_in">Sign In</string>
-    <string name="password">Password</string>
-    <string name="username">Username</string>
-    <string name="todo">TODO</string>
-    <string name="note">Notice
-                        - Can\'t get money back after paid
-                        - If you want to cacel. Contact us befor six hour
-                        - One ticket for a person
-                        - If you have something over than 50kg need to pay more
-                        - Free for child under six years old
-                        - We've have sent a verification code to your phone number</string>
+        <string name="home">Home</string>
+        <string name="my_booking">My Booking</string>
+        <string name="title_activity_about">About</string>
 
-    <string-array name="place">
-        <item>Prey Veng</item>
-        <item>Phnom Penh</item>
-        <item>Kompong Thom</item>
-        <item>Kompong Cham</item>
-        <item>Ta Kao</item>
-        <item>Kompong Soum</item>
-        <item>Kam pot</item>
-        <item>Kompong Speu</item>
-        <item>Banteay meanchey</item>
-        <item>Batthambang</item>
-        <item>Koh Kong</item>
-        <item>Pailin</item>
-        <item>Preah Sinhanouk</item>
-        <item>Mundulkiri</item>
-        <item>Preah Vihear</item>
-        <item>Oddar Meanchey</item>
-        <item>Keb</item>
-        <item>Krotie</item>
-        <item>Porsat</item>
-        <item>Ratanakiri</item>
-        <item>Siem Reap</item>
-        <item>Thbong Kmum</item>
-        <item>Svay Rieng</item>
-        <item>Kandal</item>
-        <item>Kompong Chnang</item>
-    </string-array>
+        <string name="facebook_app_id">252918985260446</string>
+
+        <string name="username">Username</string>
+        <string name="password">Password</string>
+        <string name="sign_in">Sign In</string>
+        <string name="sign_up">Sign up</string>
+        <string name="don_t_have_account">Don\'t have account?</string>
+        <string name="event">Event</string>
+        <string name="station">Station</string>
+        <string name="profile">Profile</string>
+        <string name="account">Account</string>
+        <string name="languages">Languages</string>
+        <string name="feedback">Feedback</string>
+        <string name="helps">Helps</string>
+        <string name="about">About</string>
+        <string name="setting">Setting</string>
+        <string name="logout">Logout</string>
+        <string name="set_ticket">Set Ticket</string>
+        <string name="_1_ticket">1 Ticket</string>
+        <string name="_2_ticket">2 Ticket</string>
+        <string name="_3_ticket">3 Ticket</string>
+        <string name="_4_ticket">4 Ticket</string>
+        <string name="_5_ticket">5 Ticket</string>
+        <string name="pay_money">Pay Money</string>
+        <string name="enter_code_card">Enter Code Card</string>
+        <string name="pay">Pay</string>
+        <string name="target">target</string>
+        <string name="date">Date</string>
+        <string name="full_name">Full name</string>
+        <string name="all_ticket_booking">All ticket booking</string>
+        <string name="recent_booking">Recently booking</string>
+        <string name="destination">Destination</string>
+        <string name="date_of_booking">Date of booking</string>
+        <string name="search_for_ticket">Search for ticket</string>
+        <string name="title">Title</string>
+        <string name="name">Name</string>
+        <string name="scr">Scr</string>
+        <string name="des">des</string>
+        <string name="to">To</string>
+        <string name="hour">Hour</string>
+        <string name="total">Total</string>
+        <string name="ticket">Ticket</string>
+        <string name="number">Number</string>
+        <string name="number_company">Number Company :</string>
+        <string name="welcome_to_ebus">Welcome to eBus</string>
+        <string name="gmail_or_phone">Gmail or Phone</string>
+        <string name="title_of_traveling">title of traveling</string>
+        <string name="date_of_event">Date of event</string>
+        <string name="time_start">time start</string>
+        <string name="location">location</string>
+        <string name="booking">Booking</string>
+        <string name="price">price</string>
+        <string name="details">Details</string>
+        <string name="phone_number_event">Phone_number_event</string>
+        <string name="version_1_0">Version 1.0</string>
+        <string name="developer_by">Developed by</string>
+        <string name="san_sinath">San Sinath</string>
+        <string name="ev_navin">Ev Navin</string>
+        <string name="ly_chaovirun">Ly Chaovirun</string>
+        <string name="contact_us">Contact us</string>
+        <string name="update">Update</string>
+        <string name="cancel">Cancel</string>
+    <string name="company">Company</string>
+    <string name="time">Time</string>
+    <string name="busid">BusID</string>
 
 </resources>

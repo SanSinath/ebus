@@ -56,13 +56,16 @@
     <string name="booking">កក់</string>
     <string name="price">តម្លៃ</string>
     <string name="details">បន្ថែម</string>
-    <string name="phone_number_event">Phone_number_event</string>
+    <string name="phone_number_event">លេខទំនាក់ទំនង</string>
     <string name="version_1_0">ជំនាន់ ១.០</string>
     <string name="developer_by">បង្កើតកម្មវិធី ដោយ</string>
     <string name="san_sinath">សាន សីុណាត</string>
     <string name="ev_navin">អីុវ ណាវិន</string>
     <string name="ly_chaovirun">លី ចៅវិរុណ</string>
     <string name="contact_us">ទំនាក់ទំនង</string>
-    <string name="update">Update</string>
-    <string name="cancel">Cancel</string>
+    <string name="update">កែរប្រែ</string>
+    <string name="cancel">ចាកចេញ</string>
+    <string name="company">Company</string>
+    <string name="time">Time</string>
+    <string name="busid">BusID</string>
 </resources>

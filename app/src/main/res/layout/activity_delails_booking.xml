@@ -126,28 +126,28 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginTop="20dp"
-                android:text="Company"
+                android:text="@string/company"
                 android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Destination"
+                android:text="@string/destination"
                 android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Time"
+                android:text="@string/time"
                 android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="BusID"
+                android:text="@string/busid"
                 android:textSize="15sp" />
 
 

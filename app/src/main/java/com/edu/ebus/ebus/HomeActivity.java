@@ -35,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
+
         setContentView(R.layout.activity_home);
         // Set toolbar
         final Toolbar toolbar = findViewById(R.id.main_toolbar);
@@ -43,14 +43,10 @@ public class HomeActivity extends AppCompatActivity {
 
         // Defualt fragment
         HomeFragment homeFragment = new HomeFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, homeFragment);
-        fragmentTransaction.commit();
-
+        replaceFragment(homeFragment);
+        // Bottom Navigation handler click listener
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -58,50 +54,40 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.mhome:
                         getSupportActionBar().setTitle(getTitle());
                         HomeFragment homeFragment = new HomeFragment();
-                        FragmentManager fragmentManager = getFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.framelayout, homeFragment);
-                        fragmentTransaction.commit();
+                        replaceFragment(homeFragment);
                         break;
                     case R.id.mevent:
                         getSupportActionBar().setTitle("Events");
                         EventsFragment eventsFragment = new EventsFragment();
-                        FragmentManager fragmentManager1 = getFragmentManager();
-                        android.app.FragmentTransaction transaction = fragmentManager1.beginTransaction();
-                        transaction.replace(R.id.framelayout, eventsFragment);
-                        transaction.commit();
+                        replaceFragment(eventsFragment);
                         break;
                     case R.id.mrecently:
                         getSupportActionBar().setTitle("My Booking");
                         RecentlyFragment recentlyFragment = new RecentlyFragment();
-                        FragmentManager fragmentManager2 = getFragmentManager();
-                        FragmentTransaction transaction1 = fragmentManager2.beginTransaction();
-                        transaction1.replace(R.id.framelayout, recentlyFragment);
-                        transaction1.commit();
+                        replaceFragment(recentlyFragment);
                         break;
                     case R.id.mbusStation:
                         getSupportActionBar().setTitle("Station");
-                        StationFragment stationFragment = new StationFragment ();
-                        FragmentManager fragmentManager4 = getFragmentManager();
-                        FragmentTransaction transactionststion = fragmentManager4.beginTransaction();
-                        FragmentTransaction replace = transactionststion.replace (R.id.framelayout,stationFragment);
-                        transactionststion.commit();
-
+                        StationFragment stationFragment = new StationFragment();
+                        replaceFragment(stationFragment);
                         break;
                     case R.id.muser:
-                          getSupportActionBar().setTitle("Username");
-                      // getSupportActionBar().setTitle(account.getUsername());
-                        UserFragment userFragment = new UserFragment ();
-                        FragmentManager fragmentManager3 = getFragmentManager();
-                        FragmentTransaction fragmentTransaction1 = fragmentManager3.beginTransaction();
-                        fragmentTransaction1.replace(R.id.framelayout, userFragment);
-                        fragmentTransaction1.commit();
+                        getSupportActionBar().setTitle("Me");
+                        UserFragment userFragment = new UserFragment();
+                        replaceFragment(userFragment);
                         break;
                 }
                 return false;
             }
         });
 
+    }
+
+    private void replaceFragment(android.app.Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction1 = fragmentManager.beginTransaction();
+        fragmentTransaction1.replace(R.id.framelayout, fragment);
+        fragmentTransaction1.commit();
     }
 
     @Override

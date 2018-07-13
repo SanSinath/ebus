@@ -1,6 +1,7 @@
 package com.edu.ebus.ebus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -72,6 +73,16 @@ public class StationFragmentAdapter extends RecyclerView.Adapter<StationFragment
             txtPrices = itemView.findViewById(R.id.txtPrice);
             imageBus = itemView.findViewById(R.id.imageURL);
             booking = itemView.findViewById(R.id.btnBooking);
+
+            booking.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext ();
+                    Intent intent = new Intent (v.getContext (),SetTicketActivity.class);
+                    context.startActivity (intent);
+                }
+            });
+
         }
     }
 }
