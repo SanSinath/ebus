@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">252918985260446</string>
 
+    <string name="app_name">ebus</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="home">ទំព័រដំបូង</string>
     <string name="my_booking">ការកក់របស់ខ្ញំុ</string>
     <string name="title_activity_about">អំពីកម្មវិធី</string>
+
+    <string name="facebook_app_id">252918985260446</string>
+
+    <string name="username">ឈ្មោះអ្នកប្រើ</string>
     <string name="password">លេខសំងាត់</string>
     <string name="sign_in">ចូលប្រើប្រាស់</string>
-    <string name="sign_up">ចុះឈ្មោះថ្មី</string>
+    <string name="sign_up">ចុះឈ្មោះថ្</string>
     <string name="don_t_have_account">មិនទាន់មានគណនី?</string>
     <string name="event">មាតិការ</string>
     <string name="station">ស្ថានីយរថយន្ត</string>
     <string name="profile">អំពីអ្នក</string>
     <string name="account">គណនី</string>
-    <string name="languages">ភាសា</string>
+    <string name="languages">ភាស</string>
     <string name="feedback">បញ្ចេញមតិ</string>
     <string name="helps">ជំនូយ</string>
     <string name="about">អំពីកម្មវិធី</string>
@@ -29,10 +35,11 @@
     <string name="enter_code_card">បញ្ជូលលេខកូដកាត</string>
     <string name="pay">បង់ប្រាក់</string>
     <string name="target">គោលដៅ</string>
+    <string name="date">ពេលកក់</string>
     <string name="full_name">ឈ្មោះ ពេញ</string>
     <string name="all_ticket_booking">សំបុត្រដែលកក់ទាំងអស់</string>
     <string name="recent_booking">ការកក់ពីមុន</string>
-    <string name="destination">ទិសដៅ</string>
+
     <string name="date_of_booking">ពេលវេលាកក់</string>
     <string name="search_for_ticket">ស្វែងរកសំបុត្រ</string>
     <string name="title">ចំណងជើង</string>
@@ -40,18 +47,16 @@
     <string name="scr">កន្លែងចាប់ផ្ដើម</string>
     <string name="des">កន្លែងចុះ</string>
     <string name="to">ទៅ</string>
-    <string name="date">ថ្ងៃ</string>
     <string name="hour">ម៉ោង</string>
-    <string name="total">សរុប</string>
+
     <string name="ticket">សំបុត្រ</string>
-    <string name="number">ចំនូន</string>
-    <string name="number_company">លេខ ក្រុមហុន :</string>
+    <string name="number">ចំនូនសំបុត្រ</string>
+
     <string name="welcome_to_ebus">Welcome to eBus</string>
-    <string name="username">ឈ្មោះអ្នកប្រើ</string>
     <string name="gmail_or_phone">អីុម៉ែល រឺ លេខទូរសព្ទ័</string>
-    <string name="title_of_traveling">ប្រធានបទ ដើរកំសាន្ត</string>
-    <string name="date_of_event">ពេលនៃព្រឹត្តិការណ៏</string>
-    <string name="time_start">ពេលចាប់ផ្ដើម</string>
+    <string name="title_of_traveling">title of traveling</string>
+    <string name="date_of_event">Date of event</string>
+    <string name="time_start">time start</string>
     <string name="location">ទីតាំង</string>
     <string name="booking">កក់</string>
     <string name="price">តម្លៃ</string>
@@ -63,9 +68,17 @@
     <string name="ev_navin">អីុវ ណាវិន</string>
     <string name="ly_chaovirun">លី ចៅវិរុណ</string>
     <string name="contact_us">ទំនាក់ទំនង</string>
-    <string name="update">កែរប្រែ</string>
+    <string name="update">កែរប្ររូចរាល់</string>
     <string name="cancel">ចាកចេញ</string>
-    <string name="company">Company</string>
-    <string name="time">Time</string>
-    <string name="busid">BusID</string>
+    <string name="company">ក្រហ៊ុន</string>
+    <string name="time">ម៉ោង</string>
+    <string name="busid">លេខកូដឡាន</string>
+    <string name="destination">កន្លែងទៅ</string>
+    <string name="number_company">លេខកូដក្រុមហ៊ុន :</string>
+    <string name="total">សរុប</string>
+    <string name="search">Search</string>
+
+    <string name="search_hint">ស្វែងរក ឈ្មោះ, គោលដៅ,​ តម្លៃសំបុត្រ</string>
+    <string name="todo">TODO</string>
+
 </resources>
