@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus.fragment;
+package com.edu.ebus.ebus.recent;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.RecentBookingAdapter;
+import com.edu.ebus.ebus.recent.RecentBookingAdapter;
 
 
 public class RecentlyFragment extends Fragment {

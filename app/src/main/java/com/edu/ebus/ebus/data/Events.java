@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.data;
 
 /**
  * Created by USER on 7/7/2018.

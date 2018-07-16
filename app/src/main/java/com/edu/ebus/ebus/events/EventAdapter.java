@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.events;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.Events;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 

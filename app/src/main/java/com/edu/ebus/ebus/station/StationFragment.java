@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus.fragment;
+package com.edu.ebus.ebus.station;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,28 +7,28 @@ import android.support.annotation.Nullable;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.edu.ebus.ebus.BusTicketAdapter;
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.RecentBookingAdapter;
-import com.edu.ebus.ebus.StationFragmentAdapter;
-import com.edu.ebus.ebus.Ticket;
+import com.edu.ebus.ebus.station.StationFragmentAdapter;
+import com.edu.ebus.ebus.data.Ticket;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-/**
- * Created by USER on 7/11/2018.
- */
 
-public class StationFragment extends Fragment {
+
+public class StationFragment extends Fragment implements SearchView.OnQueryTextListener{
     RecyclerView recyclerView;
     private StationFragmentAdapter adapter = new StationFragmentAdapter ();
     //private BusTicketAdapter adapters = new BusTicketAdapter ();
@@ -49,7 +49,26 @@ public class StationFragment extends Fragment {
         adapter = new StationFragmentAdapter ();
         recyclerView.setAdapter (adapter);
 
+        // Load station from firebase
         loadstationfromfirebase();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.search_station, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search name ,destination ,price");
+        searchView.setOnQueryTextListener(this);
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     private void loadstationfromfirebase() {
@@ -76,8 +95,20 @@ public class StationFragment extends Fragment {
                     events[index] = event;
                     index++;
                 }
-                adapter.setTicketall (events);
+                adapter.setAllTickets (events);
             }
         });
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String keyWord) {
+        adapter.searchStation(keyWord);
+        return false;
+    }
+
 }

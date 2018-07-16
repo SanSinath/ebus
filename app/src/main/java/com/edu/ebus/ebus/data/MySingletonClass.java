@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.data;
 
 public class MySingletonClass {
 

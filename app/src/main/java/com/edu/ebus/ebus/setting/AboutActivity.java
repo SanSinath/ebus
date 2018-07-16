@@ -1,9 +1,11 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.setting;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.edu.ebus.ebus.R;
 
 public class AboutActivity extends AppCompatActivity {
 

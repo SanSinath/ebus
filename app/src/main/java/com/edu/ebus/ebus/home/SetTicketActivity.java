@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by USER on 7/12/2018.
- */
+import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.home.VerifyActivity;
+
 
 public class SetTicketActivity extends AppCompatActivity {
     private Button tbpay;

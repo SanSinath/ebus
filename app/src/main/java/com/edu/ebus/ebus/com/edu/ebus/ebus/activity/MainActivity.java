@@ -1,49 +1,115 @@
 package com.edu.ebus.ebus.com.edu.ebus.ebus.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
-import com.edu.ebus.ebus.HomeActivity;
-import com.edu.ebus.ebus.LoginActivity;
+import com.edu.ebus.ebus.data.ChangeLanguage;
+import com.edu.ebus.ebus.home.HomeActivity;
+import com.edu.ebus.ebus.login.LoginActivity;
 import com.edu.ebus.ebus.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-    private static int SPLASH_TIME_OUT = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         Fresco.initialize(this);
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        Fresco.initialize(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
-        new  Handler().postDelayed(new Runnable() {
+
+        if(isNetworkAvaliable(getApplicationContext())){
+
+            splashActivity();
+
+        }else {
+
+            showRequestDialog();
+
+        }
+        showKeyHashes();
+    }
+
+    private void showRequestDialog() {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle("Network doesn't avaliable");
+        dialog.setMessage("Did you connectted to internet? please try agian.");
+        dialog.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showRequestDialog();
+            }
+        });
+        dialog.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // exit the program
+                finish();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    private void splashActivity() {
+        final int SPLASH_TIME_OUT = 2000;
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                Log.d("ebus", "Open LoginActivity");
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         },SPLASH_TIME_OUT);
+    }
 
-        showKeyHashes();
+    // Check Internet connection
+    private boolean isNetworkAvaliable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        if ((connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null
+                && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState()
+                == NetworkInfo.State.CONNECTED)
+                || (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null
+                && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState()
+                == NetworkInfo.State.CONNECTED)) {
+
+            Toast.makeText(context,"success Connected",Toast.LENGTH_SHORT).show();
+            return true;
+
+        }else{
+            Toast.makeText(context,"fail Connected",Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
+
     }
 
     private void showKeyHashes() {
@@ -56,10 +122,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         catch (PackageManager.NameNotFoundException e) {
+            Log.d("ebus", e.getMessage());
 
         }
         catch (NoSuchAlgorithmException e) {
-
+            Log.d("ebus", e.getMessage());
         }
     }
 }

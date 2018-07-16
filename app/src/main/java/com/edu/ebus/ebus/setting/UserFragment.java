@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus.fragment;
+package com.edu.ebus.ebus.setting;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,15 +17,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.edu.ebus.ebus.LoginActivity;
-import com.edu.ebus.ebus.MySingletonClass;
+import com.edu.ebus.ebus.login.LoginActivity;
+import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.SettingActivity;
-import com.edu.ebus.ebus.UserAccount;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -76,6 +73,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
         switch (item.getItemId()) {
             case R.id.usr_setting :
                 startActivity(new Intent(getActivity(), SettingActivity.class));
+
                 break;
             case R.id.usr_feedback:
                 // Remove current user
@@ -160,7 +158,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     imgProfile.setImageBitmap(bitmap);
                 } else {
-                    Toast.makeText(getActivity(), "Load profile image fail.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Load profile image fail.", Toast.LENGTH_LONG).show();
                     Log.d("ckcc", "Load profile image fail: " + task.getException());
                 }
             }

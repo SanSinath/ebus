@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.recent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.home.TicketDetialActivity;
 
 public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdapter.RecentViewHolder>{
 

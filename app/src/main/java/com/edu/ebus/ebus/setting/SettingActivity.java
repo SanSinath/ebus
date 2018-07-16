@@ -1,11 +1,11 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.setting;
 
-import android.app.ActionBar;
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
@@ -14,15 +14,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.com.edu.ebus.ebus.activity.MainActivity;
+import com.edu.ebus.ebus.data.ChangeLanguage;
+import com.edu.ebus.ebus.home.HomeActivity;
 
 import java.util.Locale;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,9 @@ public class SettingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        loadLocale();
+        getSupportActionBar().setTitle(getResources().getString(R.string.setting));
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(getResources().getString(R.string.setting));
+        //loadLocale();
 
         NavigationView settingNavigation = findViewById(R.id.setting_menu);
         settingNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -48,8 +48,11 @@ public class SettingActivity extends AppCompatActivity {
                         break;
                     case R.id.language:
                         changeLanguage();
+                        // Set local to activity
+                        loadLocale();
                         break;
                     case R.id.feedbacks:
+                        openGmailFeedBack();
                         break;
                     case R.id.helps:
                         break;
@@ -63,14 +66,23 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
+    private void openGmailFeedBack() {
+        Intent gmailFeedback = new Intent(Intent.ACTION_SEND);
+        gmailFeedback.setType("text/email");
+        gmailFeedback.putExtra(Intent.EXTRA_EMAIL, new String[]{"ebusteam.dev@gmail.com"});
+        gmailFeedback.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+        gmailFeedback.putExtra(Intent.EXTRA_TEXT,"Hi");
+        startActivity(Intent.createChooser(gmailFeedback, "Sending feedback"));
+    }
+
     private void changeLanguage() {
         final String[] listItems = {"English(Defualt)","Khmer(ខ្មែរ)"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Change language");
+        builder.setTitle("Choose a language").setCancelable(true);
         builder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(which == 0){
+                if (which == 0){
                     setLocale("en");
                     recreate();
                 }
@@ -78,9 +90,9 @@ public class SettingActivity extends AppCompatActivity {
                     setLocale("km");
                     recreate();
                 }
-                dialog.dismiss();
             }
         });
+
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
@@ -88,21 +100,28 @@ public class SettingActivity extends AppCompatActivity {
 
     private void setLocale(String lang) {
         Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
         Configuration config = new Configuration();
-        config.locale = locale;
+        if (lang.equals("en")){
+            Locale.setDefault(locale);
+            config.locale = locale;
+        }else if (lang.equals("km")){
+            Locale.setDefault(locale);
+            config.locale = locale;
+        }
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         // Save data to Shared Reference
-        SharedPreferences.Editor editor = getSharedPreferences("ebus",MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getSharedPreferences("setting",MODE_PRIVATE).edit();
         editor.putString("My_lang", lang);
         editor.apply();
 
     }
+
     private void loadLocale(){
-        SharedPreferences pref = getSharedPreferences("Setting",MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences("setting",MODE_PRIVATE);
         String language = pref.getString("My_lang","");
         setLocale(language);
     }
+
 
     private void showUpdater() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -116,6 +135,7 @@ public class SettingActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         // Update data here
+                        updateUser();
 
                         Toast.makeText(getApplicationContext(),"updated",Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
@@ -123,6 +143,12 @@ public class SettingActivity extends AppCompatActivity {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
+    }
+
+    private void updateUser() {
+
+
 
     }
 

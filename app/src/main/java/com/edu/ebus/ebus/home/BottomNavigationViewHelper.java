@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.home;
 
 import android.annotation.SuppressLint;
 import android.support.design.internal.BottomNavigationItemView;

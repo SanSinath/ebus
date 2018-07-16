@@ -1,8 +1,10 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.edu.ebus.ebus.R;
 
 /**
  * Created by USER on 7/12/2018.

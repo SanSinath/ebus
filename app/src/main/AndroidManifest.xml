@@ -26,16 +26,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".BusTicketActivity" />
-        <activity android:name=".SettingActivity" />
-        <activity android:name=".RecntlyActivity" />
-        <activity android:name=".EventActivitydetails" />
-        <activity android:name=".CreateNewAccountActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".TicketDetialActivity" />
-        <activity android:name=".SetTicketActivity" />
-        <activity android:name=".VerifyActivity"/>
+        <activity android:name=".home.HomeActivity" />
+        <activity android:name=".home.BusTicketActivity" />
+        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".recent.RecntlyActivity" />
+        <activity android:name=".events.EventActivitydetails" />
+        <activity android:name=".login.CreateNewAccountActivity" />
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".home.TicketDetialActivity" />
+        <activity android:name=".home.SetTicketActivity" />
+        <activity android:name=".home.VerifyActivity" />
+        <activity
+            android:name=".setting.AboutActivity"
+            android:configChanges="locale" />
     </application>
 
 </manifest>

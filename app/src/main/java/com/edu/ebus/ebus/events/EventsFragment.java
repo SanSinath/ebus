@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus.fragment;
+package com.edu.ebus.ebus.events;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,9 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.edu.ebus.ebus.EventAdapter;
-import com.edu.ebus.ebus.Events;
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.Events;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;

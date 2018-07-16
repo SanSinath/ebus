@@ -1,10 +1,7 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.home;
 
-import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -12,20 +9,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-
-import android.widget.DatePicker;
-import android.widget.EditText;
 
 
-import com.edu.ebus.ebus.fragment.EventsFragment;
-import com.edu.ebus.ebus.fragment.HomeFragment;
-import com.edu.ebus.ebus.fragment.RecentlyFragment;
-import com.edu.ebus.ebus.fragment.StationFragment;
-import com.edu.ebus.ebus.fragment.UserFragment;
-import com.facebook.drawee.backends.pipeline.Fresco;
-
-import java.util.Calendar;
+import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.UserAccount;
+import com.edu.ebus.ebus.events.EventsFragment;
+import com.edu.ebus.ebus.recent.RecentlyFragment;
+import com.edu.ebus.ebus.station.StationFragment;
+import com.edu.ebus.ebus.setting.UserFragment;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -57,22 +48,22 @@ public class HomeActivity extends AppCompatActivity {
                         replaceFragment(homeFragment);
                         break;
                     case R.id.mevent:
-                        getSupportActionBar().setTitle("Events");
+                        getSupportActionBar().setTitle(getResources().getString(R.string.event));
                         EventsFragment eventsFragment = new EventsFragment();
                         replaceFragment(eventsFragment);
                         break;
                     case R.id.mrecently:
-                        getSupportActionBar().setTitle("My Booking");
+                        getSupportActionBar().setTitle(getResources().getString(R.string.recent_booking));
                         RecentlyFragment recentlyFragment = new RecentlyFragment();
                         replaceFragment(recentlyFragment);
                         break;
                     case R.id.mbusStation:
-                        getSupportActionBar().setTitle("Station");
+                        getSupportActionBar().setTitle(getResources().getString(R.string.station));
                         StationFragment stationFragment = new StationFragment();
                         replaceFragment(stationFragment);
                         break;
                     case R.id.muser:
-                        getSupportActionBar().setTitle("Me");
+                        getSupportActionBar().setTitle(getResources().getString(R.string.profile));
                         UserFragment userFragment = new UserFragment();
                         replaceFragment(userFragment);
                         break;

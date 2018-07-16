@@ -1,4 +1,6 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.login;
+
+import com.edu.ebus.ebus.data.UserAccount;
 
 public class LoginResult {
 

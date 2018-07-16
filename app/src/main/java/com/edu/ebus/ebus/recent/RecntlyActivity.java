@@ -1,8 +1,10 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.recent;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.edu.ebus.ebus.R;
 
 import java.util.zip.Inflater;
 

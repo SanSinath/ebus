@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.events;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.Events;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
