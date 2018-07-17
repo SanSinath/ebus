@@ -1,52 +1,38 @@
-package com.edu.ebus.ebus;
+package com.edu.ebus.ebus.login;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.MySingletonClass;
+import com.edu.ebus.ebus.data.UserAccount;
+import com.edu.ebus.ebus.home.HomeActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.Profile;
-import com.facebook.common.references.CloseableReference;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.stream.JsonReader;
 
-import java.io.Closeable;
 import java.util.Arrays;
-import java.util.Queue;
-import java.util.zip.Inflater;
-
-import javax.annotation.Nullable;
 
 
 public class LoginActivity extends AppCompatActivity implements FacebookCallback<com.facebook.login.LoginResult> {
@@ -104,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                                 progressBar.setProgress(0);
                                 progressBar.setMax(100);
                                 progressBar.show();
+                                progressBar.dismiss();
                                 progressBarStatus = 0;
                                 fileSize = 0;
                                 new Thread(new Runnable() {
@@ -149,7 +136,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         txtSigup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),CreateNewAccountActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CreateNewAccountActivity.class );
                 startActivity(intent);
                 finish();
             }
