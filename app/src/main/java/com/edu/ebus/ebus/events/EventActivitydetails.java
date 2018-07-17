@@ -51,7 +51,5 @@ public class EventActivitydetails extends AppCompatActivity{
 
 
 
-
-
     }
 }

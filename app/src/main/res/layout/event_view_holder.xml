@@ -4,10 +4,6 @@
     android:layout_height="275dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="5dp">
-    <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:src="@drawable/view_image"/>-->
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/img_event_holder"
@@ -41,8 +37,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginBottom="10dp"
-
-            android:src="@mipmap/event_icon" />
+            android:src="@mipmap/event_icon"
+            android:contentDescription="TODO" />
 
         <TextView
             android:id="@+id/txt_date_event"
@@ -62,7 +58,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:src="@mipmap/more_event_icon"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:contentDescription="TODO" />
 
     </RelativeLayout>
 

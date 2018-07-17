@@ -24,6 +24,7 @@
                 android:layout_gravity="bottom"
                 android:padding="20dp"
                 android:layout_height="wrap_content">
+
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/imgProfile"
                     android:layout_width="70dp"

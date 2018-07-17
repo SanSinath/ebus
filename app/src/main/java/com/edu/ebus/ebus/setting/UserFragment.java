@@ -82,13 +82,13 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("user");
                 editor.apply();
-
+                // Logout profile
                 LoginManager.getInstance().logOut();
                 // Move to LoginActivity
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
-                Toast.makeText(getActivity(),"You logouted complete",Toast.LENGTH_SHORT).show();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -100,11 +100,15 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
         imgProfile = view.findViewById(R.id.imgProfile);
         txt_name = view.findViewById(R.id.txtFullname);
 
+        imgProfile.setOnClickListener(UserFragment.this);
+
         // Load profile from firestore
         loadProfileImageFromFirestore();
 
         //loadProfileImageFromFirestore();
         loadProfileInfoFromFacebook();
+
+
 
     }
 

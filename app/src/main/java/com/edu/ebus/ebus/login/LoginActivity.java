@@ -147,7 +147,13 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
     @Override
     public void onSuccess(com.facebook.login.LoginResult loginResult) {
-
+        Profile profile = Profile.getCurrentProfile();
+//        Gson gson = new Gson();
+//
+//        UserAccount account = MySingletonClass.getInstance().setAccount(profile);
+//
+//
+//        saveProfileInSharedPref(account);
 
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
@@ -155,7 +161,8 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
     @Override
     public void onCancel() {
-        Profile profile = Profile.getCurrentProfile();
+        Toast.makeText(getApplicationContext(), "Login canceled.",Toast.LENGTH_SHORT).show();
+
     }
     @Override
     public void onError(FacebookException error) {

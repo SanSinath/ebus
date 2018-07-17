@@ -1,10 +1,12 @@
 package com.edu.ebus.ebus.data;
 
+import java.io.Serializable;
+
 /**
  * Created by USER on 7/7/2018.
  */
 
-public class Events {
+public class Events implements Serializable {
     private String title;
     private String date;
     private String details;
@@ -13,12 +15,13 @@ public class Events {
     private String phonenumber;
     private String imageURL;
     private String location;
+    private String locationAddress;
 
     public Events (){
 
     }
 
-    public Events(String title, String date, String details, String timestart, String price, String phonenumber, String imageURL, String location) {
+    public Events(String title, String date, String details, String timestart, String price, String phonenumber, String imageURL, String location, String locationAddress) {
         this.title = title;
         this.date = date;
         this.details = details;
@@ -27,6 +30,7 @@ public class Events {
         this.phonenumber = phonenumber;
         this.imageURL = imageURL;
         this.location = location;
+        this.locationAddress = locationAddress;
     }
 
     public String getTitle() {
@@ -93,4 +97,11 @@ public class Events {
         this.location = location;
     }
 
+    public void setLocationAddress(String locationAddress) {
+        this.locationAddress = locationAddress;
+    }
+
+    public String getLocationAddress() {
+        return locationAddress;
+    }
 }

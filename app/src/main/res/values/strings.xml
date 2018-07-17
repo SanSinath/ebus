@@ -78,5 +78,6 @@
 
     <string name="search_hint">Search name ,destination ,price</string>
     <string name="todo">TODO</string>
+    <string name="send_to">Send to</string>
 
 </resources>

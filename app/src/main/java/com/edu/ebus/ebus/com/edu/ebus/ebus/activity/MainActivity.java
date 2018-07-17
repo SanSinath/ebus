@@ -1,8 +1,6 @@
 package com.edu.ebus.ebus.com.edu.ebus.ebus.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,18 +9,18 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+
 import android.view.Window;
 import android.view.WindowManager;
+
 import android.widget.Toast;
 
-import com.edu.ebus.ebus.data.ChangeLanguage;
-import com.edu.ebus.ebus.home.HomeActivity;
 import com.edu.ebus.ebus.login.LoginActivity;
 import com.edu.ebus.ebus.R;
 import com.facebook.drawee.backends.pipeline.Fresco;

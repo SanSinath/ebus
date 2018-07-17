@@ -10,6 +10,7 @@
     tools:context="com.edu.ebus.ebus.activity.MainActivity">
 
     <ImageView
+        android:id="@+id/imgLogo"
         android:layout_width="200dp"
         android:src="@drawable/bus_form_login_img"
         android:layout_height="200dp"
