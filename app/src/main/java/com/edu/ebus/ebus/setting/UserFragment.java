@@ -20,9 +20,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.edu.ebus.ebus.login.LoginActivity;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.login.CreateNewAccountActivity;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -85,7 +85,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                 // Logout profile
                 LoginManager.getInstance().logOut();
                 // Move to LoginActivity
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                Intent intent = new Intent(getActivity(),CreateNewAccountActivity.class);
                 startActivity(intent);
                 getActivity().finish();
 

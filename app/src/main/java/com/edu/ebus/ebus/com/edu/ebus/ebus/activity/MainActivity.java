@@ -9,20 +9,18 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-
 import android.view.Window;
 import android.view.WindowManager;
-
 import android.widget.Toast;
 
-import com.edu.ebus.ebus.login.LoginActivity;
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.login.CreateNewAccountActivity;
+import com.edu.ebus.ebus.login.LoginActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.security.MessageDigest;
