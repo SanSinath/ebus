@@ -95,6 +95,7 @@ public class CreateNewAccountActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(CreateNewAccountActivity.this, com.edu.ebus.ebus.login.LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
