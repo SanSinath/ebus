@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,9 +73,10 @@ public class SetTicketActivity extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             Toast.makeText (getApplication (),"PhoneAuthcteadentail",Toast.LENGTH_LONG).show ();
+            Log.i("verify","verify success"+phoneAuthCredential);
 
             Intent intent = new Intent (getApplication (),VerifyActivity.class);
-            intent.putExtra ("number_phone","0"+phoneNumber);
+            intent.putExtra ("number_phone",phoneNumber);
             intent.putExtra ("codesent",codesent);
             Toast.makeText (getApplication (),"phonnumber"+phoneNumber+"codesent"+codesent,Toast.LENGTH_LONG).show ();
             startActivity (intent);
@@ -84,11 +86,13 @@ public class SetTicketActivity extends AppCompatActivity {
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent (s, forceResendingToken);
             codesent = s;
+            Log.i("verify","code sent "+s+"     "+"verify Oncodesent"+forceResendingToken);
         }
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
             Toast.makeText (getApplication (),"PhoneAuthcteaFaild",Toast.LENGTH_LONG).show ();
+            Log.i("verify","verify fail"+e);
 
         }
 

@@ -89,7 +89,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                                 progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                                 progressBar.setProgress(0);
                                 progressBar.setMax(100);
-                                progressBar.show();
                                 progressBar.dismiss();
                                 progressBarStatus = 0;
                                 fileSize = 0;
@@ -120,7 +119,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                                 }).start();
                                 Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
                                 startActivity(intent);
-                                //onBackPressed();
                                 finish();
                                 //Toast.makeText(LoginActivity.this,"Sign in Successed",Toast.LENGTH_SHORT).show();
                             }
