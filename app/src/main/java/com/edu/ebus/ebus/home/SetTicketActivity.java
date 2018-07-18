@@ -60,6 +60,7 @@ public class SetTicketActivity extends AppCompatActivity {
 //            number_phone.requestFocus ();
 //            return;
 //        }
+
         Toast.makeText (getApplication (),"callProvider",Toast.LENGTH_LONG).show ();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+855"+phoneNumber,        // Phone number to verify
@@ -78,8 +79,16 @@ public class SetTicketActivity extends AppCompatActivity {
             Intent intent = new Intent (getApplication (),VerifyActivity.class);
             intent.putExtra ("number_phone",phoneNumber);
             intent.putExtra ("codesent",codesent);
-            Toast.makeText (getApplication (),"phonnumber"+phoneNumber+"codesent"+codesent,Toast.LENGTH_LONG).show ();
             startActivity (intent);
+            finish ();
+
+
+        }
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText (getApplication (),"PhoneAuthcteaFaild",Toast.LENGTH_LONG).show ();
+            Log.i("verify","verify fail"+e);
+
         }
 
         @Override
@@ -89,12 +98,7 @@ public class SetTicketActivity extends AppCompatActivity {
             Log.i("verify","code sent "+s+"     "+"verify Oncodesent"+forceResendingToken);
         }
 
-        @Override
-        public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText (getApplication (),"PhoneAuthcteaFaild",Toast.LENGTH_LONG).show ();
-            Log.i("verify","verify fail"+e);
 
-        }
 
 
     };

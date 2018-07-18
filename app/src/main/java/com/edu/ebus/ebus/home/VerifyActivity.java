@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.recent.RecntlyActivity;
+import com.edu.ebus.ebus.station.StationFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,6 +39,7 @@ public class VerifyActivity extends AppCompatActivity {
     private String phonedata;
     private EditText entercode;
     private TextView resentcode;
+    private TextView wrongnumber;
     FirebaseAuth mAuth;
 
 
@@ -49,12 +52,12 @@ public class VerifyActivity extends AppCompatActivity {
         bt_sumit = findViewById(R.id.btn_Submit);
         entercode = findViewById(R.id.txt_enter_code_verify);
         resentcode = findViewById(R.id.txt_redent_code);
+        wrongnumber = findViewById (R.id.txt_wrong_number);
 
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         phonedata = intent.getStringExtra("number_phone");
         codesent = intent.getStringExtra("codesent");
-
 
         Toast.makeText(getApplication(), "Intent data phone" + phonedata, Toast.LENGTH_LONG).show();
         Toast.makeText(getApplication(), "Intent data code sent" + codesent, Toast.LENGTH_LONG).show();
@@ -66,6 +69,14 @@ public class VerifyActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sentverificationcode();
+            }
+        });
+        wrongnumber.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (getApplication (),SetTicketActivity.class);
+                startActivity (intent);
+                finish ();
             }
         });
 
@@ -119,12 +130,7 @@ public class VerifyActivity extends AppCompatActivity {
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             Toast.makeText(getApplication(), "PhoneAuthcteadentail", Toast.LENGTH_LONG).show();
             Log.i("verify", "verify success" + phoneAuthCredential);
-
-            Intent intent = new Intent(getApplication(), VerifyActivity.class);
-            intent.putExtra("number_phone", "0" + phonedata.toString());
-            intent.putExtra("codesent", codesent);
             Toast.makeText(getApplication(), "phonnumber" + phonedata.toString() + "codesent" + codesent, Toast.LENGTH_LONG).show();
-            startActivity(intent);
         }
 
         @Override
