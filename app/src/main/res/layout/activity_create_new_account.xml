@@ -25,20 +25,31 @@
             android:id="@+id/edUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username" />
+            android:hint="Username"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/edEmail"
+            android:layout_below="@id/edUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Email" />
 
         <EditText
             android:id="@+id/edGmail_Phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edUsername"
-            android:hint="Gmail or Phone" />
+            android:layout_below="@id/edEmail"
+            android:inputType="phone"
+            android:hint="Phone number" />
 
         <EditText
             android:id="@+id/edPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edGmail_Phone"
+            android:inputType="textPassword"
             android:hint="Password" />
 
         <EditText
@@ -46,30 +57,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edPassword"
-            android:hint="Confirm Password" />
+            android:hint="Re-Type Password"
+            android:inputType="textPassword"/>
 
         <Button
             android:id="@+id/btnSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/edConfirmpassword"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/button_background"
             android:text="Sing up"
             android:textAllCaps="false"
+            android:layout_marginLeft="20dp"
             android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnSignUp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/edConfirmpassword"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_background"
             android:text="Cancel"
             android:textAllCaps="false"
+            android:layout_marginRight="20dp"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 

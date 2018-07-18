@@ -22,7 +22,10 @@ import android.widget.Toast;
 
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.UserAccount;
 import com.edu.ebus.ebus.login.CreateNewAccountActivity;
+import com.edu.ebus.ebus.login.LoginActivity;
+import com.edu.ebus.ebus.login.LoginResult;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -30,9 +33,16 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 
 import org.json.JSONException;
@@ -44,10 +54,10 @@ import java.io.IOException;
 
 public class UserFragment extends android.app.Fragment implements View.OnClickListener{
 
-    private final String userId = "abc123";
-
+    private String userId;
     private SimpleDraweeView imgProfile;
     private TextView txt_name;
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +82,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.usr_setting :
+
                 startActivity(new Intent(getActivity(), SettingActivity.class));
 
                 break;
@@ -82,10 +93,11 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("user");
                 editor.apply();
+
                 // Logout profile
                 LoginManager.getInstance().logOut();
                 // Move to LoginActivity
-                Intent intent = new Intent(getActivity(),CreateNewAccountActivity.class);
+                Intent intent = new Intent(getActivity(),LoginActivity.class);
                 startActivity(intent);
                 getActivity().finish();
 
@@ -102,14 +114,44 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
         imgProfile.setOnClickListener(UserFragment.this);
 
-        // Load profile from firestore
+        UserAccount account = MySingletonClass.getInstance().getAccount();
+
+        if (account != null){
+            userId = account.getId();
+            imgProfile.setImageURI(account.getProfileImage());
+            txt_name.setText(account.getUsername());
+
+            Log.d("ebus" ,"name : " + account.getUsername() + "Profile images :" + account.getProfileImage());
+        }else {
+            if (userId == null){
+                // load profile from facebook
+                loadProfileInfoFromFacebook();
+            }else {
+                // load profile from firestore
+                loadProfileInfoFromFirestore();
+            }
+        }
+        // load profile image from firestore
         loadProfileImageFromFirestore();
 
-        //loadProfileImageFromFirestore();
-        loadProfileInfoFromFacebook();
+    }
 
+    private void loadProfileInfoFromFirestore() {
+        firestore.collection("userAccount").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    UserAccount account = documentSnapshot.toObject(UserAccount.class);
 
+                    assert account != null;
+                    imgProfile.setImageURI(account.getProfileImage());
+                    txt_name.setText(account.getUsername());
 
+                    MySingletonClass.getInstance().setAccount(account);
+                }
+            }
+        });
     }
 
 
@@ -134,6 +176,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
     private void uploadImageToFirebaseStorage(Bitmap bitmap){
         FirebaseStorage storage = FirebaseStorage.getInstance();
+
         StorageReference profileRef = storage.getReference().child("images").child("profiles").child(userId + ".jpg");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -153,6 +196,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
     private void loadProfileImageFromFirestore(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
+
         StorageReference profileRef = storage.getReference().child("images").child("profiles").child(userId + ".jpg");
         profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>(){
             @Override
@@ -171,12 +215,13 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
     private void loadProfileInfoFromFacebook(){
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        GraphRequest request = GraphRequest.newMeRequest(
+        final GraphRequest request = GraphRequest.newMeRequest(
                 accessToken,
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
+
                             String id = object.getString("id");
                             String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
                             Log.d("ebus", "Profile picture" + profileUrl);
