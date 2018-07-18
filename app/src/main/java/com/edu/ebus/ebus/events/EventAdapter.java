@@ -118,7 +118,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         private void getMenuOption(MenuItem item) {
             if (item.getItemId() == R.id.share_event){
 
-
+                Toast.makeText(context, "Feature not aviliable...",Toast.LENGTH_SHORT).show();
 
             }
             if(item.getItemId() == R.id.view_map){

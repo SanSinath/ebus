@@ -51,7 +51,7 @@ public class EventsFragment extends android.app.Fragment {
                     processEventsResult(task);
                 } else {
                     Toast.makeText(getActivity(), "Load events error.", Toast.LENGTH_LONG).show();
-                    Log.d("ckcc", "Load events error: " + task.getException());
+                    Log.d("ebus", "Load events error: " + task.getException());
                 }
             }
         });

@@ -5,10 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,15 +28,22 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -42,12 +55,10 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private String TAG="eBus";
     private Button btnSignin;
     private TextView txtSigup;
-    private EditText edUsername;
-    private EditText edPassword;
+    private EditText edUsername, edPassword;
+    private TextInputLayout inputLayoutName, inputLayoutPass;
     private ProgressDialog progressBar;
-    private int progressBarStatus = 0;
-    private Handler progressBarbHandler = new Handler();
-    private long fileSize = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +67,18 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         edPassword = (EditText) findViewById(R.id.edPassword);
         btnSignin =(Button) findViewById(R.id.btnSignIn);
         txtSigup = (TextView) findViewById(R.id.txt_signup);
+
+        inputLayoutName = findViewById(R.id.input_lyt_username);
+        inputLayoutPass = findViewById(R.id.input_lyt_password);
+
+        edUsername.addTextChangedListener(new MyTextWatcher(edUsername));
+        edPassword.addTextChangedListener(new MyTextWatcher(edPassword));
+
         mFirestore=FirebaseFirestore.getInstance();
         
         // Check user login exists
         checkIfUserAlreadyLoggedIn();
+
         LoginButton btnFacebookLogin = findViewById(R.id.btn_facebook_login);
         btnFacebookLogin.setReadPermissions("email");
         callbackManager = CallbackManager.Factory.create();
@@ -69,74 +88,29 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                mFirestore= FirebaseFirestore.getInstance();
-                mFirestore.collection("userAccount")
-                        .whereEqualTo("username",edUsername.getText().toString())
-                        .whereEqualTo("password",edPassword.getText().toString())
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            if(task.getResult().getDocuments().size()==0){
-                                Toast.makeText(LoginActivity.this,"Sign in Failedd",Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                edPassword.setText("");
-                                edUsername.setText("");
-                                progressBar = new ProgressDialog(v.getContext());
-                                progressBar.setCancelable(true);
-                                progressBar.setMessage("Please Waiting ...");
-                                progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                                progressBar.setProgress(0);
-                                progressBar.setMax(100);
-                                progressBar.dismiss();
-                                progressBarStatus = 0;
-                                fileSize = 0;
-                                new Thread(new Runnable() {
-                                    public void run() {
-                                        while (progressBarStatus < 100) {
-                                            progressBarStatus = downloadFile();
-                                            try {
-                                                Thread.sleep(1000);
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
-                                            }
-                                            progressBarbHandler.post(new Runnable() {
-                                                public void run() {
-                                                    progressBar.setProgress(progressBarStatus);
-                                                }
-                                            });
-                                        }
-                                        if (progressBarStatus >= 100) {
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                e.printStackTrace();
-                                            }
-                                            progressBar.dismiss();
-                                        }
-                                    }
-                                }).start();
-                                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                                //Toast.makeText(LoginActivity.this,"Sign in Successed",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        else {
-                            Log.d(TAG,"Error getting docmnet", task.getException());
 
-                        }
-                    }
-                });
-            }
+                /*if (username.isEmpty()){
+                    inputLayoutName.setError("eneter your username.");
+                    requestFocus(edUsername);
+
+                }
+                if (pass.isEmpty()){
+                    inputLayoutPass.setError("enter your password.");
+                }
+                if (username.isEmpty() && pass.isEmpty()){
+                    inputLayoutName.setError("eneter your username.");
+                    inputLayoutPass.setError("enter your password.");
+                }else{*/
+                proccessLogin();
+
+                }
+
         });
         txtSigup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CreateNewAccountActivity.class );
                 startActivity(intent);
-                finish();
             }
         });
         btnFacebookLogin.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +119,118 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                 signUpWithFacebook();
             }
         });
+    }
+
+    private void requestFocus(EditText edUsername) {
+        if (edUsername.requestFocus()){
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+    public class MyTextWatcher implements TextWatcher{
+
+        private View view;
+        private MyTextWatcher(View view){
+            this.view = view;
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            switch (view.getId()){
+                case R.id.edUsername:
+                    validateName();
+                    break;
+                case R.id.edPassword:
+                    validatePass();
+                    break;
+            }
+        }
+    }
+
+    private boolean validateName() {
+        String username = edUsername.getText().toString().trim();
+        if (username.isEmpty() || isValidataEmail(username)){
+            inputLayoutName.setError("example: xxx.@gmail.com");
+            requestFocus(edUsername);
+            return false;
+        }else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+        return true;
+    }
+    private boolean validatePass(){
+        String pass = edPassword.getText().toString().trim();
+        if (pass.isEmpty()){
+            inputLayoutPass.setError("input your password");
+            requestFocus(edPassword);
+            return false;
+        }else {
+            inputLayoutPass.setErrorEnabled(false);
+        }
+        return true;
+    }
+    private static boolean isValidataEmail(String email){
+        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void proccessLogin(){
+        if (!validateName()){
+            return;
+        }
+        if (!validatePass()){
+            return;
+        }
+        if (!validateName()||!validatePass()){
+            return;
+        }
+        else {
+            loadingProgress();
+            mFirestore.collection("userAccount")
+                    .whereEqualTo("email",edUsername.getText().toString())
+                    .whereEqualTo("password",edPassword.getText().toString())
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        if(task.getResult().getDocuments().size()==0){
+                            Toast.makeText(LoginActivity.this,"Sign in Failedd",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            edPassword.setText("");
+                            edUsername.setText("");
+
+                            // Save date from firestore
+                            DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
+                            UserAccount account = documentSnapshot.toObject(UserAccount.class);
+                            account.setId(documentSnapshot.getId());
+
+                            MySingletonClass.getInstance().setAccount(account);
+                            // save profile in shared reference
+                            saveProfileInSharedPref(account);
+                            Log.d("ebus", "data " + account.getProfileImage() + account.getName());
+
+                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            startActivity(intent);
+
+                            finish();
+                        }
+                        progressBar.dismiss();
+                    }
+                    else {
+                        Log.d(TAG,"Error getting docmnet", task.getException());
+
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -190,6 +276,37 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
     @Override
     public void onSuccess(com.facebook.login.LoginResult loginResult) {
+        final AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        final GraphRequest request = GraphRequest.newMeRequest(
+                accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+
+                            String id = object.getString("id");
+                            String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
+                            Log.d("ebus", "Profile picture" + profileUrl);
+                            String name = object.getString("name");
+
+                            UserAccount account = new UserAccount();
+                            account.setId(id);
+                            account.setProfileImage(profileUrl);
+                            account.setUsername(name);
+
+                            saveProfileInSharedPref(account);
+
+                        } catch (JSONException e) {
+                            Log.d("ebus", "Load profile error" + e.getMessage());
+                        }
+                    }
+                });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name");
+        request.setParameters(parameters);
+        request.executeAsync();
+
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
@@ -206,30 +323,12 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         Log.d("ckcc", "Facebook login error: " + error.getMessage());
     }
 
-    public void ProgressDialog(){
-
+    public void loadingProgress(){
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Sign in...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.show();
 
     }
 
-    public int downloadFile() {
-        while (fileSize <= 1000000) {
-            fileSize++;
-            if (fileSize == 100000) {
-                return 10;
-            }else if (fileSize == 200000) {
-                return 20;
-            }else if (fileSize == 300000) {
-                return 30;
-            }else if (fileSize == 400000) {
-                return 40;
-            }else if (fileSize == 500000) {
-                return 50;
-            }else if (fileSize == 700000) {
-                return 70;
-            }else if (fileSize == 800000) {
-                return 80;
-            }
-        }
-        return 100;
-    }
 }

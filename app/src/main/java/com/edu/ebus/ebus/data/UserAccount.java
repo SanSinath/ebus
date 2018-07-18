@@ -2,18 +2,18 @@ package com.edu.ebus.ebus.data;
 
 public class UserAccount {
 
-    private int id;
+    private String id;
     private String firstName;
     private String lastName;
     private String username;
     private String password;
     private String profileImage;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String  id) {
         this.id = id;
     }
 
@@ -60,4 +60,5 @@ public class UserAccount {
     public String getName(){
         return firstName + " " + lastName;
     }
+
 }
