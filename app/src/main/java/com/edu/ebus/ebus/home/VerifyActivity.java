@@ -23,7 +23,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 /**
  * Created by USER on 7/12/2018.
@@ -34,9 +37,12 @@ public class VerifyActivity extends AppCompatActivity {
     private TextView dispay_number;
     private Button bt_sumit;
     private String codesent;
+    private String nunber_ticket;
+    private String set_money;
     private String phonedata;
     private EditText entercode;
     private TextView resentcode;
+    private TextView wrongnumber;
     FirebaseAuth mAuth;
 
 
@@ -49,23 +55,32 @@ public class VerifyActivity extends AppCompatActivity {
         bt_sumit = findViewById(R.id.btn_Submit);
         entercode = findViewById(R.id.txt_enter_code_verify);
         resentcode = findViewById(R.id.txt_redent_code);
-
+        wrongnumber = findViewById (R.id.txt_wrong_number);
 
         Intent intent = getIntent();
         phonedata = intent.getStringExtra("number_phone");
         codesent = intent.getStringExtra("codesent");
+        nunber_ticket = intent.getStringExtra ("number_ticket");
+        set_money = intent.getStringExtra ("set_money");
 
-
-        Toast.makeText(getApplication(), "Intent data phone" + phonedata, Toast.LENGTH_LONG).show();
-        Toast.makeText(getApplication(), "Intent data code sent" + codesent, Toast.LENGTH_LONG).show();
-        // Toast.makeText (getApplication (),"Intent data code enter"+code,Toast.LENGTH_LONG).show ();
-        dispay_number.setText(phonedata);
+        dispay_number.setText("0"+phonedata);
         mAuth = FirebaseAuth.getInstance();
+
+        Log.i ("verify","n_t"+nunber_ticket+"   "+"s_m"+set_money+"  "+"p_d"+phonedata);
 
         resentcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sentverificationcode();
+                Toast.makeText (getApplication (),"We've sent other code to your phone.",Toast.LENGTH_LONG).show ();
+            }
+        });
+        wrongnumber.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (getApplication (), SetTicketActivity.class);
+                startActivity (intent);
+                finish ();
             }
         });
 
@@ -74,8 +89,13 @@ public class VerifyActivity extends AppCompatActivity {
     public  void onsubmit(View view){
         Log.i("verify", "onsubmit" + codesent);
         String code = entercode.getText().toString();
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codesent, code);
-        signInWithPhoneAuthCredential(credential);
+        if(code.isEmpty ()) {
+            Toast.makeText (getApplication (),"Please Enter Code",Toast.LENGTH_LONG).show ();
+        }
+        else {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential (codesent, code);
+            signInWithPhoneAuthCredential (credential);
+        }
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
@@ -90,9 +110,7 @@ public class VerifyActivity extends AppCompatActivity {
 
                         } else {
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-
-                            }
+                            Toast.makeText (getApplication (),"Code is wrong",Toast.LENGTH_LONG).show ();
                         }
                     }
                 });
@@ -101,14 +119,9 @@ public class VerifyActivity extends AppCompatActivity {
     }
 
     private void sentverificationcode(){
-
-
-        Toast.makeText (getApplication (),"phoneumer"+phonedata,Toast.LENGTH_LONG).show ();
-
-        Toast.makeText (getApplication (),"callProvider",Toast.LENGTH_LONG).show ();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+855"+phonedata,        // Phone number to verify
-                30,                 // Timeout duration
+                60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
@@ -117,30 +130,19 @@ public class VerifyActivity extends AppCompatActivity {
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks () {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-            Toast.makeText(getApplication(), "PhoneAuthcteadentail", Toast.LENGTH_LONG).show();
-            Log.i("verify", "verify success" + phoneAuthCredential);
-
-            Intent intent = new Intent(getApplication(), VerifyActivity.class);
-            intent.putExtra("number_phone", "0" + phonedata.toString());
-            intent.putExtra("codesent", codesent);
-            Toast.makeText(getApplication(), "phonnumber" + phonedata.toString() + "codesent" + codesent, Toast.LENGTH_LONG).show();
-            startActivity(intent);
+            Log.i("verify","verify success"+phoneAuthCredential);
         }
-
-        @Override
-        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            codesent = s;
-            Log.i("verify", "code sent " + s + "     " + "verify Oncodesent" + forceResendingToken);
-        }
-
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(getApplication(), "PhoneAuthcteaFaild", Toast.LENGTH_LONG).show();
-            Log.i("verify", "verify fail" + e);
-
+            Toast.makeText (getApplication (),"PhoneAuthcteaFaild",Toast.LENGTH_LONG).show ();
+            Log.i("verify","verify fail"+e);
         }
-
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent (s, forceResendingToken);
+            codesent = s;
+            Log.i("verify","code sent "+s+"     "+"verify Oncodesent"+forceResendingToken);
+        }
     };
 
 }
