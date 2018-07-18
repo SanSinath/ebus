@@ -28,14 +28,16 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/imgProfile"
                     android:layout_width="70dp"
+                    app:placeholderImageScaleType="centerCrop"
                     app:placeholderImage="@drawable/ic_user"
-                    app:roundAsCircle="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_height="70dp" />
                 <TextView
                     android:id="@+id/txtFullname"
                     android:layout_width="wrap_content"
                     android:layout_below="@id/imgProfile"
                     android:text="@string/full_name"
+                    android:layout_centerHorizontal="true"
                     android:textColor="@android:color/white"
                     android:textSize="25sp"
                     android:layout_height="wrap_content" />

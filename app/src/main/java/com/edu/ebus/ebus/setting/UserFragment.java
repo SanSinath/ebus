@@ -63,6 +63,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
         setHasOptionsMenu(true);
+
         return view;
     }
 

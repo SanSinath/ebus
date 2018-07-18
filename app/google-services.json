@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "558909683848-3jjidqsq2ckb5rb161coj0vlr9seo36n.apps.googleusercontent.com",
+          "client_id": "558909683848-sajargq1f6ifv5k3i1mgn555cfd98qt3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.edu.ebus.ebus",
-            "certificate_hash": "f3ed3f5b189f3f2661ade1c93a5464a8d8df34a2"
+            "certificate_hash": "d46e72c463bce4e4f0cd6435f62c6b804f3e49d7"
           }
         },
         {
@@ -31,11 +31,11 @@
           }
         },
         {
-          "client_id": "558909683848-sajargq1f6ifv5k3i1mgn555cfd98qt3.apps.googleusercontent.com",
+          "client_id": "558909683848-0pnrlv8vpir1q3iafrc3ulq8sqv9s816.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.edu.ebus.ebus",
-            "certificate_hash": "d46e72c463bce4e4f0cd6435f62c6b804f3e49d7"
+            "certificate_hash": "f3ed3f5b189f3f2661ade1c93a5464a8d8df34a2"
           }
         },
         {

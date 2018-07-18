@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.UserAccount;
 import com.edu.ebus.ebus.events.EventsFragment;
 import com.edu.ebus.ebus.recent.RecentlyFragment;
@@ -21,8 +22,6 @@ import com.edu.ebus.ebus.setting.UserFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
-
-    private UserAccount account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +35,8 @@ public class HomeActivity extends AppCompatActivity {
         HomeFragment homeFragment = new HomeFragment();
         replaceFragment(homeFragment);
         // Bottom Navigation handler click listener
+        final UserAccount account = MySingletonClass.getInstance().getAccount();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,7 +64,9 @@ public class HomeActivity extends AppCompatActivity {
                         replaceFragment(stationFragment);
                         break;
                     case R.id.muser:
-                        getSupportActionBar().setTitle(getResources().getString(R.string.profile));
+                        if (account != null){
+                            getSupportActionBar().setTitle(account.getUsername());
+                        }
                         UserFragment userFragment = new UserFragment();
                         replaceFragment(userFragment);
                         break;

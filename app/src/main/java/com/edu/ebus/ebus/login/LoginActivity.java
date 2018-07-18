@@ -89,21 +89,9 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             @Override
             public void onClick(final View v) {
 
-                /*if (username.isEmpty()){
-                    inputLayoutName.setError("eneter your username.");
-                    requestFocus(edUsername);
-
-                }
-                if (pass.isEmpty()){
-                    inputLayoutPass.setError("enter your password.");
-                }
-                if (username.isEmpty() && pass.isEmpty()){
-                    inputLayoutName.setError("eneter your username.");
-                    inputLayoutPass.setError("enter your password.");
-                }else{*/
                 proccessLogin();
 
-                }
+            }
 
         });
         txtSigup.setOnClickListener(new View.OnClickListener() {
@@ -156,8 +144,8 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
 
     private boolean validateName() {
-        String username = edUsername.getText().toString().trim();
-        if (username.isEmpty() || isValidataEmail(username)){
+        String username = edUsername.getText().toString();
+        if (username.isEmpty()){
             inputLayoutName.setError("example: xxx.@gmail.com");
             requestFocus(edUsername);
             return false;
@@ -167,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         return true;
     }
     private boolean validatePass(){
-        String pass = edPassword.getText().toString().trim();
+        String pass = edPassword.getText().toString();
         if (pass.isEmpty()){
             inputLayoutPass.setError("input your password");
             requestFocus(edPassword);
@@ -177,9 +165,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         }
         return true;
     }
-    private static boolean isValidataEmail(String email){
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
 
     private void proccessLogin(){
         if (!validateName()){
@@ -187,8 +172,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         }
         if (!validatePass()){
             return;
-        }
-        if (!validateName()||!validatePass()){
+        }if (!validateName()&&!validatePass()){
             return;
         }
         else {

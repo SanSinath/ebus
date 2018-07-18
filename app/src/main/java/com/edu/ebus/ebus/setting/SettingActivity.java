@@ -25,6 +25,7 @@ import java.util.Locale;
 
 public class SettingActivity extends AppCompatActivity{
 
+    private int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,17 +77,18 @@ public class SettingActivity extends AppCompatActivity{
     }
 
     private void changeLanguage() {
+
         final String[] listItems = {"English(Defualt)","Khmer(ខ្មែរ)"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose a language").setCancelable(true);
-        builder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(listItems,-1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0){
                     setLocale("en");
                     recreate();
                 }
-                if (which == 1){
+                if(which == 1){
                     setLocale("km");
                     recreate();
                 }

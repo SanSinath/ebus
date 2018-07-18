@@ -60,7 +60,7 @@ public class SetTicketActivity extends AppCompatActivity {
 //            number_phone.requestFocus ();
 //            return;
 //        }
-        Toast.makeText (getApplication (),"callProvider",Toast.LENGTH_LONG).show ();
+        Toast.makeText (getApplicationContext (),"callProvider",Toast.LENGTH_LONG).show ();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+855"+phoneNumber,        // Phone number to verify
                 30,                 // Timeout duration
@@ -96,8 +96,6 @@ public class SetTicketActivity extends AppCompatActivity {
 
         }
 
-
     };
 
 }
-
