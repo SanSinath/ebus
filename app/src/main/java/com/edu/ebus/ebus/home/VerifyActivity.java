@@ -13,8 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.UserAccount;
 import com.edu.ebus.ebus.recent.RecntlyActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
@@ -22,7 +25,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -44,6 +51,7 @@ public class VerifyActivity extends AppCompatActivity {
     private TextView resentcode;
     private TextView wrongnumber;
     FirebaseAuth mAuth;
+    private FirebaseFirestore mFireStore;
 
 
     @Override
@@ -95,7 +103,45 @@ public class VerifyActivity extends AppCompatActivity {
         else {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential (codesent, code);
             signInWithPhoneAuthCredential (credential);
+            pushtofirebase();
         }
+    }
+    public void pushtofirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        mFireStore = FirebaseFirestore.getInstance();
+        ///  get from sharing reference from useraccount data
+
+//        UserAccount account = new UserAccount();
+//        username = account.getUsername ().toString ();
+
+
+        Map<String, String> userMap= new HashMap<>();
+        //userMap.put("username",username);
+        userMap.put("namecompany","Soriya");
+        userMap.put("phonecompany","023 23 23 23");
+        userMap.put("idbus","ID234545");
+        userMap.put("subtotal","45$");
+        userMap.put("numberticket",nunber_ticket);
+        userMap.put("money",set_money);
+        userMap.put("scoce","Phnom Penh");
+        userMap.put("destination","Takeo");
+        userMap.put ("date","5/Jul/2018");
+        userMap.put("time","08:30AM");
+
+
+        mFireStore.collection("userTicket").add(userMap).addOnSuccessListener (new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.i ("verify","creat booking success");
+            }
+        }).addOnFailureListener (new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                String error = e.getMessage();
+                Toast.makeText(VerifyActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
+                Log.i ("verify","creat booking erorr");
+            }
+        });
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {

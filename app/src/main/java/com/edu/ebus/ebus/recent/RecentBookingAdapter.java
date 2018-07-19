@@ -11,9 +11,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.Booking;
+import com.edu.ebus.ebus.data.Events;
 import com.edu.ebus.ebus.home.TicketDetialActivity;
+import com.google.gson.Gson;
 
 public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdapter.RecentViewHolder>{
+
+    private Booking[] bookings;
+    public RecentBookingAdapter() {
+        bookings = new Booking[0];
+    }
+
+    public void setBooking(Booking[] events) {
+        this.bookings = events;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -26,22 +39,28 @@ public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdap
 
     @Override
     public void onBindViewHolder(@NonNull RecentViewHolder holder, int position) {
+        Booking booking = bookings [position];
+        holder.txtName.setText(booking.getUsername());
+        holder.txtSource.setText(booking.getScoce());
+        holder.txtDest.setText(booking.getDestination());
+        holder.txtDates.setText(booking.getDate());
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return bookings.length;
     }
 
     class RecentViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtName,txtDest,txtDates;
+        private TextView txtName,txtSource,txtDest,txtDates;
         private ImageView imageView;
 
         public RecentViewHolder(View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_UserName);
-            txtDest = itemView.findViewById(R.id.txtDes);
+            txtSource = itemView.findViewById(R.id.txt_source);
+            txtDest = itemView.findViewById(R.id.txt_destination_recent);
             txtDates = itemView.findViewById(R.id.txtDate);
 
 
@@ -49,7 +68,13 @@ public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdap
                 @Override
                 public void onClick(View v) {
                     Context c = v.getContext();
-                    Intent intent = new Intent(v.getContext(), TicketDetialActivity.class);
+                    Intent intent = new Intent(c, TicketDetialActivity.class);
+
+                    int index = getAdapterPosition();
+                    Booking i = bookings[index];
+                    Gson gson = new Gson();
+                    String bookingJson = gson.toJson(i);
+                    intent.putExtra("bookings", bookingJson);
                     c.startActivity(intent);
                 }
             });
