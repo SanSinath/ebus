@@ -3,12 +3,20 @@ package com.edu.ebus.ebus.data;
 public class UserAccount {
 
     private String id;
+    private String fbId;
     private String firstName;
     private String lastName;
     private String username;
     private String password;
+    private String phone;
     private String profileImage;
 
+    public String getFbId() {
+        return fbId;
+    }
+    public void setFbId(String fbId){
+        this.fbId = fbId;
+    }
     public String getId() {
         return id;
     }
@@ -55,6 +63,14 @@ public class UserAccount {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public String getName(){

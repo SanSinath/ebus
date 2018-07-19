@@ -53,7 +53,7 @@
     <string name="number">Number</string>
 
     <string name="welcome_to_ebus">Welcome to eBus</string>
-    <string name="gmail_or_phone">Gmail or Phone</string>
+    <string name="gmail_or_phone">Email</string>
     <string name="title_of_traveling">title of traveling</string>
     <string name="date_of_event">Date of event</string>
     <string name="time_start">time start</string>
@@ -61,7 +61,7 @@
     <string name="booking">Booking</string>
     <string name="price">price</string>
     <string name="details">Details</string>
-    <string name="phone_number_event">Phone_number_event</string>
+    <string name="phone_number_event">Phone number event</string>
     <string name="version_1_0">Version 1.0</string>
     <string name="developer_by">Developed by</string>
     <string name="san_sinath">San Sinath</string>
@@ -81,5 +81,7 @@
     <string name="search_hint">Search name ,destination ,price</string>
     <string name="todo">TODO</string>
     <string name="send_to">Send to</string>
+    <string name="more">More</string>
+    <string name="notnow">Not now</string>
 
 </resources>

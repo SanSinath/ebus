@@ -13,15 +13,15 @@
     <string name="username">ឈ្មោះអ្នកប្រើ</string>
     <string name="password">លេខសំងាត់</string>
     <string name="sign_in">ចូលប្រើប្រាស់</string>
-    <string name="sign_up">ចុះឈ្មោះថ្</string>
+    <string name="sign_up">ចុះឈ្មោះថ្មី</string>
     <string name="don_t_have_account">មិនទាន់មានគណនី?</string>
     <string name="event">មាតិការ</string>
     <string name="station">ស្ថានីយរថយន្ត</string>
     <string name="profile">អំពីអ្នក</string>
     <string name="account">គណនី</string>
-    <string name="languages">ភាស</string>
+    <string name="languages">ភាសា</string>
     <string name="feedback">បញ្ចេញមតិ</string>
-    <string name="helps">ជំនូយ</string>
+    <string name="helps">ជំនួយ</string>
     <string name="about">អំពីកម្មវិធី</string>
     <string name="setting">ការកំណត់</string>
     <string name="logout">ចេញពីគណនី</string>
@@ -50,7 +50,7 @@
     <string name="hour">ម៉ោង</string>
 
     <string name="ticket">សំបុត្រ</string>
-    <string name="number">ចំនូនសំបុត្រ</string>
+    <string name="number">ចំនួនសំបុត្រ</string>
 
     <string name="welcome_to_ebus">Welcome to eBus</string>
     <string name="gmail_or_phone">អីុម៉ែល រឺ លេខទូរសព្ទ័</string>
@@ -68,7 +68,7 @@
     <string name="ev_navin">អីុវ ណាវិន</string>
     <string name="ly_chaovirun">លី ចៅវិរុណ</string>
     <string name="contact_us">ទំនាក់ទំនង</string>
-    <string name="update">កែរប្ររូចរាល់</string>
+    <string name="update">កែរប្ររួចរាល់</string>
     <string name="cancel">ចាកចេញ</string>
     <string name="company">ក្រហ៊ុន</string>
     <string name="time">ម៉ោង</string>
@@ -80,5 +80,7 @@
 
     <string name="search_hint">ស្វែងរក ឈ្មោះ, គោលដៅ,​ តម្លៃសំបុត្រ</string>
     <string name="todo">TODO</string>
+    <string name="more">ផ្សេងទៀត</string>
+    <string name="notnow">មិនទាន់ទេ</string>
 
 </resources>

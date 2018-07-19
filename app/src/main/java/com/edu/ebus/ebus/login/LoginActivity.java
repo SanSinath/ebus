@@ -274,7 +274,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                             String name = object.getString("name");
 
                             UserAccount account = new UserAccount();
-                            account.setId(id);
+                            account.setFbId(id);
                             account.setProfileImage(profileUrl);
                             account.setUsername(name);
 

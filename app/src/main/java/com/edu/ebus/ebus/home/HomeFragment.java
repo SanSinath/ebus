@@ -28,17 +28,16 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class HomeFragment extends android.app.Fragment {
+
     private EditText mdeplay;
     private DatePickerDialog.OnDateSetListener mderelistener;
 
-    private int TEMP;
     private EditText date;
     private Spinner spSrc,spDes;
     private String source;
     private String destination;
     private String dateset;
-//    private EditText mdeplay;
-//    private DatePickerDialog.OnDateSetListener mderelistener;
+
 
     @Nullable
     @Override
@@ -49,7 +48,7 @@ public class HomeFragment extends android.app.Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        final EditText edSrc,edDes;
+
         ImageView imSwap;
         Button btnSearchTicket;
         super.onViewCreated(view, savedInstanceState);
@@ -133,12 +132,6 @@ public class HomeFragment extends android.app.Fragment {
             @Override
             public void onClick(View v) {
 
-                if (spSrc.getAdapter().equals(spSrc.getSelectedItemPosition())){
-                    spSrc.setAdapter(spDes.getAdapter());
-                    spDes.setAdapter(spSrc.getAdapter());
-                    spSrc.setAdapter(spSrc.getAdapter());
-                    spDes.setAdapter(spDes.getAdapter());
-                }
             }
         });
         btnSearchTicket = view.findViewById(R.id.btn_booking);

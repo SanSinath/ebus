@@ -37,8 +37,7 @@
         <activity android:name=".home.SetTicketActivity" />
         <activity android:name=".home.VerifyActivity" />
         <activity
-            android:name=".setting.AboutActivity"
-            android:configChanges="locale" />
+            android:name=".setting.AboutActivity" />
     </application>
 
 </manifest>

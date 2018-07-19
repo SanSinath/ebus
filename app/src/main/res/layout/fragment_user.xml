@@ -28,10 +28,11 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/imgProfile"
                     android:layout_width="70dp"
-                    app:placeholderImageScaleType="centerCrop"
+                    app:placeholderImageScaleType="fitXY"
                     app:placeholderImage="@drawable/ic_user"
                     android:layout_centerHorizontal="true"
                     android:layout_height="70dp" />
+
                 <TextView
                     android:id="@+id/txtFullname"
                     android:layout_width="wrap_content"

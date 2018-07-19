@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -54,7 +55,7 @@ import java.io.IOException;
 
 public class UserFragment extends android.app.Fragment implements View.OnClickListener{
 
-    private String userId;
+    private String userId,fID;
     private SimpleDraweeView imgProfile;
     private TextView txt_name;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -63,7 +64,6 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
         setHasOptionsMenu(true);
-
         return view;
     }
 
@@ -124,10 +124,10 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
             Log.d("ebus" ,"name : " + account.getUsername() + "Profile images :" + account.getProfileImage());
         }else {
-            if (userId == null){
                 // load profile from facebook
                 loadProfileInfoFromFacebook();
-            }else {
+
+            if (userId != null) {
                 // load profile from firestore
                 loadProfileInfoFromFirestore();
             }
@@ -197,7 +197,6 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
     private void loadProfileImageFromFirestore(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
-
         StorageReference profileRef = storage.getReference().child("images").child("profiles").child(userId + ".jpg");
         profileRef.getBytes(10240000).addOnCompleteListener(new OnCompleteListener<byte[]>(){
             @Override
@@ -206,6 +205,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                     byte[] bytes = task.getResult();
                     Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     imgProfile.setImageBitmap(bitmap);
+
                 } else {
                     //Toast.makeText(getActivity(), "Load profile image fail.", Toast.LENGTH_LONG).show();
                     Log.d("ckcc", "Load profile image fail: " + task.getException());
