@@ -67,7 +67,7 @@
     <string name="san_sinath">San Sinath</string>
     <string name="ev_navin">Ev Navin</string>
     <string name="ly_chaovirun">Ly Chaovirun</string>
-    <string name="contact_us">Contact us</string>
+    <string name="contact_us">Contact us :</string>
     <string name="update">Update</string>
     <string name="cancel">Cancel</string>
     <string name="company">Company</string>
@@ -83,5 +83,11 @@
     <string name="send_to">Send to</string>
     <string name="more">More</string>
     <string name="notnow">Not now</string>
+    <string name="set_source">Set source</string>
+    <string name="set_destination">Set Destination</string>
+    <string name="bus_ticket">Bus Ticket</string>
+    <string name="hide">Hide</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Username or Email</string>
 
 </resources>

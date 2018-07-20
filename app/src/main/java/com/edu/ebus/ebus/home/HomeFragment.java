@@ -1,9 +1,13 @@
 package com.edu.ebus.ebus.home;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,12 +30,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
-public class HomeFragment extends android.app.Fragment {
+public class HomeFragment extends Fragment {
 
-    private EditText mdeplay;
     private DatePickerDialog.OnDateSetListener mderelistener;
-
+    private ProgressDialog progressBar;
     private EditText date;
     private Spinner spSrc,spDes;
     private String source;
@@ -42,23 +46,22 @@ public class HomeFragment extends android.app.Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
-        ImageView imSwap;
         Button btnSearchTicket;
         super.onViewCreated(view, savedInstanceState);
         spSrc = view.findViewById(R.id.spSrc);
         spDes = view.findViewById(R.id.spDes);
         date = view.findViewById (R.id.txt_date);
+        btnSearchTicket = view.findViewById(R.id.btn_booking);
 
         //set calendar
-        mdeplay = view.findViewById (R.id.txt_date);
-        mdeplay.setOnClickListener (new View.OnClickListener () {
+
+        date.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance ();
@@ -71,32 +74,31 @@ public class HomeFragment extends android.app.Fragment {
                         android.R.style.Theme_Holo_Dialog_MinWidth,
                         mderelistener,
                         year,month,day);
-                dialog.getWindow ().setBackgroundDrawable (new ColorDrawable (Color.TRANSPARENT));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable (new ColorDrawable (Color.TRANSPARENT));
+                }
                 dialog.show ();
 
             }
         });
         mderelistener = new DatePickerDialog.OnDateSetListener () {
+            @SuppressLint("SimpleDateFormat")
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month=month+1;
                 dateset = year+"-"+month +"-"+day;
-                SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = null;
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+                Date dator = null;
                 try {
-                    date = dt.parse (dateset);
-                    Toast.makeText (getActivity (),"Text cheng",Toast.LENGTH_LONG);
+                    dator = dt.parse (dateset);
                     dt = new SimpleDateFormat("dd/MMM/yyyy");
-                    mdeplay.setText (dt.format (date));
+                    date.setText (dt.format (dator));
                 } catch (ParseException e) {
                     e.printStackTrace ();
                 }
             }
         };
 
-
-
-        //date.getText ();
 
         final ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.place, android.R.layout.simple_spinner_dropdown_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -126,27 +128,27 @@ public class HomeFragment extends android.app.Fragment {
 
             }
         });
-        // Swap value both Spinner
-        imSwap = view.findViewById(R.id.imgSwap);
-        imSwap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        btnSearchTicket = view.findViewById(R.id.btn_booking);
         btnSearchTicket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingProgress();
                //put data to new activity
                 Intent intent = new Intent (getActivity (), BusTicketActivity.class);
                 intent.putExtra ("data", date.getText ().toString ());
                 intent.putExtra ("source",source);
                 intent.putExtra ("destination",destination);
                startActivity (intent);
+               progressBar.dismiss();
             }
         });
 
 
+    }
+
+    private void loadingProgress() {
+        progressBar = new ProgressDialog(getActivity());
+        progressBar.setMessage("Ticket searching...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressBar.show();
     }
 }

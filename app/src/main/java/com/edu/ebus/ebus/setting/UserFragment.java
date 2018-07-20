@@ -1,16 +1,22 @@
 package com.edu.ebus.ebus.setting;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.NavigationView;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,28 +24,25 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.UserAccount;
-import com.edu.ebus.ebus.login.CreateNewAccountActivity;
 import com.edu.ebus.ebus.login.LoginActivity;
-import com.edu.ebus.ebus.login.LoginResult;
 import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -51,14 +54,19 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Locale;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
-public class UserFragment extends android.app.Fragment implements View.OnClickListener{
+public class UserFragment extends Fragment implements View.OnClickListener{
 
-    private String userId,fID;
+    private UserAccount account;
+    private String userId;
     private SimpleDraweeView imgProfile;
-    private TextView txt_name;
+    private TextView txt_name,textEmail,textPhone;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,28 +89,41 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.usr_setting :
+        if (item.getItemId() == R.id.usr_edit){
+            startActivity(new Intent(getActivity(),SettingActivity.class));
+        }
+        if (item.getItemId() == R.id.usr_logout){
 
-                startActivity(new Intent(getActivity(), SettingActivity.class));
-
-                break;
-            case R.id.usr_feedback:
+            if (account.getLoginMethod() == 1) {
                 // Remove current user
                 MySingletonClass.getInstance().setAccount(null);
-                SharedPreferences preferences = getActivity().getSharedPreferences("ebus", Context.MODE_PRIVATE);
+                SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.remove("user");
                 editor.apply();
 
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                getActivity().finish();
+                Log.d("ebus", "Log out with firestore");
+            }else if (account.getLoginMethod() == 2) {
+                // Remove current user
+                MySingletonClass.getInstance().setAccount(null);
+                SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.remove("user");
+                editor.apply();
                 // Logout profile
                 LoginManager.getInstance().logOut();
+                AccessToken.setCurrentAccessToken(null);
                 // Move to LoginActivity
-                Intent intent = new Intent(getActivity(),LoginActivity.class);
-                startActivity(intent);
+                Intent fLogout = new Intent(getActivity(), LoginActivity.class);
+                startActivity(fLogout);
                 getActivity().finish();
+                Log.d("ebus", "Log out with Facebook");
+            }
 
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -112,31 +133,62 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
 
         imgProfile = view.findViewById(R.id.imgProfile);
         txt_name = view.findViewById(R.id.txtFullname);
+        textEmail = view.findViewById(R.id.tvEmail);
+        textPhone = view.findViewById(R.id.tvPhone);
+        LinearLayout lytEmail = view.findViewById(R.id.lytEmail);
+
 
         imgProfile.setOnClickListener(UserFragment.this);
 
-        UserAccount account = MySingletonClass.getInstance().getAccount();
+        account = MySingletonClass.getInstance().getAccount();
+
+        Log.d("ebus","This is Login Method : " + account.getLoginMethod());
 
         if (account != null){
             userId = account.getId();
-            imgProfile.setImageURI(account.getProfileImage());
-            txt_name.setText(account.getUsername());
+                imgProfile.setImageURI(account.getProfileImage());
+                txt_name.setText(account.getUsername());
+                textEmail.setText(account.getEmail());
+                textPhone.setText(account.getPhone());
 
-            Log.d("ebus" ,"name : " + account.getUsername() + "Profile images :" + account.getProfileImage());
+            Log.d("ebus" ,"name : " + account.getUsername() + "Profile images :" + account.getProfileImage()
+                    + "Email : " + account.getEmail() + account.getPhone());
         }else {
-                // load profile from facebook
-                loadProfileInfoFromFacebook();
 
-            if (userId != null) {
+            if (userId != null && account.getLoginMethod() == 2){
+                loadProfileInfoFromFacebook();
+            }
+            else if (userId != null && account.getLoginMethod() == 1) {
                 // load profile from firestore
                 loadProfileInfoFromFirestore();
             }
         }
-        // load profile image from firestore
         loadProfileImageFromFirestore();
 
-    }
+        NavigationView settingNavigation = view.findViewById(R.id.setting_menu);
+        settingNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
 
+                    case R.id.language:
+                        changeLanguage();
+                        // Set local to activity
+                        loadLocale();
+                        break;
+                    case R.id.feedbacks:
+                        openGmailFeedBack();
+                        break;
+                    case R.id.abouts:
+                        Intent intent = new Intent(getActivity(), AboutActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+                return false;
+            }
+        });
+
+    }
     private void loadProfileInfoFromFirestore() {
         firestore.collection("userAccount").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -148,8 +200,9 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                     assert account != null;
                     imgProfile.setImageURI(account.getProfileImage());
                     txt_name.setText(account.getUsername());
+                    textEmail.setText(account.getEmail());
+                    textPhone.setText(account.getPhone());
 
-                    MySingletonClass.getInstance().setAccount(account);
                 }
             }
         });
@@ -219,6 +272,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
         final GraphRequest request = GraphRequest.newMeRequest(
                 accessToken,
                 new GraphRequest.GraphJSONObjectCallback() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
@@ -227,11 +281,14 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                             String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
                             Log.d("ebus", "Profile picture" + profileUrl);
                             String name = object.getString("name");
+                            String email = object.getString("email");
 
                             imgProfile.setImageURI(profileUrl);
                             txt_name.setText(name);
+                            textEmail.setText(email);
+                            textPhone.setText("empty");
 
-
+                            Log.d("ebus","Facebook data : " + imgProfile + textPhone + textEmail + txt_name);
                         } catch (JSONException e) {
                             Log.d("ebus", "Load profile error" + e.getMessage());
                         }
@@ -239,7 +296,7 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
                 });
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name");
+        parameters.putString("fields", "id,name,email");
         request.setParameters(parameters);
         request.executeAsync();
     }
@@ -256,4 +313,83 @@ public class UserFragment extends android.app.Fragment implements View.OnClickLi
         }
 
     }
+
+    private void openGmailFeedBack() {
+        Intent gmailFeedback = new Intent(Intent.ACTION_SEND);
+        gmailFeedback.setType("text/email");
+        gmailFeedback.putExtra(Intent.EXTRA_EMAIL, new String[]{"ebusteam.dev@gmail.com"});
+        gmailFeedback.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+        gmailFeedback.putExtra(Intent.EXTRA_TEXT,"Hi");
+        startActivity(Intent.createChooser(gmailFeedback, "Sending feedback"));
+    }
+    private void changeLanguage() {
+        final String[] listItems = {"English(Defualt)","Khmer(ខ្មែរ)"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose a language").setCancelable(true);
+        builder.setSingleChoiceItems(listItems, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    setLocale("en");
+                    getActivity().recreate();
+                }
+                if (which == 1){
+                    setLocale("km");
+                    getActivity().recreate();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Configuration config = new Configuration();
+        Resources resources = getActivity().getBaseContext().getResources();
+
+        if (lang.equals("en")){
+            Locale.setDefault(locale);
+            config.locale = locale;
+        }else if (lang.equals("km")){
+            Locale.setDefault(locale);
+            config.locale = locale;
+        }
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        // Save data to Shared Reference
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("setting", MODE_PRIVATE).edit();
+        editor.putString("My_lang", lang);
+        editor.apply();
+
+    }
+    private void loadLocale(){
+        SharedPreferences pref = getActivity().getSharedPreferences("setting", MODE_PRIVATE);
+        String language = pref.getString("My_lang","");
+        setLocale(language);
+    }
+    private void showUpdater() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        builder.setView(inflater.inflate(R.layout.update_account, null))
+                // Add action buttons
+                .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Update data here
+                        updateUser();
+                        Toast.makeText(getActivity(),"updated",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+    private void updateUser() {
+
+
+
+    }
+
 }

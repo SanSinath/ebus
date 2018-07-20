@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.station.StationFragmentAdapter;
 import com.edu.ebus.ebus.data.Ticket;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.com.edu.ebus.ebus.activity.MainActivity;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.UserAccount;
 import com.edu.ebus.ebus.home.HomeActivity;
@@ -28,9 +29,11 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,8 +56,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     private CallbackManager callbackManager;
     private FirebaseFirestore mFirestore;
     private String TAG="eBus";
-    private Button btnSignin;
-    private TextView txtSigup;
     private EditText edUsername, edPassword;
     private TextInputLayout inputLayoutName, inputLayoutPass;
     private ProgressDialog progressBar;
@@ -63,10 +64,10 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        edUsername = (EditText) findViewById(R.id.edUsername);
-        edPassword = (EditText) findViewById(R.id.edPassword);
-        btnSignin =(Button) findViewById(R.id.btnSignIn);
-        txtSigup = (TextView) findViewById(R.id.txt_signup);
+        edUsername = findViewById(R.id.edUsername);
+        edPassword = findViewById(R.id.edPassword);
+        Button btnSignin = findViewById(R.id.btnSignIn);
+        TextView txtSigup = findViewById(R.id.txt_signup);
 
         inputLayoutName = findViewById(R.id.input_lyt_username);
         inputLayoutPass = findViewById(R.id.input_lyt_password);
@@ -99,6 +100,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CreateNewAccountActivity.class );
                 startActivity(intent);
+                finish();
             }
         });
         btnFacebookLogin.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +117,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         }
     }
     public class MyTextWatcher implements TextWatcher{
-
         private View view;
         private MyTextWatcher(View view){
             this.view = view;
@@ -144,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
 
     private boolean validateName() {
-        String username = edUsername.getText().toString();
+        String username = edUsername.getText().toString().trim();
         if (username.isEmpty()){
             inputLayoutName.setError("example: xxx.@gmail.com");
             requestFocus(edUsername);
@@ -155,9 +156,9 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         return true;
     }
     private boolean validatePass(){
-        String pass = edPassword.getText().toString();
+        String pass = edPassword.getText().toString().trim();
         if (pass.isEmpty()){
-            inputLayoutPass.setError("input your password");
+            inputLayoutPass.setError("type your password");
             requestFocus(edPassword);
             return false;
         }else {
@@ -165,7 +166,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         }
         return true;
     }
-
     private void proccessLogin(){
         if (!validateName()){
             return;
@@ -177,6 +177,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         }
         else {
             loadingProgress();
+            progressBar.show();
             mFirestore.collection("userAccount")
                     .whereEqualTo("email",edUsername.getText().toString())
                     .whereEqualTo("password",edPassword.getText().toString())
@@ -194,21 +195,24 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                             // Save date from firestore
                             DocumentSnapshot documentSnapshot = task.getResult().getDocuments().get(0);
                             UserAccount account = documentSnapshot.toObject(UserAccount.class);
+                            assert account != null;
                             account.setId(documentSnapshot.getId());
 
+                            account.setLoginMethod(1);
                             MySingletonClass.getInstance().setAccount(account);
+
                             // save profile in shared reference
                             saveProfileInSharedPref(account);
-                            Log.d("ebus", "data " + account.getProfileImage() + account.getName());
+                            Log.d("ebus", "data " + account.getProfileImage() + account.getUsername());
 
-                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                             startActivity(intent);
-
                             finish();
                         }
                         progressBar.dismiss();
                     }
                     else {
+                        progressBar.cancel();
                         Log.d(TAG,"Error getting docmnet", task.getException());
 
                     }
@@ -245,15 +249,19 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             startActivity(intent);
             // Finish current activity
             finish();
+            Log.d("check","check user with firestore: ");
         }
         // check login via Facebook
-        if (AccessToken.getCurrentAccessToken() != null) {
+        else if (AccessToken.getCurrentAccessToken() != null) {
             // Start MainActivity
             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent);
             // Finish current activity
             finish();
+            Log.d("check","check user with facebook: ");
         }
+            Log.d("check","Both check user : ");
+
     }
     private void signUpWithFacebook() {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "user_birthday"));
@@ -272,11 +280,18 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                             String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
                             Log.d("ebus", "Profile picture" + profileUrl);
                             String name = object.getString("name");
+                            String email = object.getString("email");
 
+                            // Retrieved data from facebook
                             UserAccount account = new UserAccount();
-                            account.setFbId(id);
-                            account.setProfileImage(profileUrl);
+                            account.setId(id);
                             account.setUsername(name);
+                            account.setProfileImage(profileUrl);
+                            account.setEmail(email);
+
+                            account.setLoginMethod(2);
+                            Log.d("ebus", "data " + account.getProfileImage() + account.getUsername());
+                            MySingletonClass.getInstance().setAccount(account);
 
                             saveProfileInSharedPref(account);
 
@@ -287,7 +302,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                 });
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name");
+        parameters.putString("fields", "id,name,email");
         request.setParameters(parameters);
         request.executeAsync();
 
@@ -308,10 +323,10 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
     }
 
     public void loadingProgress(){
+
         progressBar = new ProgressDialog(this);
         progressBar.setMessage("Sign in...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressBar.show();
 
     }
 

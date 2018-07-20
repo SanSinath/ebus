@@ -1,5 +1,6 @@
 package com.edu.ebus.ebus.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,39 +35,34 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 
 public class VerifyActivity extends AppCompatActivity {
 
-    private TextView dispay_number;
-    private Button bt_sumit;
     private String codesent;
-    private String nunber_ticket;
-    private String set_money;
     private String phonedata;
     private EditText entercode;
-    private TextView resentcode;
-    private TextView wrongnumber;
     FirebaseAuth mAuth;
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.code_verify_layout);
 
-        dispay_number = findViewById(R.id.txt_numer_verify);
-        bt_sumit = findViewById(R.id.btn_Submit);
+        TextView dispay_number = findViewById(R.id.txt_numer_verify);
+        Button bt_sumit = findViewById(R.id.btn_Submit);
         entercode = findViewById(R.id.txt_enter_code_verify);
-        resentcode = findViewById(R.id.txt_redent_code);
-        wrongnumber = findViewById (R.id.txt_wrong_number);
+        TextView resentcode = findViewById(R.id.txt_redent_code);
+        TextView wrongnumber = findViewById(R.id.txt_wrong_number);
 
         Intent intent = getIntent();
         phonedata = intent.getStringExtra("number_phone");
         codesent = intent.getStringExtra("codesent");
-        nunber_ticket = intent.getStringExtra ("number_ticket");
-        set_money = intent.getStringExtra ("set_money");
+        String nunber_ticket = intent.getStringExtra("number_ticket");
+        String set_money = intent.getStringExtra("set_money");
 
         dispay_number.setText("0"+phonedata);
         mAuth = FirebaseAuth.getInstance();
 
-        Log.i ("verify","n_t"+nunber_ticket+"   "+"s_m"+set_money+"  "+"p_d"+phonedata);
+        Log.i ("verify","n_t"+ nunber_ticket +"   "+"s_m"+ set_money +"  "+"p_d"+phonedata);
 
         resentcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +83,7 @@ public class VerifyActivity extends AppCompatActivity {
     }
 
     public  void onsubmit(View view){
-        Log.i("verify", "onsubmit" + codesent);
+        Log.i("verify", "onsubmit :" + codesent);
         String code = entercode.getText().toString();
         if(code.isEmpty ()) {
             Toast.makeText (getApplication (),"Please Enter Code",Toast.LENGTH_LONG).show ();
@@ -104,13 +100,13 @@ public class VerifyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplication(), "Verify succece", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplication(),RecntlyActivity.class);
+                            Toast.makeText(getApplicationContext(), "Verify succece", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intent);
 
                         } else {
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
-                            Toast.makeText (getApplication (),"Code is wrong",Toast.LENGTH_LONG).show ();
+                            Toast.makeText (getApplicationContext (),"Code is wrong",Toast.LENGTH_LONG).show ();
                         }
                     }
                 });

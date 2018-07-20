@@ -17,6 +17,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class BusTicketActivity extends AppCompatActivity {
+
     private String TAG = "ebus";
     private BusTicketAdapter adapter = new BusTicketAdapter();
     private String date,source,destination;
@@ -36,7 +37,7 @@ public class BusTicketActivity extends AppCompatActivity {
         // Set Toolbar as action bar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Bus Ticket");
+        getSupportActionBar().setTitle(R.string.bus_ticket);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

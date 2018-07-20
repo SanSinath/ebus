@@ -68,7 +68,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         private ImageView imgMoreOption;
         private Context context;
 
-        public EventViewHolder(View itemView) {
+        EventViewHolder(View itemView) {
             super(itemView);
             txttitle = itemView.findViewById (R.id.txt_event_title);
             txtdate = itemView.findViewById (R.id.txt_date_event);

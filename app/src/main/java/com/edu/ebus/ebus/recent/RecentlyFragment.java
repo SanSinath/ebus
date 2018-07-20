@@ -19,8 +19,7 @@ public class RecentlyFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recent, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_recent, container, false);
     }
 
     @Override

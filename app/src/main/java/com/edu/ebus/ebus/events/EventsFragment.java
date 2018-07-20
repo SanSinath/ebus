@@ -1,5 +1,6 @@
 package com.edu.ebus.ebus.events;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class EventsFragment extends android.app.Fragment {
+public class EventsFragment extends Fragment {
      private EventAdapter adapter;
     @Nullable
     @Override

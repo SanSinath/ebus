@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#b2403e3e"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -22,7 +21,7 @@
             android:id="@+id/img_event"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:actualImageScaleType="fitCenter"
+            app:actualImageScaleType="fitXY"
             app:placeholderImage="@drawable/view_image" />
 
     </RelativeLayout>
@@ -33,7 +32,9 @@
         android:layout_marginBottom="1dp"
         android:layout_weight="0.07"
         android:background="#ffffff"
-        android:paddingLeft="10dp">
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        tools:ignore="RtlSymmetry">
 
         <TextView
             android:id="@+id/txt_tile_detail_vent"
@@ -41,6 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/title_of_traveling"
+            android:textStyle="bold"
+            android:fontFamily="serif"
             android:textSize="20sp" />
 
     </RelativeLayout>
@@ -87,24 +90,26 @@
             android:layout_toRightOf="@id/icon_date_event"
             android:text="@string/time_start"
             android:textSize="15sp" />
-
+    <LinearLayout
+        android:id="@+id/lyt_location"
+        android:layout_below="@id/txt_time_start"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_below="@id/txt_time_start"
             android:src="@mipmap/location_event_detail" />
 
         <TextView
             android:id="@+id/txt_location_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_time_start"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
-            android:layout_toEndOf="@id/icon_date_event"
-            android:layout_toRightOf="@id/icon_date_event"
             android:text="@string/location"
             android:textSize="15sp" />
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -134,7 +139,6 @@
                 android:text="@string/price"
                 android:textColor="#0d52ad"
                 android:textSize="18sp" />
-
 
         </LinearLayout>
 
@@ -176,14 +180,20 @@
             android:layout_toEndOf="@id/call_icon"
             android:layout_toRightOf="@id/call_icon"
             android:text="@string/phone_number_event" />
-
+        <ScrollView
+            android:id="@+id/svDetial"
+            android:layout_below="@+id/txt_phone_numbe_event"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <TextView
             android:id="@+id/txt_detail_all_event"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/call_icon"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="7dp" />
 
+        </ScrollView>
     </RelativeLayout>
 
 

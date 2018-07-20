@@ -3,42 +3,19 @@ package com.edu.ebus.ebus.data;
 public class UserAccount {
 
     private String id;
-    private String fbId;
-    private String firstName;
-    private String lastName;
     private String username;
+    private String email;
     private String password;
     private String phone;
     private String profileImage;
+    private int loginMethod;
 
-    public String getFbId() {
-        return fbId;
-    }
-    public void setFbId(String fbId){
-        this.fbId = fbId;
-    }
     public String getId() {
         return id;
     }
 
     public void setId(String  id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getProfileImage() {
@@ -57,6 +34,14 @@ public class UserAccount {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -73,8 +58,11 @@ public class UserAccount {
         return phone;
     }
 
-    public String getName(){
-        return firstName + " " + lastName;
+    public void setLoginMethod(int loginMethod) {
+        this.loginMethod = loginMethod;
     }
 
+    public int getLoginMethod() {
+        return loginMethod;
+    }
 }

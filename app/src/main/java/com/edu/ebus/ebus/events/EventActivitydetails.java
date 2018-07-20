@@ -1,22 +1,28 @@
 package com.edu.ebus.ebus.events;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.Events;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 
-/**
- * Created by USER on 7/7/2018.
- */
 
-public class EventActivitydetails extends AppCompatActivity{
+public class EventActivitydetails extends AppCompatActivity implements View.OnClickListener{
 
+    private TextView textFulldetail;
+    private Events event;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -25,7 +31,7 @@ public class EventActivitydetails extends AppCompatActivity{
         Intent intent = getIntent();
         String eventJson = intent.getStringExtra("event");
         Gson gson = new Gson();
-        Events event = gson.fromJson(eventJson, Events.class);
+        event = gson.fromJson(eventJson, Events.class);
 
         SimpleDraweeView imageurl = findViewById (R.id.img_event);
         imageurl.setImageURI (event.getImageURL ());
@@ -48,8 +54,49 @@ public class EventActivitydetails extends AppCompatActivity{
         TextView textprice = findViewById (R.id.txt_price_event);
         textprice.setText (event.getPrice ());
 
+        LinearLayout lytLocation = findViewById(R.id.lyt_location);
+        lytLocation.setOnClickListener(this);
 
+        TextView textDetial = findViewById(R.id.txt_detail_all_event);
+        textDetial.setText(event.getDetails());
 
+        textphonenumber.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.lyt_location:
+                viewMaps();
+                break;
+            case R.id.txt_phone_numbe_event:
+                makePhoneCall();
+                break;
+
+        }
+    }
+
+    private void makePhoneCall() {
+        Intent call = new Intent(Intent.ACTION_CALL);
+        call.setData(Uri.parse("tel:023565656"));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_DENIED){
+            Toast.makeText(this,"please grant the permission to access phone call service",Toast.LENGTH_SHORT).show();
+            requestPermission();
+        }else {
+            Toast.makeText(this,"Calling",Toast.LENGTH_SHORT).show();
+            startActivity(call);
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CALL_PHONE},1);
+    }
+
+    private void viewMaps() {
+
+        Intent maps = new Intent(Intent.ACTION_VIEW, Uri.parse(event.getLocationAddress()));
+        startActivity(maps);
 
     }
 }

@@ -82,5 +82,11 @@
     <string name="todo">TODO</string>
     <string name="more">ផ្សេងទៀត</string>
     <string name="notnow">មិនទាន់ទេ</string>
+    <string name="set_source">Set source</string>
+    <string name="set_destination">Set Destination</string>
+    <string name="bus_ticket">Bus Ticket</string>
+    <string name="hide">Hide</string>
+    <string name="phone_number">Phone number</string>
+    <string name="email">Username or Email</string>
 
 </resources>

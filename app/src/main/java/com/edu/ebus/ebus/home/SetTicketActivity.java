@@ -1,8 +1,11 @@
 package com.edu.ebus.ebus.home;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.home.VerifyActivity;
+import com.edu.ebus.ebus.com.edu.ebus.ebus.activity.MainActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -21,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 
 
 public class SetTicketActivity extends AppCompatActivity {
-    private Button tbpay;
     private EditText number_phone;
     private EditText nunber_ticket;
     private EditText set_money;
@@ -34,7 +36,7 @@ public class SetTicketActivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.set_ticket);
         mAuth = FirebaseAuth.getInstance();
-        tbpay = findViewById (R.id.bt_set_booking);
+        Button tbpay = findViewById(R.id.bt_set_booking);
         number_phone = findViewById (R.id.txt_set_phonenumber);
         nunber_ticket = findViewById (R.id.txt_number_set_ticket);
         set_money = findViewById (R.id.txt_set_money);
@@ -48,7 +50,6 @@ public class SetTicketActivity extends AppCompatActivity {
     }
 
     private void sentverificationcode(){
-
         phoneNumber = number_phone.getText ().toString ();
         if (phoneNumber.isEmpty ()){
             number_phone.setError ("Phone number is required");
@@ -69,14 +70,8 @@ public class SetTicketActivity extends AppCompatActivity {
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             Toast.makeText (getApplication (),"PhoneAuthcteadentail",Toast.LENGTH_LONG).show ();
             Log.i("verify","verify success"+phoneAuthCredential);
+            showDialogRquest();
 
-            Intent intent = new Intent (getApplication (),VerifyActivity.class);
-            intent.putExtra ("number_phone",phoneNumber);
-            intent.putExtra ("number_ticket",nunber_ticket.getText ().toString ());
-            intent.putExtra ("set_money",set_money.getText ().toString ());
-            intent.putExtra ("codesent",codesent);
-            startActivity (intent);
-            finish ();
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
@@ -88,8 +83,31 @@ public class SetTicketActivity extends AppCompatActivity {
             super.onCodeSent (s, forceResendingToken);
             codesent = s;
             Log.i("verify","code sent "+s+"     "+"verify Oncodesent"+forceResendingToken);
+            Intent intent = new Intent (getApplication (),VerifyActivity.class);
+            intent.putExtra ("number_phone",phoneNumber);
+            intent.putExtra ("number_ticket",nunber_ticket.getText ().toString ());
+            intent.putExtra ("set_money",set_money.getText ().toString ());
+            intent.putExtra ("codesent",codesent);
+            startActivity (intent);
+            finish ();
         }
     };
+
+    private void showDialogRquest() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(SetTicketActivity.this);
+        dialog.setTitle("Booking successed");
+        dialog.setMessage("Thank you for booking , have a nice days.");
+        dialog.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent(getApplicationContext(), TicketDetialActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        dialog.show();
+    }
 
 }
 

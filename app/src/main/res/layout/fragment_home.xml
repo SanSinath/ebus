@@ -1,42 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <ImageView
         android:layout_width="200dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/bus_form_login_img"
-        android:layout_height="200dp" />
-
-    <Spinner
+        android:layout_height="200dp"
+        android:contentDescription="@string/todo" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@string/set_source"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp" />
+    <Spinner
         android:id="@+id/spSrc"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:hint="Source"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/imgSwap"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        tools:ignore="RtlSymmetry" />
+    <TextView
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_swap"
-        android:layout_height="wrap_content" />
+        android:layout_marginLeft="20dp"
+        android:text="@string/set_destination"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp" />
     <Spinner
         android:id="@+id/spDes"
         android:paddingLeft="20dp"
         android:layout_width="match_parent"
         android:hint="@string/destination"
         android:layout_height="wrap_content"
-        android:paddingStart="20dp" />
+        android:paddingStart="20dp"
+        tools:ignore="RtlSymmetry" />
     <EditText
         android:id="@+id/txt_date"
         android:layout_width="match_parent"
         android:paddingLeft="20dp"
         android:hint="@string/date_of_booking"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingStart="20dp"
+        tools:ignore="RtlSymmetry"
+        android:inputType="date" />
     <Button
         android:id="@+id/btn_booking"
         android:layout_gravity="center"

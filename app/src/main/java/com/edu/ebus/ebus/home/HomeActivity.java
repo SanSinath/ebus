@@ -1,6 +1,5 @@
 package com.edu.ebus.ebus.home;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
@@ -23,6 +22,7 @@ import com.edu.ebus.ebus.setting.UserFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private UserAccount account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,18 +32,18 @@ public class HomeActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
-        // Defualt fragment
         HomeFragment homeFragment = new HomeFragment();
         replaceFragment(homeFragment);
-        // Bottom Navigation handler click listener
-        final UserAccount account = MySingletonClass.getInstance().getAccount();
+
+        account = MySingletonClass.getInstance().getAccount();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.removeShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                int id = item.getItemId();
+                switch (id) {
                     case R.id.mhome:
                         getSupportActionBar().setTitle(getTitle());
                         HomeFragment homeFragment = new HomeFragment();
@@ -65,9 +65,11 @@ public class HomeActivity extends AppCompatActivity {
                         replaceFragment(stationFragment);
                         break;
                     case R.id.muser:
-                        if (account != null){
+                        if (account != null) {
                             getSupportActionBar().setTitle(account.getUsername());
+                            Log.d("ebus","Toolbar username : "+account.getUsername());
                         }
+
                         UserFragment userFragment = new UserFragment();
                         replaceFragment(userFragment);
                         break;
@@ -75,25 +77,11 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
-
     private void replaceFragment(android.app.Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction1 = fragmentManager.beginTransaction();
-        fragmentTransaction1.replace(R.id.framelayout, fragment);
-        fragmentTransaction1.commit();
-    }
-
-    @Override
-    public void onBackPressed(){
-        FragmentManager fm = getFragmentManager();
-        if (fm.getBackStackEntryCount() > 0) {
-            Log.i("MainActivity", "popping backstack");
-            fm.popBackStack();
-        } else {
-            Log.i("MainActivity", "nothing on backstack, calling super");
-            super.onBackPressed();
-        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout, fragment);
+        fragmentTransaction.commit();
     }
 }

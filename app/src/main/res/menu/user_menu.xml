@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/usr_setting"
-        android:icon="@drawable/ic_support"
-        android:title="@string/setting"
+    <item android:id="@+id/usr_edit"
+        android:icon="@drawable/ic_update"
+        android:title="@string/update"
         android:orderInCategory="1"
-        app:showAsAction="never"/>
-    <item android:id="@+id/usr_feedback"
-        android:icon="@drawable/ic_feedback"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/usr_logout"
+        android:icon="@drawable/ic_logout"
         android:orderInCategory="2"
         android:title="@string/logout"
-        app:showAsAction="never"/>
+        app:showAsAction="always"/>
 
 </menu>

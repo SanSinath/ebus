@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -28,7 +29,7 @@
                 <com.facebook.drawee.view.SimpleDraweeView
                     android:id="@+id/imgProfile"
                     android:layout_width="70dp"
-                    app:placeholderImageScaleType="fitXY"
+                    app:roundAsCircle="true"
                     app:placeholderImage="@drawable/ic_user"
                     android:layout_centerHorizontal="true"
                     android:layout_height="70dp" />
@@ -57,18 +58,58 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/txtHistory"
-            android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:background="@android:color/darker_gray"
-            android:text="@string/all_ticket_booking"
-            android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
+            android:id="@+id/lytEmail"
             android:layout_width="match_parent"
-            android:id="@+id/rec_setting"
-            android:layout_height="match_parent"/>
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:text="@string/email"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:background="#ccc"
+                android:layout_height="40dp"
+                android:paddingStart="20dp"/>
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:text="your emil is empty"
+                android:textSize="20sp"
+                android:layout_margin="10sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lytPhone"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/lbPhone"
+                android:layout_width="match_parent"
+                android:text="@string/phone_number"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:background="#ccc"
+                android:layout_height="40dp"
+                android:paddingStart="20dp"/>
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="wrap_content"
+                android:text="your phone is empty"
+                android:textSize="20sp"
+                android:layout_margin="10sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <android.support.design.widget.NavigationView
+            android:id="@+id/setting_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:menu="@menu/setting" />
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
 </android.support.design.widget.CoordinatorLayout>

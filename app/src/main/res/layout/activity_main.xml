@@ -15,4 +15,5 @@
         android:src="@drawable/bus_form_login_img"
         android:layout_height="200dp"
         android:contentDescription="TODO" />
+
 </LinearLayout>

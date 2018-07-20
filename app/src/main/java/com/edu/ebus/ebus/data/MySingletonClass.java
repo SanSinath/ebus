@@ -2,6 +2,7 @@ package com.edu.ebus.ebus.data;
 
 public class MySingletonClass {
 
+    private int loginMethod;
     private static MySingletonClass instance;
     private UserAccount account;
     private MySingletonClass() {
@@ -13,6 +14,14 @@ public class MySingletonClass {
             instance = new MySingletonClass();
         }
         return instance;
+    }
+
+    public int getLoginMethod() {
+        return loginMethod;
+    }
+
+    public void setLoginMethod(int loginMethod) {
+        this.loginMethod = loginMethod;
     }
 
     public UserAccount getAccount() {
