@@ -2,7 +2,7 @@ package com.edu.ebus.ebus.data;
 
 public class MySingletonClass {
 
-    private int loginMethod;
+    private int loginMethod = 1;
     private static MySingletonClass instance;
     private UserAccount account;
     private MySingletonClass() {

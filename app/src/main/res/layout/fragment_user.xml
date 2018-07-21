@@ -18,7 +18,13 @@
             app:contentScrim="@color/colorPrimaryDark"
             app:expandedTitleTextAppearance="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:layout_height="150dp">
+            android:layout_height="200dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:src="@drawable/welcome"
+                android:scaleType="fitXY"
+                android:layout_height="match_parent" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"

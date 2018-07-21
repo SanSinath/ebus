@@ -1,6 +1,7 @@
 package com.edu.ebus.ebus.home;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,7 +39,8 @@ public class VerifyActivity extends AppCompatActivity {
     private String codesent;
     private String phonedata;
     private EditText entercode;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
+    private ProgressDialog progressBar;
 
 
     @SuppressLint("SetTextI18n")
@@ -99,12 +101,16 @@ public class VerifyActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        loadingProgress();
+                        progressBar.show();
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Verify succece", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intent);
+                            progressBar.dismiss();
 
                         } else {
+                            progressBar.cancel();
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
                             Toast.makeText (getApplicationContext (),"Code is wrong",Toast.LENGTH_LONG).show ();
                         }
@@ -140,5 +146,11 @@ public class VerifyActivity extends AppCompatActivity {
             Log.i("verify","code sent "+s+"     "+"verify Oncodesent"+forceResendingToken);
         }
     };
+    public void loadingProgress(){
 
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Sign in...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+    }
 }

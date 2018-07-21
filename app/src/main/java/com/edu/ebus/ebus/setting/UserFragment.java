@@ -94,20 +94,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         }
         if (item.getItemId() == R.id.usr_logout){
 
-            if (account.getLoginMethod() == 1) {
-                // Remove current user
-                MySingletonClass.getInstance().setAccount(null);
-                SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.remove("user");
-                editor.apply();
-
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                getActivity().finish();
-                Log.d("ebus", "Log out with firestore");
-            }else if (account.getLoginMethod() == 2) {
                 // Remove current user
                 MySingletonClass.getInstance().setAccount(null);
                 SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
@@ -116,13 +102,12 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 editor.apply();
                 // Logout profile
                 LoginManager.getInstance().logOut();
-                AccessToken.setCurrentAccessToken(null);
                 // Move to LoginActivity
                 Intent fLogout = new Intent(getActivity(), LoginActivity.class);
                 startActivity(fLogout);
+                fLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 getActivity().finish();
                 Log.d("ebus", "Log out with Facebook");
-            }
 
         }
         return super.onOptionsItemSelected(item);
@@ -142,7 +127,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
 
         account = MySingletonClass.getInstance().getAccount();
 
-        Log.d("ebus","This is Login Method : " + account.getLoginMethod());
+//        Log.d("ebus","This is Login Method : " + account.getLoginMethod());
 
         if (account != null){
             userId = account.getId();
@@ -151,14 +136,14 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 textEmail.setText(account.getEmail());
                 textPhone.setText(account.getPhone());
 
+
             Log.d("ebus" ,"name : " + account.getUsername() + "Profile images :" + account.getProfileImage()
                     + "Email : " + account.getEmail() + account.getPhone());
         }else {
 
-            if (userId != null && account.getLoginMethod() == 2){
                 loadProfileInfoFromFacebook();
-            }
-            else if (userId != null && account.getLoginMethod() == 1) {
+
+            if (userId != null) {
                 // load profile from firestore
                 loadProfileInfoFromFirestore();
             }
@@ -281,12 +266,9 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                             String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
                             Log.d("ebus", "Profile picture" + profileUrl);
                             String name = object.getString("name");
-                            String email = object.getString("email");
 
                             imgProfile.setImageURI(profileUrl);
                             txt_name.setText(name);
-                            textEmail.setText(email);
-                            textPhone.setText("empty");
 
                             Log.d("ebus","Facebook data : " + imgProfile + textPhone + textEmail + txt_name);
                         } catch (JSONException e) {
@@ -296,7 +278,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 });
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email");
+        parameters.putString("fields", "id,name");
         request.setParameters(parameters);
         request.executeAsync();
     }
@@ -332,10 +314,12 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 if (which == 0){
                     setLocale("en");
                     getActivity().recreate();
+                    dialog.cancel();
                 }
                 if (which == 1){
                     setLocale("km");
                     getActivity().recreate();
+                    dialog.cancel();
                 }
             }
         });
@@ -358,13 +342,13 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         }
         resources.updateConfiguration(config, resources.getDisplayMetrics());
         // Save data to Shared Reference
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences("setting", MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("ebus", MODE_PRIVATE).edit();
         editor.putString("My_lang", lang);
         editor.apply();
 
     }
     private void loadLocale(){
-        SharedPreferences pref = getActivity().getSharedPreferences("setting", MODE_PRIVATE);
+        SharedPreferences pref = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
         String language = pref.getString("My_lang","");
         setLocale(language);
     }

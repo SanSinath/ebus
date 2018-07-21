@@ -35,7 +35,7 @@
         android:background="@drawable/background_btn_sigin"
         android:text="Pay"
         android:textColor="#fafafa"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -43,15 +43,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10"
         app:layout_constraintVertical_bias="0.521" />
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imageView2"
-        android:layout_width="101dp"
-        android:layout_height="89dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:roundAsCircle="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ebuslogo" />
+        app:placeholderImage="@drawable/bus_form_login_img"/>
 
     <EditText
         android:id="@+id/txt_number_set_ticket"
@@ -67,7 +68,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_ticket" />
+        app:layout_constraintTop_toBottomOf="@+id/set_ticket"
+        tools:ignore="TextFields" />
 
     <EditText
         android:id="@+id/txt_set_money"
@@ -93,7 +95,8 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/txt_number_set_ticket"
         app:layout_constraintStart_toStartOf="@+id/txt_set_money"
-        app:layout_constraintTop_toBottomOf="@+id/txt_set_money" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_set_money"
+        tools:ignore="TextFields" />
 
     <TextView
         android:id="@+id/textView4"

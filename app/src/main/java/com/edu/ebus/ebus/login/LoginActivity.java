@@ -198,7 +198,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                             assert account != null;
                             account.setId(documentSnapshot.getId());
 
-                            account.setLoginMethod(1);
                             MySingletonClass.getInstance().setAccount(account);
 
                             // save profile in shared reference
@@ -240,7 +239,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
         // Check login via username/password
         SharedPreferences preferences = getSharedPreferences("ebus", MODE_PRIVATE);
         String userJsonString = preferences.getString("user", null);
-        if (userJsonString != null) {
+        if (userJsonString != null && MySingletonClass.getInstance().getLoginMethod() == 1) {
             Gson gson = new Gson();
             UserAccount user = gson.fromJson(userJsonString, UserAccount.class);
             MySingletonClass.getInstance().setAccount(user);
@@ -249,6 +248,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
             startActivity(intent);
             // Finish current activity
             finish();
+
             Log.d("check","check user with firestore: ");
         }
         // check login via Facebook
@@ -280,19 +280,15 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                             String profileUrl = "http://graph.facebook.com/" + id + "/picture?type=large";
                             Log.d("ebus", "Profile picture" + profileUrl);
                             String name = object.getString("name");
-                            String email = object.getString("email");
 
                             // Retrieved data from facebook
                             UserAccount account = new UserAccount();
                             account.setId(id);
                             account.setUsername(name);
                             account.setProfileImage(profileUrl);
-                            account.setEmail(email);
 
-                            account.setLoginMethod(2);
                             Log.d("ebus", "data " + account.getProfileImage() + account.getUsername());
                             MySingletonClass.getInstance().setAccount(account);
-
                             saveProfileInSharedPref(account);
 
                         } catch (JSONException e) {
@@ -302,7 +298,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookCallback
                 });
 
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email");
+        parameters.putString("fields", "id,name");
         request.setParameters(parameters);
         request.executeAsync();
 
