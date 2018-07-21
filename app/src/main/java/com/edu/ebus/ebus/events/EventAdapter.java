@@ -89,6 +89,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                     String eventJson = gson.toJson(event);
                     intent.putExtra("event", eventJson);
 
+
                     context.startActivity(intent);
 
                 }

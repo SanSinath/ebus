@@ -11,13 +11,15 @@ public class Ticket {
     private String DateofBooking;
     private String price;
     private String imageURI;
+    private String idbus;
+    private String phonenumber;
 
     private Ticket()
     {
 
     }
 
-    public Ticket(String name, String source, String hour, String destination, String dateofBooking, String price, String imageURI) {
+    public Ticket(String name, String source, String hour, String destination, String dateofBooking, String price, String imageURI, String idbus, String phonenumber) {
         Name = name;
         Source = source;
         Hour = hour;
@@ -25,6 +27,24 @@ public class Ticket {
         DateofBooking = dateofBooking;
         this.price = price;
         this.imageURI = imageURI;
+        this.idbus = idbus;
+        this.phonenumber = phonenumber;
+    }
+
+    public String getIdbus() {
+        return idbus;
+    }
+
+    public void setIdbus(String idbus) {
+        this.idbus = idbus;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
     }
 
     public String getName() {

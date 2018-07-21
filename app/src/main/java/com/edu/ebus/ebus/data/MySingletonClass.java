@@ -4,6 +4,8 @@ public class MySingletonClass {
 
     private static MySingletonClass instance;
     private UserAccount account;
+    private Booking booking;
+    private Ticket ticket;
     private MySingletonClass() {
 
     }
@@ -17,6 +19,14 @@ public class MySingletonClass {
 
     public UserAccount getAccount() {
         return account;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
     }
 
     public void setAccount(UserAccount account) {

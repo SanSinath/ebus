@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.Booking;
+import com.edu.ebus.ebus.data.MySingletonClass;
+import com.edu.ebus.ebus.data.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,8 +48,11 @@ public class RecentlyFragment extends Fragment {
 
     }
     public void dataloadbookingfromfirebase(){
+        UserAccount account = MySingletonClass.getInstance ().getAccount ();
         FirebaseFirestore fb = FirebaseFirestore.getInstance();
-        fb.collection("userTicket").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        fb.collection("userTicket")
+                .whereEqualTo ("uID",account.getId ())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){

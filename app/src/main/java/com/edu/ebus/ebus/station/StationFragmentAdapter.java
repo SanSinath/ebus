@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.Events;
+import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.home.SetTicketActivity;
 import com.edu.ebus.ebus.data.Ticket;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -98,6 +99,9 @@ public class StationFragmentAdapter extends RecyclerView.Adapter<StationFragment
                 public void onClick(View v) {
                     Context context = v.getContext ();
                     Intent intent = new Intent (v.getContext (),SetTicketActivity.class);
+                    int index = getAdapterPosition();
+                    Ticket ticket = allTickets[index];
+                    MySingletonClass.getInstance ().setTicket (ticket);
                     context.startActivity (intent);
                 }
             });

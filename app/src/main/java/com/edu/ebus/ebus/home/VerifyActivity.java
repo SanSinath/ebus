@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.MySingketonClassTiket;
+import com.edu.ebus.ebus.data.MySingletonClass;
+import com.edu.ebus.ebus.data.Ticket;
 import com.edu.ebus.ebus.data.UserAccount;
 import com.edu.ebus.ebus.recent.RecntlyActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +25,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
@@ -30,10 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
 /**
  * Created by USER on 7/12/2018.
@@ -42,7 +41,6 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class VerifyActivity extends AppCompatActivity {
 
     private TextView dispay_number;
-    private Button bt_sumit;
     private String codesent;
     private String nunber_ticket;
     private String set_money;
@@ -52,6 +50,19 @@ public class VerifyActivity extends AppCompatActivity {
     private TextView wrongnumber;
     FirebaseAuth mAuth;
     private FirebaseFirestore mFireStore;
+    // variable push to data firebase
+    private String uID;
+    private String namecompany;
+    private String phonecompany;
+    private String idbus;
+    private String subtotal;
+    private String scoce;
+    private String destination;
+    private String date;
+    private String time;
+    private String username;
+
+
 
 
     @Override
@@ -60,7 +71,6 @@ public class VerifyActivity extends AppCompatActivity {
         setContentView(R.layout.code_verify_layout);
 
         dispay_number = findViewById(R.id.txt_numer_verify);
-        bt_sumit = findViewById(R.id.btn_Submit);
         entercode = findViewById(R.id.txt_enter_code_verify);
         resentcode = findViewById(R.id.txt_redent_code);
         wrongnumber = findViewById (R.id.txt_wrong_number);
@@ -74,6 +84,22 @@ public class VerifyActivity extends AppCompatActivity {
         dispay_number.setText("0"+phonedata);
         mAuth = FirebaseAuth.getInstance();
 
+        //get data from MysingletonClass
+        Ticket ticket = MySingletonClass.getInstance ().getTicket ();
+        UserAccount account = MySingletonClass.getInstance ().getAccount ();
+
+         uID = account.getId ();
+         username = account.getUsername ();
+         namecompany = ticket.getName ();
+         phonecompany = ticket.getPhonenumber ();
+         idbus = ticket.getIdbus ();
+         subtotal = ticket.getPrice ();
+         scoce = ticket.getSource ();
+         destination = ticket.getDestination ();
+         date = ticket.getDateofBooking ();
+         time = ticket.getHour ();
+
+      // Log.i("verify","userID : "+ uID+ " Company : " + company + "Destination : " + des);
         Log.i ("verify","n_t"+nunber_ticket+"   "+"s_m"+set_money+"  "+"p_d"+phonedata);
 
         resentcode.setOnClickListener(new View.OnClickListener() {
@@ -103,46 +129,10 @@ public class VerifyActivity extends AppCompatActivity {
         else {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential (codesent, code);
             signInWithPhoneAuthCredential (credential);
-            pushtofirebase();
         }
     }
-    public void pushtofirebase(){
-        mAuth = FirebaseAuth.getInstance();
-        mFireStore = FirebaseFirestore.getInstance();
-        ///  get from sharing reference from useraccount data
-
-//        UserAccount account = new UserAccount();
-//        username = account.getUsername ().toString ();
 
 
-        Map<String, String> userMap= new HashMap<>();
-        //userMap.put("username",username);
-        userMap.put("namecompany","Soriya");
-        userMap.put("phonecompany","023 23 23 23");
-        userMap.put("idbus","ID234545");
-        userMap.put("subtotal","45$");
-        userMap.put("numberticket",nunber_ticket);
-        userMap.put("money",set_money);
-        userMap.put("scoce","Phnom Penh");
-        userMap.put("destination","Takeo");
-        userMap.put ("date","5/Jul/2018");
-        userMap.put("time","08:30AM");
-
-
-        mFireStore.collection("userTicket").add(userMap).addOnSuccessListener (new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Log.i ("verify","creat booking success");
-            }
-        }).addOnFailureListener (new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                String error = e.getMessage();
-                Toast.makeText(VerifyActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
-                Log.i ("verify","creat booking erorr");
-            }
-        });
-    }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
@@ -151,6 +141,7 @@ public class VerifyActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplication(), "Verify succece", Toast.LENGTH_LONG).show();
+                            pushtofirebase();
                             Intent intent = new Intent(getApplication(),RecntlyActivity.class);
                             startActivity(intent);
 
@@ -160,8 +151,6 @@ public class VerifyActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
     }
 
     private void sentverificationcode(){
@@ -177,6 +166,9 @@ public class VerifyActivity extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             Log.i("verify","verify success"+phoneAuthCredential);
+            pushtofirebase();
+            Intent intent = new Intent(getApplication(),RecntlyActivity.class);
+            startActivity(intent);
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
@@ -191,4 +183,37 @@ public class VerifyActivity extends AppCompatActivity {
         }
     };
 
+    public void pushtofirebase(){
+        mAuth = FirebaseAuth.getInstance();
+        mFireStore = FirebaseFirestore.getInstance();
+        ///  get from sharing reference from useraccount da
+
+        Map<String, String> userMap= new HashMap<> ();
+        userMap.put ("uID",uID);
+        userMap.put ("username",username);
+        userMap.put("namecompany",namecompany);
+        userMap.put("phonecompany",phonecompany);
+        userMap.put("idbus",idbus);
+        userMap.put("subtotal",subtotal);
+        userMap.put("numberticket",nunber_ticket);
+        userMap.put("money",set_money);
+        userMap.put("scoce",scoce);
+        userMap.put("destination",destination);
+        userMap.put ("date",date);
+        userMap.put("time",time);
+
+        mFireStore.collection("userTicket").add(userMap).addOnSuccessListener (new OnSuccessListener<DocumentReference> () {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.i ("verify","creat booking success");
+            }
+        }).addOnFailureListener (new OnFailureListener () {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                String error = e.getMessage();
+                Toast.makeText(VerifyActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
+                Log.i ("verify","creat booking erorr");
+            }
+        });
+    }
 }

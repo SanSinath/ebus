@@ -17,6 +17,7 @@
             android:id="@+id/txt_UserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#e31c5db3"
             android:text="@string/username"
             android:textSize="20sp" />
 

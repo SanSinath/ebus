@@ -48,6 +48,9 @@ public class EventActivitydetails extends AppCompatActivity{
         TextView textprice = findViewById (R.id.txt_price_event);
         textprice.setText (event.getPrice ());
 
+        TextView txtdetail = findViewById (R.id.txt_detail_all_event);
+        txtdetail.setText (event.getDetails ());
+
 
 
 
