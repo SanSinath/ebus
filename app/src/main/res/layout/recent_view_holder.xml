@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="80dp"
@@ -18,20 +17,30 @@
             android:id="@+id/txt_UserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#e31c5db3"
             android:text="@string/username"
-            android:textSize="20sp"
-            tools:ignore="RelativeOverlap" />
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/txtDes"
+            android:id="@+id/txt_source"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_UserName"
-            android:text="@string/target" />
+            android:text="Source" />
+        <TextView
+            android:id="@+id/txt_destination_recent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/txt_source"
+            android:layout_below="@id/txt_UserName"
+            android:text="destination"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@id/txt_source" />
 
         <TextView
             android:id="@+id/txtDate"
-            android:layout_below="@id/txtDes"
+            android:layout_below="@id/txt_destination_recent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/date" />
@@ -41,8 +50,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/forward_icon"
-            android:layout_alignParentEnd="true" />
+            android:src="@mipmap/forward" />
 
     </RelativeLayout>
 

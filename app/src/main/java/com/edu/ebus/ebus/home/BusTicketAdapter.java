@@ -13,8 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.Events;
+import com.edu.ebus.ebus.data.MySingketonClassTiket;
+import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
+import com.edu.ebus.ebus.data.UserAccount;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.gson.Gson;
 
 public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusTicketViewHolder> {
     private Ticket[] tickets;
@@ -52,8 +57,6 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
         return tickets.length;
     }
 
-
-
     class BusTicketViewHolder extends RecyclerView.ViewHolder{
         TextView txtName,txtDate,txtPrices,txtsoure,txtdestination,txthour;
         SimpleDraweeView imageBus;
@@ -74,6 +77,9 @@ public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusT
                 public void onClick(View v) {
                     Context context = v.getContext ();
                     Intent intent = new Intent (v.getContext (),SetTicketActivity.class);
+                    int index = getAdapterPosition();
+                    Ticket ticket = tickets[index];
+                    MySingletonClass.getInstance ().setTicket (ticket);
                     context.startActivity (intent);
                     Log.d("booking", "Go to set ticket");
 

@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -79,6 +80,7 @@ public class BusTicketActivity extends AppCompatActivity {
                     String detail = ticket.getDateofBooking ();
                     obTickets[index] = ticket;
                     index++;
+
                 }
                 adapter.setTickets(obTickets);
             }

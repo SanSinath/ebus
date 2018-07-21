@@ -18,9 +18,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.MySingletonClass;
+import com.edu.ebus.ebus.station.StationFragmentAdapter;
 import com.edu.ebus.ebus.data.Ticket;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -95,6 +98,7 @@ public class StationFragment extends Fragment implements SearchView.OnQueryTextL
                     index++;
                 }
                 adapter.setAllTickets (events);
+
             }
         });
     }
