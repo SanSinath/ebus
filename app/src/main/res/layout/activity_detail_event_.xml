@@ -111,37 +111,6 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="7dp"
-            android:layout_marginRight="7dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btnBooking_event"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/button_background"
-                android:text="@string/booking"
-                android:textColor="@android:color/white"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
-
-            <TextView
-                android:id="@+id/txt_price_event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/price"
-                android:textColor="#0d52ad"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
     </RelativeLayout>
 
     <RelativeLayout

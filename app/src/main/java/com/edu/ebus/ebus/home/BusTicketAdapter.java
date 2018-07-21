@@ -13,13 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.data.Events;
-import com.edu.ebus.ebus.data.MySingketonClassTiket;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
-import com.edu.ebus.ebus.data.UserAccount;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.gson.Gson;
 
 public class BusTicketAdapter extends RecyclerView.Adapter<BusTicketAdapter.BusTicketViewHolder> {
     private Ticket[] tickets;

@@ -17,9 +17,7 @@ import com.google.gson.Gson;
 
 import java.util.zip.Inflater;
 
-/**
- * Created by USER on 7/2/2018.
- */
+
 
 public class RecntlyActivity  extends AppCompatActivity{
     float total=0;

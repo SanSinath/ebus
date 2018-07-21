@@ -8,14 +8,6 @@
     android:orientation="vertical"
     tools:context=".recent.RecntlyActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/rec_toolbar"
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:layout_height="?attr/actionBarSize"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -244,10 +236,6 @@
         android:background="#ffffff"
         android:gravity="center">
 
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/delete_icon2"/>
     </LinearLayout>
 
 

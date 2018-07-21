@@ -1,5 +1,6 @@
 package com.edu.ebus.ebus.home;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,14 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.Booking;
-import com.edu.ebus.ebus.data.MySingketonClassTiket;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
 import com.edu.ebus.ebus.data.UserAccount;
@@ -29,30 +28,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by USER on 7/12/2018.
- */
 
 public class VerifyActivity extends AppCompatActivity {
 
-    private TextView dispay_number;
     private String codesent;
     private String nunber_ticket;
     private String set_money;
     private String phonedata;
     private EditText entercode;
-    private TextView resentcode;
-    private TextView wrongnumber;
     FirebaseAuth mAuth;
-    private FirebaseFirestore mFireStore;
     // variable push to data firebase
     private String uID;
     private String namecompany;
@@ -68,15 +58,16 @@ public class VerifyActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.code_verify_layout);
 
-        dispay_number = findViewById(R.id.txt_numer_verify);
+        TextView dispay_number = findViewById(R.id.txt_numer_verify);
         entercode = findViewById(R.id.txt_enter_code_verify);
-        resentcode = findViewById(R.id.txt_redent_code);
-        wrongnumber = findViewById (R.id.txt_wrong_number);
+        TextView resentcode = findViewById(R.id.txt_redent_code);
+        TextView wrongnumber = findViewById(R.id.txt_wrong_number);
 
         Intent intent = getIntent();
         phonedata = intent.getStringExtra("number_phone");
@@ -115,7 +106,7 @@ public class VerifyActivity extends AppCompatActivity {
         wrongnumber.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (getApplication (), SetTicketActivity.class);
+                Intent intent = new Intent (VerifyActivity.this, SetTicketActivity.class);
                 startActivity (intent);
                 finish ();
             }
@@ -145,8 +136,9 @@ public class VerifyActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplication(), "Verify succece", Toast.LENGTH_LONG).show();
                             pushtofirebase();
-                            Intent intent = new Intent(getApplication(),RecntlyActivity.class);
+                            Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
                             startActivity(intent);
+                            finish();
 
                         } else {
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
@@ -170,7 +162,7 @@ public class VerifyActivity extends AppCompatActivity {
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             Log.i("verify","verify success"+phoneAuthCredential);
             pushtofirebase();
-            Intent intent = new Intent(getApplication(),RecntlyActivity.class);
+            Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
             startActivity(intent);
             finish ();
         }
@@ -189,7 +181,7 @@ public class VerifyActivity extends AppCompatActivity {
 
     public void pushtofirebase(){
         mAuth = FirebaseAuth.getInstance();
-        mFireStore = FirebaseFirestore.getInstance();
+        FirebaseFirestore mFireStore = FirebaseFirestore.getInstance();
         ///  get from sharing reference from useraccount da
 
         Map<String, String> userMap= new HashMap<> ();
@@ -207,7 +199,8 @@ public class VerifyActivity extends AppCompatActivity {
         userMap.put("time",time);
 
         Booking booking = new Booking ();
-        booking.setDate (uID);
+        booking.setId (uID);
+        booking.setDate(date);
         booking.setDestination (destination);
         booking.setSubtotal (subtotal);
         booking.setIdbus (idbus);
@@ -227,12 +220,9 @@ public class VerifyActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 String error = e.getMessage();
                 Toast.makeText(VerifyActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
-                Log.i ("verify","creat booking erorr");
+                Log.i ("verify","creat booking erorr" + error);
             }
         });
     }
 
-    private void saveBooking() {
-
-    }
 }

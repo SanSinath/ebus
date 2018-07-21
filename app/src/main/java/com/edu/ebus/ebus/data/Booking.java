@@ -1,6 +1,7 @@
 package com.edu.ebus.ebus.data;
 
 public class Booking {
+    private String id;
     private String date;
     private String destination;
     private String idbus;
@@ -17,7 +18,8 @@ public class Booking {
 
     }
 
-    public Booking(String date, String destination, String idbus, String money, String namecompany, String numberticket, String phonecompany, String scoce, String subtotal, String time, String username) {
+    public Booking(String id,String date, String destination, String idbus, String money, String namecompany, String numberticket, String phonecompany, String scoce, String subtotal, String time, String username) {
+        this.id = id;
         this.date = date;
         this.destination = destination;
         this.idbus = idbus;
@@ -29,6 +31,14 @@ public class Booking {
         this.subtotal = subtotal;
         this.time = time;
         this.username = username;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDate() {

@@ -92,19 +92,20 @@ public class SetTicketActivity extends AppCompatActivity {
 
     private void sentverificationcode(){
 
-        phoneNumber = number_phone.getText ().toString ();
+        phoneNumber = number_phone.getText ().toString ().trim();
         if (phoneNumber.isEmpty ()){
             number_phone.setError ("Phone number is required");
             number_phone.requestFocus ();
             return;
-        }
+        }else {
 
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+855"+phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    "+855" + phoneNumber,        // Phone number to verify
+                    60,                 // Timeout duration
+                    TimeUnit.SECONDS,   // Unit of timeout
+                    this,               // Activity (for callback binding)
+                    mCallbacks);        // OnVerificationStateChangedCallbacks
+        }
     }
 
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks () {
@@ -158,7 +159,8 @@ public class SetTicketActivity extends AppCompatActivity {
         userMap.put("time",time);
 
         Booking booking = new Booking ();
-        booking.setDate (uID);
+        booking.setId (uID);
+        booking.setDate(date);
         booking.setDestination (destination);
         booking.setSubtotal (subtotal);
         booking.setIdbus (idbus);
@@ -181,7 +183,7 @@ public class SetTicketActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 String error = e.getMessage();
                 Toast.makeText(SetTicketActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
-                Log.i ("verify","creat booking erorr");
+                Log.i ("verify","creat booking erorr" + error);
             }
         });
     }

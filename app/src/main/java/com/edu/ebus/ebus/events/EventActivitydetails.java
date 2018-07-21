@@ -21,7 +21,6 @@ import com.google.gson.Gson;
 
 public class EventActivitydetails extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView textFulldetail;
     private Events event;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,9 +49,6 @@ public class EventActivitydetails extends AppCompatActivity implements View.OnCl
 
         TextView textphonenumber = findViewById (R.id.txt_phone_numbe_event);
         textphonenumber.setText (event.getPhonenumber ());
-
-        TextView textprice = findViewById (R.id.txt_price_event);
-        textprice.setText (event.getPrice ());
 
         LinearLayout lytLocation = findViewById(R.id.lyt_location);
         lytLocation.setOnClickListener(this);
