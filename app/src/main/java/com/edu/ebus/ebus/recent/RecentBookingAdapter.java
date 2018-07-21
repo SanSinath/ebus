@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.Booking;
 import com.edu.ebus.ebus.data.Events;
+import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.home.TicketDetialActivity;
 import com.google.gson.Gson;
 
@@ -68,13 +69,10 @@ public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdap
                 @Override
                 public void onClick(View v) {
                     Context c = v.getContext();
-                    Intent intent = new Intent(c, TicketDetialActivity.class);
-
+                    Intent intent = new Intent(c, RecntlyActivity.class);
                     int index = getAdapterPosition();
-                    Booking i = bookings[index];
-                    Gson gson = new Gson();
-                    String bookingJson = gson.toJson(i);
-                    intent.putExtra("bookings", bookingJson);
+                    Booking booking = bookings[index];
+                    MySingletonClass.getInstance ().setBooking (booking);
                     c.startActivity(intent);
                 }
             });

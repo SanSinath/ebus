@@ -18,6 +18,7 @@ import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.UserAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -77,6 +78,5 @@ public class RecentlyFragment extends Fragment {
         }
         adapter.setBooking(bookings);
     }
-
 
 }

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.Booking;
 import com.edu.ebus.ebus.data.Events;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
@@ -83,6 +84,7 @@ public class SetTicketActivity extends AppCompatActivity {
         tbpay.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
+
                 sentverificationcode();
             }
         });
@@ -114,6 +116,7 @@ public class SetTicketActivity extends AppCompatActivity {
             pushtofirebase();
             Intent intent = new Intent (SetTicketActivity.this, RecntlyActivity.class);
             startActivity (intent);
+            finish ();
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
@@ -154,9 +157,23 @@ public class SetTicketActivity extends AppCompatActivity {
         userMap.put ("date",date);
         userMap.put("time",time);
 
+        Booking booking = new Booking ();
+        booking.setDate (uID);
+        booking.setDestination (destination);
+        booking.setSubtotal (subtotal);
+        booking.setIdbus (idbus);
+        booking.setMoney (set_money.getText ().toString ());
+        booking.setScoce (scoce);
+        booking.setNamecompany (namecompany);
+        booking.setNumberticket (nunber_ticket.getText ().toString ());
+        booking.setTime (time);
+        MySingletonClass.getInstance ().setBooking (booking);
+        Log.i ("verify","creat booking success"+booking.getIdbus ());
+
         mFireStore.collection("userTicket").add(userMap).addOnSuccessListener (new OnSuccessListener<DocumentReference> () {
             @Override
             public void onSuccess(DocumentReference documentReference) {
+
                 Log.i ("verify","creat booking success");
             }
         }).addOnFailureListener (new OnFailureListener () {

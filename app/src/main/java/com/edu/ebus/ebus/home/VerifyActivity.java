@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.data.Booking;
 import com.edu.ebus.ebus.data.MySingketonClassTiket;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
@@ -28,7 +29,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -169,6 +172,7 @@ public class VerifyActivity extends AppCompatActivity {
             pushtofirebase();
             Intent intent = new Intent(getApplication(),RecntlyActivity.class);
             startActivity(intent);
+            finish ();
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
@@ -202,6 +206,17 @@ public class VerifyActivity extends AppCompatActivity {
         userMap.put ("date",date);
         userMap.put("time",time);
 
+        Booking booking = new Booking ();
+        booking.setDate (uID);
+        booking.setDestination (destination);
+        booking.setSubtotal (subtotal);
+        booking.setIdbus (idbus);
+        booking.setMoney (set_money);
+        booking.setScoce (scoce);
+        booking.setNamecompany (namecompany);
+        booking.setNumberticket (nunber_ticket);
+        booking.setTime (time);
+        MySingletonClass.getInstance ().setBooking (booking);
         mFireStore.collection("userTicket").add(userMap).addOnSuccessListener (new OnSuccessListener<DocumentReference> () {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -215,5 +230,9 @@ public class VerifyActivity extends AppCompatActivity {
                 Log.i ("verify","creat booking erorr");
             }
         });
+    }
+
+    private void saveBooking() {
+
     }
 }
