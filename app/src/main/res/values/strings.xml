@@ -9,7 +9,8 @@
     <string name="title_activity_about">About</string>
 
     <string name="facebook_app_id">252918985260446</string>
-
+    <string name="phone_number">Phone number</string>
+    <string name="email">Username or Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign In</string>
@@ -87,7 +88,5 @@
     <string name="set_destination">Set Destination</string>
     <string name="bus_ticket">Bus Ticket</string>
     <string name="hide">Hide</string>
-    <string name="phone_number">Phone number</string>
-    <string name="email">Username or Email</string>
 
 </resources>

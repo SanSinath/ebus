@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.edu.ebus.ebus.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -86,7 +87,6 @@ public class CreateNewAccountActivity extends AppCompatActivity{
                     mFireStore.collection("userAccount").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-
                             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                             startActivity(intent);
                             finish();
