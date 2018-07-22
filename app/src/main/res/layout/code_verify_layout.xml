@@ -20,7 +20,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.296"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_enter_code_verify" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_enter_code_verify"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="128dp" />
 
     <TextView
         android:id="@+id/txt_tell_number"
@@ -76,7 +78,7 @@
         android:background="@drawable/background_verify_code"
         android:ems="10"
         android:hint="Code"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:paddingLeft="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.19"

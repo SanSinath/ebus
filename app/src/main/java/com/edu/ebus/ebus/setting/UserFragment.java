@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -33,10 +35,8 @@ import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.UserAccount;
 import com.edu.ebus.ebus.login.LoginActivity;
 import com.facebook.AccessToken;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,7 +46,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.google.gson.Gson;
 
 
 import org.json.JSONException;
@@ -61,10 +60,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class UserFragment extends Fragment implements View.OnClickListener{
 
-    private UserAccount account;
     private String userId;
     private SimpleDraweeView imgProfile;
     private TextView txt_name,textEmail,textPhone;
+    private UserAccount account;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     @Nullable
@@ -286,12 +285,16 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.imgProfile){
-            // Open gallery app to select an image
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, 1);
+        if (id == R.id.imgProfile ){
+            if (AccessToken.getCurrentAccessToken() != null){
+                Toast.makeText(getActivity(),"your have to change profile in facebook app.",Toast.LENGTH_SHORT).show();
+            }else {
+                // Open gallery app to select an image
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, 1);
+            }
         }
 
     }

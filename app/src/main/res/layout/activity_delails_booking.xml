@@ -56,21 +56,28 @@
             android:id="@+id/txt_number_ticket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/textView"
-            android:layout_alignRight="@+id/textView"
+            android:layout_toRightOf="@id/txt_ticket"
+            android:layout_marginLeft="20sp"
             android:layout_below="@+id/cly_total"
             android:text="N_Ticket"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvTicket"
+            android:layout_width="wrap_content"
+            android:text="1 Ticket"
+            android:layout_marginLeft="20sp"
+            android:layout_below="@id/cly_total"
+            android:layout_toRightOf="@id/txt_number_ticket"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/txt_sumtotal_ticket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cly_total"
-            android:layout_marginLeft="21dp"
-            android:layout_marginStart="21dp"
-            android:layout_toEndOf="@+id/txt_number_ticket"
-            android:layout_toRightOf="@+id/txt_number_ticket"
+            android:layout_toRightOf="@id/tvTicket"
+            android:layout_marginLeft="20sp"
             android:text="s_total"
             android:textSize="15sp" />
 
@@ -237,6 +244,5 @@
         android:gravity="center">
 
     </LinearLayout>
-
 
 </LinearLayout>

@@ -26,8 +26,8 @@ public class TicketDetialActivity extends AppCompatActivity {
         int numberticket =Integer.parseInt(booking.getNumberticket ());
 
         TextView txtsubtotal = findViewById(R.id.txt_sumtotal_ticket);
-        txtsubtotal.setText(booking.getSubtotal());
-        float subtota =Float.parseFloat(booking.getSubtotal ());
+        txtsubtotal.setText(booking.getMoney());
+        float subtota =Float.parseFloat(booking.getMoney());
 
         float total = numberticket * subtota;
         TextView txttotalticket = findViewById(R.id.txt_total_ticket);
@@ -62,8 +62,6 @@ public class TicketDetialActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed ();
-        Intent intent =  new  Intent(TicketDetialActivity.this, HomeActivity.class);
-        startActivity (intent);
         finish ();
     }
 }

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.5">
+        android:layout_weight="0.4">
 
         <!--<ImageView-->
             <!--android:layout_width="match_parent"-->
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="1dp"
-        android:layout_weight="0.07"
+        android:layout_weight="0.08"
         android:background="#ffffff"
         android:paddingLeft="10dp"
         android:paddingStart="10dp"
@@ -44,7 +44,7 @@
             android:text="@string/title_of_traveling"
             android:textStyle="bold"
             android:fontFamily="serif"
-            android:textSize="20sp" />
+            android:textSize="23sp" />
 
     </RelativeLayout>
 
@@ -107,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
+            android:textColor="@color/colorPrimary"
             android:text="@string/location"
             android:textSize="15sp" />
     </LinearLayout>
@@ -147,6 +148,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/call_icon"
+            android:textColor="@color/colorPrimary"
             android:layout_toRightOf="@id/call_icon"
             android:text="@string/phone_number_event" />
         <ScrollView

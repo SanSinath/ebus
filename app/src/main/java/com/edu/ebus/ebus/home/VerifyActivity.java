@@ -1,10 +1,13 @@
 package com.edu.ebus.ebus.home;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
+import com.edu.ebus.ebus.com.edu.ebus.ebus.activity.MainActivity;
 import com.edu.ebus.ebus.data.Booking;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
@@ -54,7 +58,8 @@ public class VerifyActivity extends AppCompatActivity {
     private String date;
     private String time;
     private String username;
-
+    private String id;
+    private ProgressDialog progressBar;
 
 
 
@@ -94,7 +99,7 @@ public class VerifyActivity extends AppCompatActivity {
          time = ticket.getHour ();
 
       // Log.i("verify","userID : "+ uID+ " Company : " + company + "Destination : " + des);
-        Log.i ("verify","n_t"+nunber_ticket+"   "+"s_m"+set_money+"  "+"p_d"+phonedata);
+        Log.d ("verify","n_t"+nunber_ticket+"   "+"s_m"+set_money+"  "+"p_d"+phonedata);
 
         resentcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,12 +120,14 @@ public class VerifyActivity extends AppCompatActivity {
     }
 
     public  void onsubmit(View view){
-        Log.i("verify", "onsubmit" + codesent);
+        Log.d("verify", "onsubmit" + codesent);
         String code = entercode.getText().toString();
         if(code.isEmpty ()) {
             Toast.makeText (getApplication (),"Please Enter Code",Toast.LENGTH_LONG).show ();
         }
         else {
+            loadingProgress();
+            progressBar.show();
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential (codesent, code);
             signInWithPhoneAuthCredential (credential);
         }
@@ -134,13 +141,12 @@ public class VerifyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplication(), "Verify succece", Toast.LENGTH_LONG).show();
                             pushtofirebase();
-                            Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
-                            startActivity(intent);
-                            finish();
+                            showRequestDialog();
+                            progressBar.dismiss();
 
                         } else {
+                            progressBar.cancel();
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
                             Toast.makeText (getApplication (),"Code is wrong",Toast.LENGTH_LONG).show ();
                         }
@@ -162,9 +168,8 @@ public class VerifyActivity extends AppCompatActivity {
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             Log.i("verify","verify success"+phoneAuthCredential);
             pushtofirebase();
-            Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
-            startActivity(intent);
-            finish ();
+            showRequestDialog();
+            progressBar.cancel();
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
@@ -197,6 +202,7 @@ public class VerifyActivity extends AppCompatActivity {
         userMap.put("destination",destination);
         userMap.put ("date",date);
         userMap.put("time",time);
+        userMap.put("docID",id);
 
         Booking booking = new Booking ();
         booking.setId (uID);
@@ -209,10 +215,13 @@ public class VerifyActivity extends AppCompatActivity {
         booking.setNamecompany (namecompany);
         booking.setNumberticket (nunber_ticket);
         booking.setTime (time);
+        booking.setDocID(id);
+        Log.d("ebus","id before set : " + id);
         MySingletonClass.getInstance ().setBooking (booking);
         mFireStore.collection("userTicket").add(userMap).addOnSuccessListener (new OnSuccessListener<DocumentReference> () {
             @Override
             public void onSuccess(DocumentReference documentReference) {
+                id = documentReference.getId();
                 Log.i ("verify","creat booking success");
             }
         }).addOnFailureListener (new OnFailureListener () {
@@ -224,5 +233,38 @@ public class VerifyActivity extends AppCompatActivity {
             }
         });
     }
+    public void loadingProgress(){
 
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Proccess booking...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+    }
+    private void showRequestDialog() {
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(VerifyActivity.this);
+        dialog.setTitle(R.string.thank);
+        dialog.setMessage(R.string.msgBooking);
+        dialog.setCancelable(false);
+        dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
+                startActivity(intent);
+                finish ();
+            }
+        });
+        dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getApplication(),HomeActivity.class);
+                startActivity(intent);
+                // exit the program
+                finish();
+            }
+        });
+
+        dialog.show();
+
+    }
 }

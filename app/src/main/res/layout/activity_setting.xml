@@ -18,7 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:background="@color/colorAccent"></LinearLayout>
+        android:gravity="center"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/update"
+            android:textSize="50dp"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,21 +39,25 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPersonName"
             android:hint="@string/username"/>
         <EditText
             android:id="@+id/setting_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
             android:hint="@string/email"/>
         <EditText
             android:id="@+id/setting_Phonenumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             android:hint="@string/phone_number"/>
         <EditText
             android:id="@+id/setting_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/password"/>
         <Button
             android:id="@+id/btnUpdate"
@@ -54,7 +66,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
             android:text="@string/update"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            />
 
     </LinearLayout>
 

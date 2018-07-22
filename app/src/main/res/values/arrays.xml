@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="place">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string-array name="place" tools:ignore="InconsistentArrays">
         <item>Phnom Penh</item>
         <item>Prey Veng</item>
-        <item>Batdom bang</item>
+        <item>Battambang</item>
         <item>Kompong Cham</item>
-        <item>Kompong Thom</item>
-        <item>Svay Reing</item>
-        <item>Keb</item>
-        <item>Kratei</item>
+        <item>Kampong Chhnang</item>
+        <item>Kampong Speu</item>
+        <item>Kampong Thom</item>
+        <item>Kampot</item>
         <item>Kompong Som</item>
+        <item>Banteay Meanchey</item>
+        <item>Kandal</item>
+        <item>Koh Kong</item>
+        <item>Kep</item>
+        <item>Kratié</item>
+        <item>Mondulkiri</item>
+        <item>Oddar Meanchey</item>
+        <item>Pailin</item>
+        <item>Preah Sihanouk</item>
+        <item>Preah Vihear</item>
+        <item>Pursat</item>
+        <item>Ratanakiri</item>
+        <item>Siem Reap</item>
+        <item>Stung Treng</item>
+        <item>Svay Rieng</item>
+        <item>Takéo</item>
+        <item>Tboung Khmum</item>
     </string-array>
+
 </resources>

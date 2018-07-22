@@ -50,16 +50,16 @@ public class MainActivity extends AppCompatActivity {
     private void showRequestDialog() {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setTitle("Network doesn't avaliable");
-        dialog.setMessage("Did you connectted to internet? please try agian.");
+        dialog.setTitle(R.string.connect);
+        dialog.setMessage(R.string.msgConnect);
         dialog.setCancelable(false);
-        dialog.setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton(R.string.again, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showRequestDialog();
             }
         });
-        dialog.setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton(R.string.exit, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // exit the program

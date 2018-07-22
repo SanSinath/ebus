@@ -69,7 +69,6 @@ public class HomeActivity extends AppCompatActivity {
                             getSupportActionBar().setTitle(account.getUsername());
                             Log.d("ebus","Toolbar username : "+account.getUsername());
                         }
-
                         UserFragment userFragment = new UserFragment();
                         replaceFragment(userFragment);
                         break;

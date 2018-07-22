@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:gravity="center"
     android:layout_height="match_parent">
 
 
@@ -13,13 +14,7 @@
         android:src="@drawable/bus_form_login_img"
         android:layout_height="200dp"
         android:contentDescription="@string/todo" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:text="@string/set_source"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp" />
+
     <Spinner
         android:id="@+id/spSrc"
         android:paddingLeft="20dp"
@@ -28,15 +23,16 @@
         android:layout_height="wrap_content"
         android:paddingStart="20dp"
         tools:ignore="RtlSymmetry" />
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:text="@string/set_destination"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp" />
+        android:src="@drawable/ic_swap"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" />
     <Spinner
         android:id="@+id/spDes"
         android:paddingLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:hint="@string/destination"
         android:layout_height="wrap_content"
@@ -54,7 +50,7 @@
     <Button
         android:id="@+id/btn_booking"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:text="@string/search_for_ticket"
         android:layout_height="wrap_content" />

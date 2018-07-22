@@ -13,12 +13,13 @@ public class Booking {
     private String subtotal;
     private String time;
     private String username;
+    private String docID;
 
     public Booking(){
 
     }
 
-    public Booking(String id,String date, String destination, String idbus, String money, String namecompany, String numberticket, String phonecompany, String scoce, String subtotal, String time, String username) {
+    public Booking(String id,String date, String destination, String idbus, String money, String namecompany, String numberticket, String phonecompany, String scoce, String subtotal, String time, String username, String docID) {
         this.id = id;
         this.date = date;
         this.destination = destination;
@@ -31,6 +32,7 @@ public class Booking {
         this.subtotal = subtotal;
         this.time = time;
         this.username = username;
+        this.docID = docID;
     }
 
     public String getId() {
@@ -127,5 +129,13 @@ public class Booking {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getDocID() {
+        return docID;
+    }
+
+    public void setDocID(String docID) {
+        this.docID = docID;
     }
 }

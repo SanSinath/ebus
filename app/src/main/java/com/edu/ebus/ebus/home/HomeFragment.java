@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment {
         btnSearchTicket = view.findViewById(R.id.btn_booking);
 
         //set calendar
-
         date.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
@@ -132,23 +131,21 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 loadingProgress();
+                progressBar.show();
                //put data to new activity
                 Intent intent = new Intent (getActivity (), BusTicketActivity.class);
                 intent.putExtra ("data", date.getText ().toString ());
                 intent.putExtra ("source",source);
                 intent.putExtra ("destination",destination);
                startActivity (intent);
-               progressBar.dismiss();
+               progressBar.cancel();
             }
         });
-
-
     }
 
     private void loadingProgress() {
         progressBar = new ProgressDialog(getActivity());
         progressBar.setMessage("Ticket searching...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressBar.show();
     }
 }

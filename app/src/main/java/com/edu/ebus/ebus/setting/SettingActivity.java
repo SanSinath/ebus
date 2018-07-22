@@ -1,5 +1,7 @@
 package com.edu.ebus.ebus.setting;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,10 +14,7 @@ import android.widget.Toast;
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.UserAccount;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -28,6 +27,7 @@ public class SettingActivity extends AppCompatActivity{
     private EditText mPassword;
     private EditText mPhonenumber;
     private FirebaseFirestore mFirestore;
+    private ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +39,10 @@ public class SettingActivity extends AppCompatActivity{
         mUsername = findViewById(R.id.setting_username);
         mEmail = findViewById(R.id.setting_Email);
         mPassword = findViewById(R.id.setting_password);
-        mPhonenumber =findViewById(R.id.setting_password);
+        mPhonenumber =findViewById(R.id.setting_Phonenumber);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.setting));
+        getSupportActionBar().setTitle(getResources().getString(R.string.account));
         final UserAccount account= MySingletonClass.getInstance().getAccount();
 
         //Button Update
@@ -50,18 +50,16 @@ public class SettingActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
 
-//                if (Username.equals("")| Email.equals("")|Password.equals("")|Phonenumber.equals("")){
-//                    Toast.makeText(SettingActivity.this,"")
-//                }
-                String Username = mUsername.getText().toString();
-                String Email = mEmail.getText().toString();
-                String Password = mPassword.getText().toString();
-                String Phonenumber=mPhonenumber.getText().toString();
+                String Username = mUsername.getText().toString().trim();
+                String Email = mEmail.getText().toString().trim();
+                String Password = mPassword.getText().toString().trim();
+                String Phonenumber=mPhonenumber.getText().toString().trim();
                 if (Username.isEmpty()|Email.isEmpty()|Password.isEmpty()|Phonenumber.isEmpty()){
                     Toast.makeText(SettingActivity.this,"Please input data to upadate your account",Toast.LENGTH_LONG).show();
                 }
                 else {
-
+                    loadingProgress();
+                    progressBar.show();
                     CollectionReference noteRef = mFirestore.collection("userAccount");
                     Map<String ,String> userMap= new HashMap<>();
                     userMap.put("username",Username);
@@ -70,11 +68,12 @@ public class SettingActivity extends AppCompatActivity{
                     userMap.put("password",Password);
 //                    mFirestore.collection("userAccount")
                     noteRef.document(account.getId()).set(userMap);
-                    Toast.makeText(SettingActivity.this,"Updated Succces",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SettingActivity.this,UserFragment.class);
+                    startActivity(intent);
+                    progressBar.cancel();
                 }
             }
         });
-        //loadLocale();
 
     }
 
@@ -85,8 +84,12 @@ public class SettingActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+    public void loadingProgress(){
 
+        progressBar = new ProgressDialog(this);
+        progressBar.setMessage("Updating ...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-
+    }
 
 }

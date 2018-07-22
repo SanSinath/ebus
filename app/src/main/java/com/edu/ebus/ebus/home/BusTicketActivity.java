@@ -1,5 +1,6 @@
 package com.edu.ebus.ebus.home;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
@@ -22,6 +25,8 @@ public class BusTicketActivity extends AppCompatActivity {
     private String TAG = "ebus";
     private BusTicketAdapter adapter = new BusTicketAdapter();
     private String date,source,destination;
+    private ProgressDialog progressBar;
+    private TextView textView;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -47,6 +52,7 @@ public class BusTicketActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        textView = findViewById(R.id.noTicket);
 
         //get data from HomeFrament
         Intent intent = getIntent();
@@ -58,6 +64,8 @@ public class BusTicketActivity extends AppCompatActivity {
     }
 
     private void loadTickeFromFirestore() {
+        loadingProgress();
+        progressBar.show();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("tickets")
                 .whereEqualTo ("DateofBooking",date)
@@ -70,20 +78,29 @@ public class BusTicketActivity extends AppCompatActivity {
                 Ticket[] obTickets = new Ticket[queryDocumentSnapshots.getDocuments ().size ()];
 
                 if(queryDocumentSnapshots.getDocuments ().size ()==0){
-                    Toast.makeText (BusTicketActivity.this,"Search Not found",Toast.LENGTH_LONG).show ();
+                    progressBar.cancel();
                 }
                  // get data from firebase into adapter
                 int index = 0;
-                Toast.makeText (BusTicketActivity.this,"detail get ready"+queryDocumentSnapshots.getDocuments ().size (),Toast.LENGTH_LONG).show ();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     Ticket ticket = documentSnapshot.toObject (Ticket.class);
-                    String detail = ticket.getDateofBooking ();
                     obTickets[index] = ticket;
                     index++;
 
                 }
                 adapter.setTickets(obTickets);
+                progressBar.cancel();
+                if (obTickets.length == 0){
+                    textView.setVisibility(View.VISIBLE);
+                }else {
+                    textView.setVisibility(View.GONE);
+                }
             }
         });
    }
+    private void loadingProgress() {
+        progressBar = new ProgressDialog(BusTicketActivity.this);
+        progressBar.setMessage("Ticket searching...");
+        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    }
 }
