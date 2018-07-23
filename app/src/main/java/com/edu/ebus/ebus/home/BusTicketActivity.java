@@ -22,7 +22,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class BusTicketActivity extends AppCompatActivity {
 
-    private String TAG = "ebus";
     private BusTicketAdapter adapter = new BusTicketAdapter();
     private String date,source,destination;
     private ProgressDialog progressBar;

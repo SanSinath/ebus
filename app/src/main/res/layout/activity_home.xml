@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:itemIconTint="@android:color/white"
-        app:itemTextColor="#9fb8da"
+        app:itemTextColor="#ffffff"
+        android:focusableInTouchMode="true"
         app:menu="@menu/bottom_navigation_menu" />
 </LinearLayout>

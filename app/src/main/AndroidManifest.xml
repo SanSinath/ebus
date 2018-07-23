@@ -34,7 +34,6 @@
             android:configChanges="locale" />
         <activity android:name=".home.BusTicketActivity" />
         <activity android:name=".setting.SettingActivity" />
-        <activity android:name=".recent.RecntlyActivity" />
         <activity android:name=".events.EventActivitydetails" />
         <activity android:name=".login.CreateNewAccountActivity" />
         <activity android:name=".login.LoginActivity" />

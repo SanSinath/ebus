@@ -63,7 +63,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     private String userId;
     private SimpleDraweeView imgProfile;
     private TextView txt_name,textEmail,textPhone;
-    private UserAccount account;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     @Nullable
@@ -90,23 +89,37 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.usr_edit){
             startActivity(new Intent(getActivity(),SettingActivity.class));
+            getActivity().finish();
         }
         if (item.getItemId() == R.id.usr_logout){
+                if (AccessToken.getCurrentAccessToken() == null){
+                    // Remove current user
+                    MySingletonClass.getInstance().setAccount(null);
+                    SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.remove("user");
+                    editor.apply();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    getActivity().startActivity(intent);
 
-                // Remove current user
-                MySingletonClass.getInstance().setAccount(null);
-                SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.remove("user");
-                editor.apply();
-                // Logout profile
-                LoginManager.getInstance().logOut();
-                // Move to LoginActivity
-                Intent fLogout = new Intent(getActivity(), LoginActivity.class);
-                startActivity(fLogout);
-                fLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                getActivity().finish();
-                Log.d("ebus", "Log out with Facebook");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    getActivity().finish();
+                }else {
+                    // Remove current user
+                    MySingletonClass.getInstance().setAccount(null);
+                    SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.remove("user");
+                    editor.apply();
+                    // Logout profile
+                    LoginManager.getInstance().logOut();
+                    // Move to LoginActivity
+                    Intent fLogout = new Intent(getActivity(), LoginActivity.class);
+                    getActivity().startActivity(fLogout);
+                    fLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    getActivity().finish();
+                    Log.d("ebus", "Log out with Facebook");
+                }
 
         }
         return super.onOptionsItemSelected(item);
@@ -122,9 +135,8 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         LinearLayout lytEmail = view.findViewById(R.id.lytEmail);
 
 
-        imgProfile.setOnClickListener(UserFragment.this);
 
-        account = MySingletonClass.getInstance().getAccount();
+        UserAccount account = MySingletonClass.getInstance().getAccount();
 
 //        Log.d("ebus","This is Login Method : " + account.getLoginMethod());
 
@@ -192,7 +204,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         });
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -211,10 +222,8 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             }
         }
     }
-
     private void uploadImageToFirebaseStorage(Bitmap bitmap){
         FirebaseStorage storage = FirebaseStorage.getInstance();
-
         StorageReference profileRef = storage.getReference().child("images").child("profiles").child(userId + ".jpg");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -231,7 +240,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             }
         });
     }
-
     private void loadProfileImageFromFirestore(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference profileRef = storage.getReference().child("images").child("profiles").child(userId + ".jpg");
@@ -281,7 +289,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         request.setParameters(parameters);
         request.executeAsync();
     }
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -354,29 +361,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         SharedPreferences pref = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
         String language = pref.getString("My_lang","");
         setLocale(language);
-    }
-    private void showUpdater() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.update_account, null))
-                // Add action buttons
-                .setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Update data here
-                        updateUser();
-                        Toast.makeText(getActivity(),"updated",Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-    private void updateUser() {
-
-
-
     }
 
 }

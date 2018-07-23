@@ -87,15 +87,9 @@
     <string name="bus_ticket">Bus Ticket</string>
     <string name="hide">Hide</string>
     <string name="phone_number">Phone number</string>
-    <string name="email">Username or Email</string>
+    <string name="email">Email</string>
     <string name="empty_recent_booking">មិនទាន់មានការកក់ទេ!</string>
     <string name="no_ticket">គ្មានសំបុត្រ</string>
-    <string name="ok">យល់ព្រម</string>
-    <string name="thank">សូមអរគុណ</string>
-    <string name="msgBooking">ការកក់ជោគជ័យ មើលទិន្នន័យសំបុត្រ?</string>
-    <string name="connect">គ្មានបណ្ដាញ</string>
-    <string name="msgConnect">តើអ្នកបានភ្ជាប់បណ្ដាញហើយរឺនៅ?</string>
-    <string name="again">ម្ដងទៀត</string>
-    <string name="exit">ចាកចេញ</string>
+
 
 </resources>

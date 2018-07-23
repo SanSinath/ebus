@@ -31,11 +31,10 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdapter.RecentViewHolder> implements View.OnCreateContextMenuListener {
+public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdapter.RecentViewHolder> {
 
     private Booking[] showBookings;
     private Booking[] allBooking;
-    private String ID;
     public RecentBookingAdapter() {
         showBookings = new Booking[0];
     }
@@ -44,15 +43,6 @@ public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdap
         this.allBooking = allBooking;
         showBookings = allBooking;
         notifyDataSetChanged();
-    }
-    private int position;
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
     }
     @NonNull
     @Override
@@ -63,12 +53,6 @@ public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdap
     }
 
     @Override
-    public void onViewRecycled(@NonNull RecentViewHolder holder) {
-        holder.itemView.setOnLongClickListener(null);
-        super.onViewRecycled(holder);
-
-    }
-    @Override
     public void onBindViewHolder(@NonNull final RecentViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
         final Booking booking = showBookings [position];
@@ -76,32 +60,6 @@ public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdap
         holder.txtSource.setText(booking.getScoce());
         holder.txtDest.setText(booking.getDestination());
         holder.txtDates.setText(booking.getDate());
-        holder.imgDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Context context = v.getContext();
-                int index = holder.getAdapterPosition();
-                Booking booking = allBooking[index];
-                ID = booking.getDocID();
-
-                Log.d("ebus","id doc :"+ID);
-                DocumentReference reference = firebaseFirestore.collection("userTicket")
-                        .document(ID);
-                reference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(context,"Deleted",Toast.LENGTH_SHORT).show();
-                            Log.d("ebus","Doc ID : " + ID);
-                            notifyItemRemoved(position);
-                            notifyDataSetChanged();
-                        }else {
-                            Toast.makeText(context,"fialed",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-        });
 
     }
 
@@ -121,13 +79,6 @@ public class RecentBookingAdapter extends RecyclerView.Adapter<RecentBookingAdap
         }
         showBookings = arrayList.toArray(new Booking[arrayList.size()]);
         notifyDataSetChanged();
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        menu.setHeaderTitle("Delete ticket");
-        menu.add(Menu.NONE,v.getId(),Menu.NONE,"Delete");
-        menu.add(Menu.NONE,v.getId(),Menu.NONE,"Cancel");
     }
 
     class RecentViewHolder extends RecyclerView.ViewHolder{

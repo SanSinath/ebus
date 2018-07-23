@@ -16,12 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.com.edu.ebus.ebus.activity.MainActivity;
 import com.edu.ebus.ebus.data.Booking;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.data.Ticket;
 import com.edu.ebus.ebus.data.UserAccount;
-import com.edu.ebus.ebus.recent.RecntlyActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,16 +35,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-
 public class VerifyActivity extends AppCompatActivity {
 
+    private TextView dispay_number;
     private String codesent;
     private String nunber_ticket;
     private String set_money;
     private String phonedata;
     private EditText entercode;
+    private TextView resentcode;
+    private TextView wrongnumber;
     FirebaseAuth mAuth;
+    private FirebaseFirestore mFireStore;
     // variable push to data firebase
     private String uID;
     private String namecompany;
@@ -58,21 +58,19 @@ public class VerifyActivity extends AppCompatActivity {
     private String date;
     private String time;
     private String username;
-    private String id;
-    private ProgressDialog progressBar;
 
 
 
-    @SuppressLint("SetTextI18n")
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.code_verify_layout);
 
-        TextView dispay_number = findViewById(R.id.txt_numer_verify);
+        dispay_number = findViewById(R.id.txt_numer_verify);
         entercode = findViewById(R.id.txt_enter_code_verify);
-        TextView resentcode = findViewById(R.id.txt_redent_code);
-        TextView wrongnumber = findViewById(R.id.txt_wrong_number);
+        resentcode = findViewById(R.id.txt_redent_code);
+        wrongnumber = findViewById (R.id.txt_wrong_number);
 
         Intent intent = getIntent();
         phonedata = intent.getStringExtra("number_phone");
@@ -87,19 +85,19 @@ public class VerifyActivity extends AppCompatActivity {
         Ticket ticket = MySingletonClass.getInstance ().getTicket ();
         UserAccount account = MySingletonClass.getInstance ().getAccount ();
 
-         uID = account.getId ();
-         username = account.getUsername ();
-         namecompany = ticket.getName ();
-         phonecompany = ticket.getPhonenumber ();
-         idbus = ticket.getIdbus ();
-         subtotal = ticket.getPrice ();
-         scoce = ticket.getSource ();
-         destination = ticket.getDestination ();
-         date = ticket.getDateofBooking ();
-         time = ticket.getHour ();
+        uID = account.getId ();
+        username = account.getUsername ();
+        namecompany = ticket.getName ();
+        phonecompany = ticket.getPhonenumber ();
+        idbus = ticket.getIdbus ();
+        subtotal = ticket.getPrice ();
+        scoce = ticket.getSource ();
+        destination = ticket.getDestination ();
+        date = ticket.getDateofBooking ();
+        time = ticket.getHour ();
 
-      // Log.i("verify","userID : "+ uID+ " Company : " + company + "Destination : " + des);
-        Log.d ("verify","n_t"+nunber_ticket+"   "+"s_m"+set_money+"  "+"p_d"+phonedata);
+        // Log.i("verify","userID : "+ uID+ " Company : " + company + "Destination : " + des);
+        Log.i ("verify","n_t"+nunber_ticket+"   "+"s_m"+set_money+"  "+"p_d"+phonedata);
 
         resentcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +109,7 @@ public class VerifyActivity extends AppCompatActivity {
         wrongnumber.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent (VerifyActivity.this, SetTicketActivity.class);
+                Intent intent = new Intent (getApplication (), SetTicketActivity.class);
                 startActivity (intent);
                 finish ();
             }
@@ -120,14 +118,12 @@ public class VerifyActivity extends AppCompatActivity {
     }
 
     public  void onsubmit(View view){
-        Log.d("verify", "onsubmit" + codesent);
+        Log.i("verify", "onsubmit" + codesent);
         String code = entercode.getText().toString();
         if(code.isEmpty ()) {
             Toast.makeText (getApplication (),"Please Enter Code",Toast.LENGTH_LONG).show ();
         }
         else {
-            loadingProgress();
-            progressBar.show();
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential (codesent, code);
             signInWithPhoneAuthCredential (credential);
         }
@@ -141,12 +137,12 @@ public class VerifyActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Toast.makeText(getApplication(), "Verify succece", Toast.LENGTH_LONG).show();
                             pushtofirebase();
-                            showRequestDialog();
-                            progressBar.dismiss();
+                            Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
+                            startActivity(intent);
 
                         } else {
-                            progressBar.cancel();
                             Log.w("TAG", "signInWithCredential:failure", task.getException());
                             Toast.makeText (getApplication (),"Code is wrong",Toast.LENGTH_LONG).show ();
                         }
@@ -168,8 +164,9 @@ public class VerifyActivity extends AppCompatActivity {
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             Log.i("verify","verify success"+phoneAuthCredential);
             pushtofirebase();
-            showRequestDialog();
-            progressBar.cancel();
+            Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
+            startActivity(intent);
+            finish ();
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
@@ -186,7 +183,7 @@ public class VerifyActivity extends AppCompatActivity {
 
     public void pushtofirebase(){
         mAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore mFireStore = FirebaseFirestore.getInstance();
+        mFireStore = FirebaseFirestore.getInstance();
         ///  get from sharing reference from useraccount da
 
         Map<String, String> userMap= new HashMap<> ();
@@ -202,26 +199,22 @@ public class VerifyActivity extends AppCompatActivity {
         userMap.put("destination",destination);
         userMap.put ("date",date);
         userMap.put("time",time);
-        userMap.put("docID",id);
 
         Booking booking = new Booking ();
-        booking.setId (uID);
-        booking.setDate(date);
+        booking.setDate (date);
         booking.setDestination (destination);
         booking.setSubtotal (subtotal);
         booking.setIdbus (idbus);
         booking.setMoney (set_money);
         booking.setScoce (scoce);
+        booking.setPhonecompany(phonecompany);
         booking.setNamecompany (namecompany);
         booking.setNumberticket (nunber_ticket);
         booking.setTime (time);
-        booking.setDocID(id);
-        Log.d("ebus","id before set : " + id);
         MySingletonClass.getInstance ().setBooking (booking);
         mFireStore.collection("userTicket").add(userMap).addOnSuccessListener (new OnSuccessListener<DocumentReference> () {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                id = documentReference.getId();
                 Log.i ("verify","creat booking success");
             }
         }).addOnFailureListener (new OnFailureListener () {
@@ -229,42 +222,10 @@ public class VerifyActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 String error = e.getMessage();
                 Toast.makeText(VerifyActivity.this, "error :"+ error,Toast.LENGTH_SHORT).show();
-                Log.i ("verify","creat booking erorr" + error);
+                Log.i ("verify","creat booking erorr");
             }
         });
     }
-    public void loadingProgress(){
 
-        progressBar = new ProgressDialog(this);
-        progressBar.setMessage("Proccess booking...");
-        progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
-    }
-    private void showRequestDialog() {
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(VerifyActivity.this);
-        dialog.setTitle(R.string.thank);
-        dialog.setMessage(R.string.msgBooking);
-        dialog.setCancelable(false);
-        dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(getApplication(),TicketDetialActivity.class);
-                startActivity(intent);
-                finish ();
-            }
-        });
-        dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(getApplication(),HomeActivity.class);
-                startActivity(intent);
-                // exit the program
-                finish();
-            }
-        });
-
-        dialog.show();
-
-    }
 }
+

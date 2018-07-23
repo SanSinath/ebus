@@ -54,7 +54,6 @@ public class RecentlyFragment extends Fragment implements SearchView.OnQueryText
         recyclerView.setAdapter(adapter);
         textView = view.findViewById(R.id.empty);
         // get contecxt from recycler view
-        registerForContextMenu(recyclerView);
         dataloadbookingfromfirebase();
 
     }
@@ -71,7 +70,7 @@ public class RecentlyFragment extends Fragment implements SearchView.OnQueryText
                     progressBar.show();
                     Log.i("ebus","getdata success");
                     getdata(task);
-
+                    progressBar.cancel();
                 }
                 else {
                     Toast.makeText(getActivity(), "Load Booking error.", Toast.LENGTH_LONG).show();
@@ -87,11 +86,11 @@ public class RecentlyFragment extends Fragment implements SearchView.OnQueryText
             Booking booking = document.toObject(Booking.class);
             bookings[i]=booking;
             Log.i("ebus","getdata success for");
-            Log.d("ebus","id document :"+booking.getDocID()+"id user :" + booking.getId());
+
             i++;
         }
         adapter.setAllBooking(bookings);
-        progressBar.cancel();
+
         if (bookings.length == 0){
             textView.setVisibility(View.VISIBLE);
         }else {
@@ -130,7 +129,7 @@ public class RecentlyFragment extends Fragment implements SearchView.OnQueryText
     public void loadingProgress(){
 
         progressBar = new ProgressDialog(getActivity());
-        progressBar.setMessage("Updating ...");
+        progressBar.setMessage("Loading ticket   ...");
         progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
     }

@@ -1,16 +1,15 @@
 package com.edu.ebus.ebus.home;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.Booking;
 import com.edu.ebus.ebus.data.MySingletonClass;
-import com.edu.ebus.ebus.recent.RecntlyActivity;
 
 public class TicketDetialActivity extends AppCompatActivity {
 
@@ -19,8 +18,13 @@ public class TicketDetialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delails_booking);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.ticket);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Booking booking = MySingletonClass.getInstance ().getBooking ();
+        getSupportActionBar().setTitle(booking.getUsername());
         TextView txtnumberticket = findViewById(R.id.txt_number_ticket);
         txtnumberticket.setText(booking.getNumberticket());
         int numberticket =Integer.parseInt(booking.getNumberticket ());
@@ -58,10 +62,16 @@ public class TicketDetialActivity extends AppCompatActivity {
         txtbusid.setText(booking.getIdbus());
 
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     public void onBackPressed() {
-        super.onBackPressed ();
-        finish ();
+        super.onBackPressed();
+        finish();
     }
 }

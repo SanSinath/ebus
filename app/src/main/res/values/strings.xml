@@ -88,6 +88,8 @@
     <string name="bus_ticket">Bus Ticket</string>
     <string name="hide">Hide</string>
     <string name="phone_number">Phone number</string>
-    <string name="email">Username or Email</string>
+    <string name="email">Email</string>
+    <string name="empty_recent_booking">Empty recent booking</string>
+    <string name="no_ticket">No Ticket</string>
 
 </resources>
