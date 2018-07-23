@@ -63,6 +63,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     private String userId;
     private SimpleDraweeView imgProfile;
     private TextView txt_name,textEmail,textPhone;
+    private UserAccount account;
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     @Nullable
@@ -89,37 +90,23 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.usr_edit){
             startActivity(new Intent(getActivity(),SettingActivity.class));
-            getActivity().finish();
         }
         if (item.getItemId() == R.id.usr_logout){
-                if (AccessToken.getCurrentAccessToken() == null){
-                    // Remove current user
-                    MySingletonClass.getInstance().setAccount(null);
-                    SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.remove("user");
-                    editor.apply();
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    getActivity().startActivity(intent);
 
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    getActivity().finish();
-                }else {
-                    // Remove current user
-                    MySingletonClass.getInstance().setAccount(null);
-                    SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.remove("user");
-                    editor.apply();
-                    // Logout profile
-                    LoginManager.getInstance().logOut();
-                    // Move to LoginActivity
-                    Intent fLogout = new Intent(getActivity(), LoginActivity.class);
-                    getActivity().startActivity(fLogout);
-                    fLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    getActivity().finish();
-                    Log.d("ebus", "Log out with Facebook");
-                }
+            // Remove current user
+            MySingletonClass.getInstance().setAccount(null);
+            SharedPreferences preferences = getActivity().getSharedPreferences("ebus", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("user");
+            editor.apply();
+            // Logout profile
+            LoginManager.getInstance().logOut();
+            // Move to LoginActivity
+            Intent fLogout = new Intent(getActivity(), LoginActivity.class);
+            startActivity(fLogout);
+            fLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            getActivity().finish();
+            Log.d("ebus", "Log out with Facebook");
 
         }
         return super.onOptionsItemSelected(item);
@@ -135,24 +122,25 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         LinearLayout lytEmail = view.findViewById(R.id.lytEmail);
 
 
+        imgProfile.setOnClickListener(UserFragment.this);
 
-        UserAccount account = MySingletonClass.getInstance().getAccount();
+        account = MySingletonClass.getInstance().getAccount();
 
 //        Log.d("ebus","This is Login Method : " + account.getLoginMethod());
 
         if (account != null){
             userId = account.getId();
-                imgProfile.setImageURI(account.getProfileImage());
-                txt_name.setText(account.getUsername());
-                textEmail.setText(account.getEmail());
-                textPhone.setText(account.getPhone());
+            imgProfile.setImageURI(account.getProfileImage());
+            txt_name.setText(account.getUsername());
+            textEmail.setText(account.getEmail());
+            textPhone.setText(account.getPhone());
 
 
             Log.d("ebus" ,"name : " + account.getUsername() + "Profile images :" + account.getProfileImage()
                     + "Email : " + account.getEmail() + account.getPhone());
         }else {
 
-                loadProfileInfoFromFacebook();
+            loadProfileInfoFromFacebook();
 
             if (userId != null) {
                 // load profile from firestore
@@ -204,6 +192,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         });
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -222,8 +211,10 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             }
         }
     }
+
     private void uploadImageToFirebaseStorage(Bitmap bitmap){
         FirebaseStorage storage = FirebaseStorage.getInstance();
+
         StorageReference profileRef = storage.getReference().child("images").child("profiles").child(userId + ".jpg");
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
@@ -240,6 +231,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             }
         });
     }
+
     private void loadProfileImageFromFirestore(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference profileRef = storage.getReference().child("images").child("profiles").child(userId + ".jpg");
@@ -289,6 +281,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         request.setParameters(parameters);
         request.executeAsync();
     }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
