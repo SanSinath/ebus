@@ -1,4 +1,4 @@
-package com.edu.ebus.ebus.com.edu.ebus.ebus.activity;
+package com.edu.ebus.ebus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,8 +10,8 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -22,7 +22,6 @@ import com.edu.ebus.ebus.login.LoginActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import com.edu.ebus.ebus.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,15 +34,18 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
 
-        if (isNetworkAvaliable(getApplicationContext())) {
+//        if (isNetworkAvaliable(getApplicationContext())) {
+//
+//            splashActivity();
+//
+//        } else {
+//
+//            showRequestDialog();
+//
+//        }
 
-            splashActivity();
+        splashActivity();
 
-        } else {
-
-            showRequestDialog();
-
-        }
         showKeyHashes();
     }
 

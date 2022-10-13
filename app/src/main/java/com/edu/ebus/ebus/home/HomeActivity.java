@@ -2,11 +2,10 @@ package com.edu.ebus.ebus.home;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -18,6 +17,7 @@ import com.edu.ebus.ebus.events.EventsFragment;
 import com.edu.ebus.ebus.recent.RecentlyFragment;
 import com.edu.ebus.ebus.station.StationFragment;
 import com.edu.ebus.ebus.setting.UserFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class HomeActivity extends AppCompatActivity {

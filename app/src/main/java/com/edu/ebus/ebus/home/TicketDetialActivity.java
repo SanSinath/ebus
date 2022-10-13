@@ -1,11 +1,10 @@
 package com.edu.ebus.ebus.home;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.edu.ebus.ebus.R;
 import com.edu.ebus.ebus.data.Booking;
@@ -18,7 +17,7 @@ public class TicketDetialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delails_booking);
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.ticket);
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.ticket);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

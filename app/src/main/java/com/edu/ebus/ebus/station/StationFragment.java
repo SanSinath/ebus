@@ -2,12 +2,13 @@ package com.edu.ebus.ebus.station;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,12 +19,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.data.MySingletonClass;
-import com.edu.ebus.ebus.station.StationFragmentAdapter;
 import com.edu.ebus.ebus.data.Ticket;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -46,7 +44,7 @@ public class StationFragment extends Fragment implements SearchView.OnQueryTextL
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
         recyclerView = view.findViewById (R.id.rec_station);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager (getActivity ());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity ());
         recyclerView.setLayoutManager (layoutManager);
         adapter = new StationFragmentAdapter ();
         recyclerView.setAdapter (adapter);
