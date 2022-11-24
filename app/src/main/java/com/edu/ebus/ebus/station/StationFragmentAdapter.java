@@ -3,8 +3,9 @@ package com.edu.ebus.ebus.station;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.edu.ebus.ebus.R;
-import com.edu.ebus.ebus.data.Events;
 import com.edu.ebus.ebus.data.MySingletonClass;
 import com.edu.ebus.ebus.home.SetTicketActivity;
 import com.edu.ebus.ebus.data.Ticket;

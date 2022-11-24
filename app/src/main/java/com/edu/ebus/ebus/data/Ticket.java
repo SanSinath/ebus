@@ -1,7 +1,5 @@
 package com.edu.ebus.ebus.data;
 
-import android.net.Uri;
-
 public class Ticket {
 
     private String Name;

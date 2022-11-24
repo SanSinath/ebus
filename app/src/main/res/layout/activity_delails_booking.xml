@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".home.TicketDetialActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/ticket"
         app:title="Username"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
